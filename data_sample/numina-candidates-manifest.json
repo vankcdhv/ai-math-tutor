@@ -1,0 +1,298 @@
+{
+  "dataset": "AI-MO/NuminaMath-CoT",
+  "url": "https://huggingface.co/datasets/AI-MO/NuminaMath-CoT",
+  "revision": "9d8d210c9f6a36c8f3cd84045668c9b7800ef517",
+  "revision_last_modified": "2024-11-25T05:31:43.000Z",
+  "split": "train",
+  "license": {
+    "spdx": "apache-2.0",
+    "hf_card_data": "apache-2.0",
+    "hf_tags": [
+      "apache-2.0"
+    ],
+    "readme_front_matter": "apache-2.0",
+    "readme_sentence": "The dataset is available under the [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0)."
+  },
+  "attribution": "NuminaMath-CoT (AI-MO, https://huggingface.co/datasets/AI-MO/NuminaMath-CoT), Apache License 2.0. Jia LI, Edward Beeching, Lewis Tunstall, Ben Lipkin, Roman Soletskyi, Shengyi Costa Huang, Kashif Rasul, Longhui Yu, Albert Jiang, Ziju Shen, Zihan Qin, Bin Dong, Li Zhou, Yann Fleureau, Guillaume Lample, Stanislas Polu (2024). The rows here are an unmodified subset (problem, solution); fields kind/answer are derived by this project.",
+  "files": [
+    {
+      "path": "data/train-00000-of-00005.parquet",
+      "size": 246635854,
+      "sha256": "25c0fa2ca96dd8078470ad1bbc439d0d211fd8b7d22e04abf7f61e9be9bf9ec3"
+    },
+    {
+      "path": "data/train-00001-of-00005.parquet",
+      "size": 246936512,
+      "sha256": "2d4ba17018b6563728e0a92b38ee965479476cc41975923c224391e90b436236"
+    },
+    {
+      "path": "data/train-00002-of-00005.parquet",
+      "size": 246784426,
+      "sha256": "c607c18379548f4fda05981f871518adf2506adc870825f5ccbf91a1fbb38183"
+    },
+    {
+      "path": "data/train-00003-of-00005.parquet",
+      "size": 246896920,
+      "sha256": "e07293604d1ae0d16dc2708c9c51205760a0253c999e1a5a2ffd971474b3c06d"
+    },
+    {
+      "path": "data/train-00004-of-00005.parquet",
+      "size": 246931989,
+      "sha256": "e3929523d643d93c705444c349b3cc6467cfd27ce8fe502211279889d9b753b9"
+    }
+  ],
+  "download": {
+    "total_bytes": 1234185701,
+    "transferred_bytes_this_run": 1234185701,
+    "seconds": 19.8
+  },
+  "seed": 20261027,
+  "target": 3000,
+  "supplement": {
+    "sizes": {
+      "gsm8k": 1000,
+      "orca_math": 2500
+    },
+    "rule": "lượt supplement chỉ cho tầng (gsm8k|orca_math, arithmetic): lấy từ dòng đạt lọc chưa có ở lượt base, random.Random(f'{seed}:supplement:{source}:{kind}').sample trên danh sách sắp theo numina_row; lượt base giữ nguyên, nên ứng viên cũ là tập con của ứng viên mới",
+    "reason": "bài số học vào kho chỉ lấy từ nguồn bài lời văn (numina.ARITHMETIC_SOURCES) sau rà soát vòng 1",
+    "strata": {
+      "gsm8k/arithmetic": {
+        "remaining_eligible": 2718,
+        "requested": 1000,
+        "sampled": 1000
+      },
+      "orca_math/arithmetic": {
+        "remaining_eligible": 136586,
+        "requested": 2500,
+        "sampled": 2500
+      }
+    }
+  },
+  "allowed_sources": [
+    "gsm8k",
+    "math",
+    "orca_math",
+    "synthetic_math"
+  ],
+  "arithmetic_sources": [
+    "gsm8k",
+    "orca_math"
+  ],
+  "numina_row": "chỉ số dòng 0-based trong split train, theo thứ tự file data/train-0000k-of-00005.parquet",
+  "rows_scanned": 859494,
+  "source_counts": {
+    "amc_aime": 4070,
+    "aops_forum": 30192,
+    "cn_k12": 276554,
+    "gsm8k": 7342,
+    "math": 7477,
+    "olympiads": 150563,
+    "orca_math": 153314,
+    "synthetic_amc": 62108,
+    "synthetic_math": 167874
+  },
+  "drop_counts": {
+    "source_excluded": 523487,
+    "symbolic_problem": 100665,
+    "duplicate_problem": 20080,
+    "non_numeric": 14447,
+    "figure": 4468,
+    "multiple_values": 1052,
+    "equation_answer_mismatch": 998,
+    "multiple_distinct_boxes": 842,
+    "number_too_long": 366,
+    "mixed_number": 224,
+    "generation_artifact": 47,
+    "malformed_boxed": 16
+  },
+  "drop_counts_by_source": {
+    "amc_aime": {
+      "source_excluded": 4070
+    },
+    "aops_forum": {
+      "source_excluded": 30192
+    },
+    "cn_k12": {
+      "source_excluded": 276554
+    },
+    "gsm8k": {
+      "duplicate_problem": 3864,
+      "multiple_distinct_boxes": 60,
+      "non_numeric": 24,
+      "symbolic_problem": 14
+    },
+    "math": {
+      "symbolic_problem": 3861,
+      "figure": 711,
+      "non_numeric": 201,
+      "duplicate_problem": 53,
+      "equation_answer_mismatch": 42,
+      "multiple_values": 30,
+      "mixed_number": 6,
+      "multiple_distinct_boxes": 4
+    },
+    "olympiads": {
+      "source_excluded": 150563
+    },
+    "orca_math": {
+      "non_numeric": 5834,
+      "duplicate_problem": 5382,
+      "symbolic_problem": 4370,
+      "number_too_long": 315,
+      "equation_answer_mismatch": 64,
+      "generation_artifact": 47,
+      "mixed_number": 16,
+      "multiple_values": 9
+    },
+    "synthetic_amc": {
+      "source_excluded": 62108
+    },
+    "synthetic_math": {
+      "symbolic_problem": 92420,
+      "duplicate_problem": 10781,
+      "non_numeric": 8388,
+      "figure": 3757,
+      "multiple_values": 1013,
+      "equation_answer_mismatch": 892,
+      "multiple_distinct_boxes": 778,
+      "mixed_number": 202,
+      "number_too_long": 51,
+      "malformed_boxed": 16
+    }
+  },
+  "drop_reasons": {
+    "source_excluded": "nguồn ngoài {gsm8k, orca_math, synthetic_math, math}",
+    "empty_text": "đề hoặc lời giải rỗng",
+    "figure": "đề có hình vẽ [asy] — không hiển thị được trong tutor dạng chữ",
+    "generation_artifact": "đề lẫn lời thoại của mô hình sinh dữ liệu ('My apologies…', 'Here's the revised problem…')",
+    "no_boxed": "lời giải không có \\boxed{...}",
+    "malformed_boxed": "\\boxed không có nhóm ngoặc nhọn cân bằng",
+    "multiple_distinct_boxes": "nhiều \\boxed với đáp án khác nhau (thường là đề nhiều câu hỏi)",
+    "symbolic_problem": "đề dùng ẩn/ký hiệu nhưng không phải một phương trình một ẩn bậc ≤ 2 được nhận diện",
+    "equation_answer_mismatch": "đáp án \\boxed không trùng toàn bộ tập nghiệm thực của phương trình tách từ đề",
+    "empty_answer": "\\boxed rỗng sau khi bỏ định dạng",
+    "multiple_values": "bài số học nhưng đáp án có nhiều giá trị",
+    "too_many_values": "phương trình có hơn 2 giá trị trong đáp án",
+    "mixed_number": "hỗn số (2\\frac{1}{2}) — mơ hồ giữa phép nhân và phép cộng",
+    "number_too_long": "số có hơn 15 chữ số",
+    "zero_denominator": "phân số mẫu bằng 0",
+    "non_numeric": "đáp án không phải số hữu tỉ (biểu thức, căn, π, khoảng, tọa độ, chữ…)",
+    "duplicate_problem": "đề trùng (sau chuẩn hóa khoảng trắng/chữ hoa) với một dòng giữ trước đó"
+  },
+  "normalization_rules": [
+    "Đáp án = nội dung \\boxed{...} (hoặc \\fbox) CUỐI CÙNG trong lời giải, tách bằng bộ đếm ngoặc cân bằng; \\{ và \\} là ký tự thường, không tính vào độ sâu.",
+    "Nhiều \\boxed: chỉ giữ khi mọi hộp chuẩn hóa ra cùng một đáp án; ngược lại loại (multiple_distinct_boxes).",
+    "Bỏ $, \\$, khoảng trắng LaTeX (\\, \\! \\; \\quad ~), \\left/\\right, dấu chấm/phẩy cuối; \\dfrac/\\tfrac → \\frac.",
+    "Dấu phẩy hàng nghìn chỉ khi đúng mẫu d{1,3}(,ddd)+ (không có khoảng trắng) hoặc {,} của LaTeX; mọi dấu phẩy khác là dấu phân cách tập nghiệm.",
+    "% và \\% bị bỏ, GIỮ NGUYÊN giá trị (25\\% → 25, vì đề hỏi 'bao nhiêu phần trăm'); ký hiệu độ (^\\circ, °) bị bỏ.",
+    "Ký hiệu tiền đứng trước (Rs., ₹, €, £, ¥, USD, INR) bị bỏ.",
+    "\\text{}/\\mbox{}/\\mathrm{}... được mở ra thành chữ thường; đơn vị bị bỏ khi là chuỗi từ đứng SAU số, cách bằng khoảng trắng, từ đầu ≥ 2 chữ cái hoặc đơn vị ghép (24 dollars, 5 \\text{ cm}^2, 9.8 m/s^2, 24 square feet), chỉ cho mũ ^2/^3; chữ cái đơn hoặc dính liền số (5 m, 2x, 5m) và đuôi có chữ số khác (5 times 3) không bị coi là đơn vị → loại.",
+    "Gán biến một chữ cái được bỏ (x = 4, x_1 = 2); tập nghiệm tách theo ',', ';', 'or', 'and'; \\pm a hoặc ±a → {-a, a} (chỉ với phương trình).",
+    "Số hợp lệ: số nguyên, thập phân, \\frac{p}{q} (kể cả \\frac34), p/q, có dấu âm; hỗn số, căn, π, mũ, ký hiệu khoa học bị loại.",
+    "Dạng chuẩn: số nguyên 'n'; thập phân giữ dạng thập phân rút gọn ('2.50' → '2.5', '12.0' → '12'); phân số rút gọn 'p/q'; tập nghiệm '{a, b}' sắp tăng, bỏ trùng (nghiệm kép → một số)."
+  ],
+  "kind_heuristic": "equation: đề có từ khóa giải/tìm ẩn và đúng một đoạn công thức chứa '=' với một ẩn chữ cái (math/synthetic_math: đoạn $...$, \\[...\\]; gsm8k/orca_math: chuỗi số/chữ cái đơn/toán tử liên tiếp, vì '$' ở đó là ký hiệu tiền), không phải phép gán sẵn 'x = số', là đa thức bậc 1–2 (SymPy) và đáp án \\boxed trùng TOÀN BỘ tập nghiệm thực (math_check.answer_matches); còn lại arithmetic, trừ đề có ẩn/ký hiệu chữ trong công thức (loại symbolic_problem).",
+  "variable": "chữ cái ẩn gốc của đề (bài phương trình); cột equation luôn viết theo ẩn x vì math_check chỉ kiểm ẩn x, ẩn gốc chỉ dùng để hiển thị",
+  "sampling": "lượt base: phân tầng theo (source, kind), chia đều có tràn phần dư sang tầng còn chỗ; random.Random(f'{seed}:{source}:{kind}').sample trên danh sách sắp theo numina_row; sau đó lượt supplement (xem 'supplement')",
+  "eligible_counts": {
+    "gsm8k/arithmetic": 3380,
+    "math/arithmetic": 2549,
+    "math/equation": 20,
+    "orca_math/arithmetic": 137247,
+    "orca_math/equation": 30,
+    "synthetic_math/arithmetic": 49271,
+    "synthetic_math/equation": 305
+  },
+  "eligible_total": 192802,
+  "strata": {
+    "gsm8k/arithmetic": {
+      "eligible": 3380,
+      "sampled": 662
+    },
+    "math/arithmetic": {
+      "eligible": 2549,
+      "sampled": 662
+    },
+    "math/equation": {
+      "eligible": 20,
+      "sampled": 20
+    },
+    "orca_math/arithmetic": {
+      "eligible": 137247,
+      "sampled": 661
+    },
+    "orca_math/equation": {
+      "eligible": 30,
+      "sampled": 30
+    },
+    "synthetic_math/arithmetic": {
+      "eligible": 49271,
+      "sampled": 660
+    },
+    "synthetic_math/equation": {
+      "eligible": 305,
+      "sampled": 305
+    }
+  },
+  "candidate_counts": {
+    "gsm8k/arithmetic": 1662,
+    "math/arithmetic": 662,
+    "math/equation": 20,
+    "orca_math/arithmetic": 3161,
+    "orca_math/equation": 30,
+    "synthetic_math/arithmetic": 660,
+    "synthetic_math/equation": 305
+  },
+  "candidate_counts_by_round": {
+    "base": {
+      "gsm8k/arithmetic": 662,
+      "math/arithmetic": 662,
+      "math/equation": 20,
+      "orca_math/arithmetic": 661,
+      "orca_math/equation": 30,
+      "synthetic_math/arithmetic": 660,
+      "synthetic_math/equation": 305
+    },
+    "supplement": {
+      "gsm8k/arithmetic": 1000,
+      "orca_math/arithmetic": 2500
+    }
+  },
+  "candidate_total": 6500,
+  "outputs": {
+    "candidates": {
+      "path": "$NHOM8_DATA_ROOT/numina/candidates.parquet",
+      "rows": 6500,
+      "columns": [
+        "numina_row",
+        "source",
+        "kind",
+        "problem",
+        "solution",
+        "answer_raw",
+        "answer",
+        "equation",
+        "variable",
+        "sample_round"
+      ],
+      "size": 2476527,
+      "sha256": "76ec07bb94a1100574db6d616d0456aa76efa154ed6c03f89e3acdcebb12348c"
+    },
+    "sample": {
+      "path": "data_sample/numina-candidates-sample.jsonl",
+      "rows": 30,
+      "sha256": "9afd3d05b912a7dfd1b456954841b1fc9c80c888e5e33ba4dbed8364e78338f6"
+    }
+  },
+  "timing_seconds": {
+    "download": 19.8,
+    "scan": 17.0,
+    "total": 39.7
+  },
+  "environment": {
+    "python": "3.12.3",
+    "pyarrow": "26.0.0",
+    "requests": "2.34.2"
+  },
+  "generated_at": "2026-10-27T12:26:05+00:00"
+}

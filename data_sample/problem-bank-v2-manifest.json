@@ -1,0 +1,321 @@
+{
+  "bank_version": "v2",
+  "seed": 20261027,
+  "targets": {
+    "test_size": 1000,
+    "dev_size_numina": 200,
+    "equation_share_test": 0.28
+  },
+  "id_scheme": {
+    "P-NTA-###": "NuminaMath, test, arithmetic",
+    "P-NTE-###": "NuminaMath, test, equation",
+    "P-NDA-###": "NuminaMath, dev, arithmetic",
+    "P-NDE-###": "NuminaMath, dev, equation",
+    "P-SLIN-### / P-SQUAD-### / P-SARI-###": "tự soạn (dev): bậc nhất / bậc hai / số học",
+    "order": "trong mỗi tiền tố NuminaMath, số thứ tự tăng theo numina_row"
+  },
+  "numina": {
+    "dataset": "AI-MO/NuminaMath-CoT",
+    "url": "https://huggingface.co/datasets/AI-MO/NuminaMath-CoT",
+    "revision": "9d8d210c9f6a36c8f3cd84045668c9b7800ef517",
+    "split": "train",
+    "license": "apache-2.0",
+    "attribution": "NuminaMath-CoT (AI-MO, https://huggingface.co/datasets/AI-MO/NuminaMath-CoT), Apache License 2.0. Jia LI, Edward Beeching, Lewis Tunstall, Ben Lipkin, Roman Soletskyi, Shengyi Costa Huang, Kashif Rasul, Longhui Yu, Albert Jiang, Ziju Shen, Zihan Qin, Bin Dong, Li Zhou, Yann Fleureau, Guillaume Lample, Stanislas Polu (2024). The rows here are an unmodified subset (problem, solution); fields kind/answer are derived by this project.",
+    "candidates_sha256": "sha256:76ec07bb94a1100574db6d616d0456aa76efa154ed6c03f89e3acdcebb12348c",
+    "candidates_rows": 6500,
+    "candidates_by_round": {
+      "base": {
+        "gsm8k/arithmetic": 662,
+        "math/arithmetic": 662,
+        "math/equation": 20,
+        "orca_math/arithmetic": 661,
+        "orca_math/equation": 30,
+        "synthetic_math/arithmetic": 660,
+        "synthetic_math/equation": 305
+      },
+      "supplement": {
+        "gsm8k/arithmetic": 1000,
+        "orca_math/arithmetic": 2500
+      }
+    },
+    "arithmetic_sources": [
+      "gsm8k",
+      "orca_math"
+    ]
+  },
+  "solution_writing": {
+    "solutions_sha256": "sha256:199d4ac004555926cfc77f01fe756c60c3e1960d81d4986de1bb3950f21587d0",
+    "ok": 1951,
+    "dropped": 4549,
+    "drop_reasons": {
+      "answer_not_reached": 474,
+      "arithmetic_source_excluded": 1322,
+      "cot_arithmetic_error": 1,
+      "disconnected_steps": 73,
+      "incomplete_chain": 768,
+      "negative_quantity": 9,
+      "no_verifiable_steps": 555,
+      "rounding_dependent": 393,
+      "too_few_steps": 817,
+      "unused_given": 137
+    },
+    "by_source_kind_outcome": {
+      "gsm8k/arithmetic": {
+        "answer_not_reached": 65,
+        "disconnected_steps": 22,
+        "incomplete_chain": 188,
+        "negative_quantity": 1,
+        "no_verifiable_steps": 79,
+        "ok": 1156,
+        "rounding_dependent": 4,
+        "too_few_steps": 58,
+        "unused_given": 89
+      },
+      "math/arithmetic": {
+        "arithmetic_source_excluded": 662
+      },
+      "math/equation": {
+        "ok": 20
+      },
+      "orca_math/arithmetic": {
+        "answer_not_reached": 409,
+        "cot_arithmetic_error": 1,
+        "disconnected_steps": 51,
+        "incomplete_chain": 580,
+        "negative_quantity": 8,
+        "no_verifiable_steps": 476,
+        "ok": 442,
+        "rounding_dependent": 389,
+        "too_few_steps": 757,
+        "unused_given": 48
+      },
+      "orca_math/equation": {
+        "ok": 29,
+        "too_few_steps": 1
+      },
+      "synthetic_math/arithmetic": {
+        "arithmetic_source_excluded": 660
+      },
+      "synthetic_math/equation": {
+        "ok": 304,
+        "too_few_steps": 1
+      }
+    },
+    "ok_by_solution_source": {
+      "authored": 39,
+      "derived_from_cot": 1559,
+      "generated_sympy": 353
+    },
+    "by_source_kind_solution_source": {
+      "gsm8k/arithmetic/authored": 39,
+      "gsm8k/arithmetic/derived_from_cot": 1117,
+      "gsm8k/arithmetic/dropped": 506,
+      "math/arithmetic/dropped": 662,
+      "math/equation/generated_sympy": 20,
+      "orca_math/arithmetic/derived_from_cot": 442,
+      "orca_math/arithmetic/dropped": 2719,
+      "orca_math/equation/dropped": 1,
+      "orca_math/equation/generated_sympy": 29,
+      "synthetic_math/arithmetic/dropped": 660,
+      "synthetic_math/equation/dropped": 1,
+      "synthetic_math/equation/generated_sympy": 304
+    },
+    "by_sample_round": {
+      "base/gsm8k/arithmetic/dropped": 174,
+      "base/gsm8k/arithmetic/ok": 488,
+      "base/math/arithmetic/dropped": 662,
+      "base/math/equation/ok": 20,
+      "base/orca_math/arithmetic/dropped": 564,
+      "base/orca_math/arithmetic/ok": 97,
+      "base/orca_math/equation/dropped": 1,
+      "base/orca_math/equation/ok": 29,
+      "base/synthetic_math/arithmetic/dropped": 660,
+      "base/synthetic_math/equation/dropped": 1,
+      "base/synthetic_math/equation/ok": 304,
+      "supplement/gsm8k/arithmetic/dropped": 332,
+      "supplement/gsm8k/arithmetic/ok": 668,
+      "supplement/orca_math/arithmetic/dropped": 2155,
+      "supplement/orca_math/arithmetic/ok": 345
+    },
+    "authored_overrides": {
+      "count": 39,
+      "replaced_cot_drop_reasons": {
+        "answer_not_reached": 9,
+        "incomplete_chain": 16,
+        "no_verifiable_steps": 9,
+        "too_few_steps": 5
+      }
+    },
+    "min_steps": 2,
+    "strategies": {
+      "derived_from_cot": "bước a op b = c tách từ lời giải CoT của NuminaMath (chỉ gsm8k, orca_math), chuẩn hóa, mỗi bước qua arith_step; bỏ bước đồng nhất; chuỗi ≥ 2 bước, mọi số có nguồn gốc, mọi số liệu của đề và mọi kết quả trung gian được dùng (ghép cặp), giá trị cuối của CoT = đáp án \\boxed",
+      "generated_sympy": "bước phương trình sinh bằng chương trình: vế chỉ có số thì tính dần (quy đồng, nhân nghịch đảo, (a ± b)², đặt thừa số chung); bậc nhất: phá ngoặc/quy đồng → chuyển vế → cô lập x; bậc hai: dạng chuẩn → tách hạng tử giữa → nhóm → nhân tử; ≥ 2 bước; bước viết theo ẩn x, ẩn gốc ở trường variable",
+      "authored": "bước viết trực tiếp: 60 bài tự soạn và một số bài số học gsm8k mà cách tách từ CoT thất bại (data/problems/numina-authored.yaml); vẫn qua cùng bộ kiểm và bộ lọc chuỗi"
+    }
+  },
+  "display": "steps/equation/misconceptions viết theo ẩn x (math_check chỉ kiểm x); hiển thị thay x bằng variable qua problem_bank.display_expression",
+  "selection": {
+    "available_ok": {
+      "arithmetic": {
+        "gsm8k": 1156,
+        "orca_math": 442
+      },
+      "equation": {
+        "math": 20,
+        "orca_math": 29,
+        "synthetic_math": 304
+      }
+    },
+    "quotas": {
+      "test": {
+        "arithmetic": 720,
+        "equation": 280
+      },
+      "dev": {
+        "arithmetic": 127,
+        "equation": 73
+      }
+    },
+    "unused_surplus": {
+      "arithmetic": 751,
+      "equation": 0
+    }
+  },
+  "counts": {
+    "total": 1260,
+    "by_split": {
+      "dev": 260,
+      "test": 1000
+    },
+    "by_split_kind": {
+      "dev": {
+        "arithmetic": 151,
+        "equation": 109
+      },
+      "test": {
+        "arithmetic": 720,
+        "equation": 280
+      }
+    },
+    "by_split_source": {
+      "dev": {
+        "numina": 200,
+        "self": 60
+      },
+      "test": {
+        "numina": 1000
+      }
+    },
+    "by_split_solution_source": {
+      "dev": {
+        "authored": 62,
+        "derived_from_cot": 125,
+        "generated_sympy": 73
+      },
+      "test": {
+        "authored": 14,
+        "derived_from_cot": 706,
+        "generated_sympy": 280
+      }
+    },
+    "by_split_primary_skill": {
+      "dev": {
+        "arithmetic.fractions": 29,
+        "arithmetic.multi_step": 64,
+        "arithmetic.percent": 18,
+        "arithmetic.rates": 40,
+        "linear_equation.both_sides": 15,
+        "linear_equation.distribute": 26,
+        "linear_equation.fractions": 10,
+        "linear_equation.isolate_variable": 40,
+        "quadratic_equation.factorization": 10,
+        "quadratic_equation.formula": 2,
+        "quadratic_equation.missing_root": 1,
+        "quadratic_equation.square_root": 5
+      },
+      "test": {
+        "arithmetic.fractions": 131,
+        "arithmetic.multi_step": 367,
+        "arithmetic.percent": 81,
+        "arithmetic.rates": 141,
+        "linear_equation.both_sides": 48,
+        "linear_equation.distribute": 74,
+        "linear_equation.fractions": 21,
+        "linear_equation.isolate_variable": 124,
+        "quadratic_equation.factorization": 12,
+        "quadratic_equation.square_root": 1
+      }
+    },
+    "misconception_types": {
+      "arithmetic_slip": 991,
+      "distribution_error": 103,
+      "missing_root": 25,
+      "sign_error": 529,
+      "wrong_factor": 21,
+      "wrong_operation": 851
+    },
+    "misconceptions_per_problem": {
+      "2": 1260
+    },
+    "steps_per_problem": {
+      "1": 13,
+      "2": 416,
+      "3": 411,
+      "4": 274,
+      "5": 80,
+      "6": 29,
+      "7": 22,
+      "8": 9,
+      "9": 2,
+      "10": 1,
+      "11": 1,
+      "12": 2
+    }
+  },
+  "numina_by_split_source_kind": {
+    "dev": {
+      "gsm8k/arithmetic": 64,
+      "math/equation": 4,
+      "orca_math/arithmetic": 63,
+      "orca_math/equation": 6,
+      "synthetic_math/equation": 63
+    },
+    "test": {
+      "gsm8k/arithmetic": 360,
+      "math/equation": 16,
+      "orca_math/arithmetic": 360,
+      "orca_math/equation": 23,
+      "synthetic_math/equation": 241
+    }
+  },
+  "verification": {
+    "problems": 1260,
+    "steps": 4037,
+    "misconceptions_round_trip": 2520,
+    "failures": 0,
+    "checks": [
+      "problem_bank.parse_problem (lược đồ, mẫu problem_id/skill_id của hợp đồng sự kiện)",
+      "problem_bank.verify_problem (bước, đáp án, diagnose khứ hồi)",
+      "solution_writer.verify_record (bước cuối = đáp án, không bước đồng nhất, mọi misconception được diagnose nhận đúng loại)",
+      "bài NuminaMath có ≥ 2 bước"
+    ]
+  },
+  "split_sha256": {
+    "dev": "sha256:d5413878c6855bccc231fc2de22dc6d17af8a06072fa2d1dd4958ae8d050f286",
+    "test": "sha256:63f6026fdd82cb3214c10fc1e0fbfbaa5b77e1a7a4bc31343c4d33733bce642e"
+  },
+  "files": {
+    "bank": {
+      "path": "data_sample/problem-bank-v2.jsonl",
+      "sha256": "sha256:664a9f297fee1139eec45e227414d05ec1da963b71c8a58acdede843e2c73f99",
+      "bytes": 879298
+    },
+    "index": {
+      "path": "data_sample/problem-index-v2.json",
+      "sha256": "sha256:8909ed32d3feda48d217ec5be2a93ba60c11211511fc4f699d0d0dceec160861",
+      "bytes": 699005,
+      "n_docs": 1260,
+      "terms": 4134
+    }
+  }
+}

@@ -1,0 +1,172 @@
+# Bài tự soạn: phương trình bậc hai một ẩn có nghiệm hữu tỉ (split dev). Lời giải và misconception do
+# viết trực tiếp (solution_source = authored); mọi bước giữ nguyên tập nghiệm của đề (kiểm bằng
+# SymPy), bước cuối có tập nghiệm bằng đáp án, mỗi misconception được diagnose nhận đúng loại.
+problems:
+  - problem_id: "P-SQUAD-001"
+    statement: "Solve x^2 - 7x + 12 = 0."
+    statement_vi: "Giải phương trình x² - 7x + 12 = 0."
+    kind: "equation"
+    equation: "x**2 - 7*x + 12 = 0"
+    answer: "{3, 4}"
+    skill_ids: ["quadratic_equation.factorization", "quadratic_equation.missing_root"]
+    steps: ["(x - 3)*(x - 4) = 0"]
+    misconceptions:
+      - {type: "missing_root", step_index: 1, expression: "x - 4 = 0"}
+      - {type: "wrong_factor", step_index: 1, expression: "(x + 3)*(x + 4) = 0"}
+    difficulty: 3
+  - problem_id: "P-SQUAD-002"
+    statement: "Solve x^2 + 2x - 15 = 0."
+    statement_vi: "Giải phương trình x² + 2x - 15 = 0."
+    kind: "equation"
+    equation: "x**2 + 2*x - 15 = 0"
+    answer: "{-5, 3}"
+    skill_ids: ["quadratic_equation.factorization", "quadratic_equation.missing_root"]
+    steps: ["(x - 3)*(x + 5) = 0"]
+    misconceptions:
+      - {type: "missing_root", step_index: 1, expression: "x - 3 = 0"}
+      - {type: "wrong_factor", step_index: 1, expression: "(x + 3)*(x - 5) = 0"}
+    difficulty: 3
+  - problem_id: "P-SQUAD-003"
+    statement: "Solve x^2 - 9 = 0."
+    statement_vi: "Giải phương trình x² - 9 = 0."
+    kind: "equation"
+    equation: "x**2 - 9 = 0"
+    answer: "{-3, 3}"
+    skill_ids: ["quadratic_equation.square_root", "quadratic_equation.missing_root"]
+    steps: ["x**2 = 9", "(x - 3)*(x + 3) = 0"]
+    misconceptions:
+      - {type: "sign_error", step_index: 1, expression: "x**2 = -9"}
+      - {type: "missing_root", step_index: 2, expression: "x - 3 = 0"}
+    difficulty: 3
+  - problem_id: "P-SQUAD-004"
+    statement: "Solve x^2 = 5x."
+    statement_vi: "Giải phương trình x² = 5x."
+    kind: "equation"
+    equation: "x**2 = 5*x"
+    answer: "{0, 5}"
+    skill_ids: ["quadratic_equation.missing_root", "quadratic_equation.factorization"]
+    steps: ["x**2 - 5*x = 0", "x*(x - 5) = 0"]
+    misconceptions:
+      - {type: "missing_root", step_index: 2, expression: "x - 5 = 0"}
+      - {type: "sign_error", step_index: 2, expression: "x*(x + 5) = 0"}
+    difficulty: 3
+  - problem_id: "P-SQUAD-005"
+    statement: "Solve 2x^2 - 8 = 0."
+    statement_vi: "Giải phương trình 2x² - 8 = 0."
+    kind: "equation"
+    equation: "2*x**2 - 8 = 0"
+    answer: "{-2, 2}"
+    skill_ids: ["quadratic_equation.square_root", "quadratic_equation.missing_root"]
+    steps: ["x**2 = 4", "(x - 2)*(x + 2) = 0"]
+    misconceptions:
+      - {type: "sign_error", step_index: 1, expression: "x**2 = -4"}
+      - {type: "missing_root", step_index: 2, expression: "x - 2 = 0"}
+    difficulty: 3
+  - problem_id: "P-SQUAD-006"
+    statement: "Solve x^2 - 6x + 9 = 0."
+    statement_vi: "Giải phương trình x² - 6x + 9 = 0."
+    kind: "equation"
+    equation: "x**2 - 6*x + 9 = 0"
+    answer: "3"
+    skill_ids: ["quadratic_equation.factorization"]
+    steps: ["(x - 3)**2 = 0"]
+    misconceptions:
+      - {type: "wrong_factor", step_index: 1, expression: "(x - 3)*(x + 3) = 0"}
+      - {type: "sign_error", step_index: 1, expression: "(x + 3)**2 = 0"}
+    difficulty: 3
+  - problem_id: "P-SQUAD-007"
+    statement: "Solve 2x^2 + 5x - 3 = 0."
+    statement_vi: "Giải phương trình 2x² + 5x - 3 = 0."
+    kind: "equation"
+    equation: "2*x**2 + 5*x - 3 = 0"
+    answer: "{-3, 1/2}"
+    skill_ids: ["quadratic_equation.factorization", "quadratic_equation.missing_root"]
+    steps: ["(2*x - 1)*(x + 3) = 0"]
+    misconceptions:
+      - {type: "missing_root", step_index: 1, expression: "x + 3 = 0"}
+      - {type: "wrong_factor", step_index: 1, expression: "(2*x + 1)*(x - 3) = 0"}
+    difficulty: 4
+  - problem_id: "P-SQUAD-008"
+    statement: "Solve x^2 - 4x - 5 = 0 by completing the square."
+    statement_vi: "Giải phương trình x² - 4x - 5 = 0 bằng cách thêm bớt để được bình phương."
+    kind: "equation"
+    equation: "x**2 - 4*x - 5 = 0"
+    answer: "{-1, 5}"
+    skill_ids: ["quadratic_equation.formula", "quadratic_equation.missing_root"]
+    steps: ["x**2 - 4*x = 5", "(x - 2)**2 = 9", "(x - 5)*(x + 1) = 0"]
+    misconceptions:
+      - {type: "sign_error", step_index: 2, expression: "(x + 2)**2 = 9"}
+      - {type: "arithmetic_slip", step_index: 2, expression: "(x - 2)**2 = 5"}
+    difficulty: 4
+  - problem_id: "P-SQUAD-009"
+    statement: "Solve x^2 + 6x + 5 = 0 by completing the square."
+    statement_vi: "Giải phương trình x² + 6x + 5 = 0 bằng cách thêm bớt để được bình phương."
+    kind: "equation"
+    equation: "x**2 + 6*x + 5 = 0"
+    answer: "{-5, -1}"
+    skill_ids: ["quadratic_equation.formula", "quadratic_equation.missing_root"]
+    steps: ["x**2 + 6*x = -5", "(x + 3)**2 = 4", "(x + 1)*(x + 5) = 0"]
+    misconceptions:
+      - {type: "arithmetic_slip", step_index: 2, expression: "(x + 3)**2 = -5"}
+      - {type: "missing_root", step_index: 3, expression: "x + 1 = 0"}
+    difficulty: 4
+  - problem_id: "P-SQUAD-010"
+    statement: "Solve x(x + 4) = 12."
+    statement_vi: "Giải phương trình x(x + 4) = 12."
+    kind: "equation"
+    equation: "x*(x + 4) = 12"
+    answer: "{-6, 2}"
+    skill_ids: ["quadratic_equation.factorization", "quadratic_equation.missing_root"]
+    steps: ["x**2 + 4*x = 12", "x**2 + 4*x - 12 = 0", "(x - 2)*(x + 6) = 0"]
+    misconceptions:
+      - {type: "distribution_error", step_index: 1, expression: "x**2 + 4 = 12"}
+      - {type: "missing_root", step_index: 3, expression: "x - 2 = 0"}
+    difficulty: 4
+  - problem_id: "P-SQUAD-011"
+    statement: "Solve 3x^2 = 48."
+    statement_vi: "Giải phương trình 3x² = 48."
+    kind: "equation"
+    equation: "3*x**2 = 48"
+    answer: "{-4, 4}"
+    skill_ids: ["quadratic_equation.square_root", "quadratic_equation.missing_root"]
+    steps: ["x**2 = 16", "(x - 4)*(x + 4) = 0"]
+    misconceptions:
+      - {type: "arithmetic_slip", step_index: 1, expression: "x**2 = 144"}
+      - {type: "missing_root", step_index: 2, expression: "x - 4 = 0"}
+    difficulty: 3
+  - problem_id: "P-SQUAD-012"
+    statement: "Solve x^2 - x - 6 = 0."
+    statement_vi: "Giải phương trình x² - x - 6 = 0."
+    kind: "equation"
+    equation: "x**2 - x - 6 = 0"
+    answer: "{-2, 3}"
+    skill_ids: ["quadratic_equation.factorization", "quadratic_equation.missing_root"]
+    steps: ["(x + 2)*(x - 3) = 0"]
+    misconceptions:
+      - {type: "wrong_factor", step_index: 1, expression: "(x - 2)*(x + 3) = 0"}
+      - {type: "missing_root", step_index: 1, expression: "x - 3 = 0"}
+    difficulty: 3
+  - problem_id: "P-SQUAD-013"
+    statement: "Solve 4x^2 - 1 = 0."
+    statement_vi: "Giải phương trình 4x² - 1 = 0."
+    kind: "equation"
+    equation: "4*x**2 - 1 = 0"
+    answer: "{-1/2, 1/2}"
+    skill_ids: ["quadratic_equation.square_root", "quadratic_equation.missing_root"]
+    steps: ["x**2 = 1/4", "(2*x - 1)*(2*x + 1) = 0"]
+    misconceptions:
+      - {type: "sign_error", step_index: 1, expression: "x**2 = -1/4"}
+      - {type: "missing_root", step_index: 2, expression: "2*x - 1 = 0"}
+    difficulty: 3
+  - problem_id: "P-SQUAD-014"
+    statement: "Solve (x + 2)^2 = 25."
+    statement_vi: "Giải phương trình (x + 2)² = 25."
+    kind: "equation"
+    equation: "(x + 2)**2 = 25"
+    answer: "{-7, 3}"
+    skill_ids: ["quadratic_equation.square_root", "quadratic_equation.missing_root"]
+    steps: ["(x + 2)**2 - 25 = 0", "(x - 3)*(x + 7) = 0"]
+    misconceptions:
+      - {type: "sign_error", step_index: 1, expression: "(x + 2)**2 + 25 = 0"}
+      - {type: "missing_root", step_index: 2, expression: "x - 3 = 0"}
+    difficulty: 3

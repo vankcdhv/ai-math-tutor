@@ -1,0 +1,268 @@
+# Bài tự soạn: phương trình bậc nhất một ẩn (split dev). Lời giải và misconception
+# viết trực tiếp (solution_source = authored); build-problem-bank.py kiểm mọi bước bằng SymPy và
+# kiểm mỗi misconception được math_check.diagnose nhận đúng loại tại đúng step_index (đánh số từ 1).
+problems:
+  - problem_id: "P-SLIN-001"
+    statement: "Solve 3x + 5 = 20."
+    statement_vi: "Giải phương trình 3x + 5 = 20."
+    kind: "equation"
+    equation: "3*x + 5 = 20"
+    answer: "5"
+    skill_ids: ["linear_equation.isolate_variable"]
+    steps: ["3*x = 15", "x = 5"]
+    misconceptions:
+      - {type: "sign_error", step_index: 1, expression: "3*x = 25"}
+      - {type: "arithmetic_slip", step_index: 2, expression: "x = 45"}
+    difficulty: 1
+  - problem_id: "P-SLIN-002"
+    statement: "Solve 4x - 7 = 13."
+    statement_vi: "Giải phương trình 4x - 7 = 13."
+    kind: "equation"
+    equation: "4*x - 7 = 13"
+    answer: "5"
+    skill_ids: ["linear_equation.isolate_variable"]
+    steps: ["4*x = 20", "x = 5"]
+    misconceptions:
+      - {type: "sign_error", step_index: 1, expression: "4*x = 6"}
+      - {type: "arithmetic_slip", step_index: 2, expression: "x = 16"}
+    difficulty: 1
+  - problem_id: "P-SLIN-003"
+    statement: "Solve 7x + 2 = 30."
+    statement_vi: "Giải phương trình 7x + 2 = 30."
+    kind: "equation"
+    equation: "7*x + 2 = 30"
+    answer: "4"
+    skill_ids: ["linear_equation.isolate_variable"]
+    steps: ["7*x = 28", "x = 4"]
+    misconceptions:
+      - {type: "sign_error", step_index: 1, expression: "7*x = 32"}
+      - {type: "arithmetic_slip", step_index: 2, expression: "x = 21"}
+    difficulty: 1
+  - problem_id: "P-SLIN-004"
+    statement: "Solve 9 - 2x = 3."
+    statement_vi: "Giải phương trình 9 - 2x = 3."
+    kind: "equation"
+    equation: "9 - 2*x = 3"
+    answer: "3"
+    skill_ids: ["linear_equation.isolate_variable"]
+    steps: ["-2*x = -6", "x = 3"]
+    misconceptions:
+      - {type: "sign_error", step_index: 1, expression: "-2*x = 12"}
+      - {type: "sign_error", step_index: 2, expression: "x = -3"}
+    difficulty: 1
+  - problem_id: "P-SLIN-005"
+    statement: "Solve x/4 + 1 = 6."
+    statement_vi: "Giải phương trình x/4 + 1 = 6."
+    kind: "equation"
+    equation: "x/4 + 1 = 6"
+    answer: "20"
+    skill_ids: ["linear_equation.fractions", "linear_equation.isolate_variable"]
+    steps: ["x/4 = 5", "x = 20"]
+    misconceptions:
+      - {type: "sign_error", step_index: 1, expression: "x/4 = 7"}
+      - {type: "arithmetic_slip", step_index: 2, expression: "x = 5/4"}
+    difficulty: 2
+  - problem_id: "P-SLIN-006"
+    statement: "Solve (2x - 1)/3 = 5."
+    statement_vi: "Giải phương trình (2x - 1)/3 = 5."
+    kind: "equation"
+    equation: "(2*x - 1)/3 = 5"
+    answer: "8"
+    skill_ids: ["linear_equation.fractions", "linear_equation.isolate_variable"]
+    steps: ["2*x - 1 = 15", "2*x = 16", "x = 8"]
+    misconceptions:
+      - {type: "arithmetic_slip", step_index: 1, expression: "2*x - 1 = 5/3"}
+      - {type: "sign_error", step_index: 2, expression: "2*x = 14"}
+    difficulty: 2
+  - problem_id: "P-SLIN-007"
+    statement: "Solve 2(x + 3) = 14."
+    statement_vi: "Giải phương trình 2(x + 3) = 14."
+    kind: "equation"
+    equation: "2*(x + 3) = 14"
+    answer: "4"
+    skill_ids: ["linear_equation.distribute", "linear_equation.isolate_variable"]
+    steps: ["2*x + 6 = 14", "2*x = 8", "x = 4"]
+    misconceptions:
+      - {type: "distribution_error", step_index: 1, expression: "2*x + 3 = 14"}
+      - {type: "sign_error", step_index: 2, expression: "2*x = 20"}
+    difficulty: 2
+  - problem_id: "P-SLIN-008"
+    statement: "Solve 5(x - 2) = 3x + 4."
+    statement_vi: "Giải phương trình 5(x - 2) = 3x + 4."
+    kind: "equation"
+    equation: "5*(x - 2) = 3*x + 4"
+    answer: "7"
+    skill_ids: ["linear_equation.distribute", "linear_equation.both_sides"]
+    steps: ["5*x - 10 = 3*x + 4", "2*x - 10 = 4", "2*x = 14", "x = 7"]
+    misconceptions:
+      - {type: "distribution_error", step_index: 1, expression: "5*x - 2 = 3*x + 4"}
+      - {type: "sign_error", step_index: 3, expression: "2*x = -6"}
+    difficulty: 3
+  - problem_id: "P-SLIN-009"
+    statement: "Solve 6x - 4 = 2x + 12."
+    statement_vi: "Giải phương trình 6x - 4 = 2x + 12."
+    kind: "equation"
+    equation: "6*x - 4 = 2*x + 12"
+    answer: "4"
+    skill_ids: ["linear_equation.both_sides", "linear_equation.isolate_variable"]
+    steps: ["4*x - 4 = 12", "4*x = 16", "x = 4"]
+    misconceptions:
+      - {type: "sign_error", step_index: 1, expression: "8*x - 4 = 12"}
+      - {type: "sign_error", step_index: 2, expression: "4*x = 8"}
+    difficulty: 2
+  - problem_id: "P-SLIN-010"
+    statement: "Solve 3(2x - 1) = 4(x + 2)."
+    statement_vi: "Giải phương trình 3(2x - 1) = 4(x + 2)."
+    kind: "equation"
+    equation: "3*(2*x - 1) = 4*(x + 2)"
+    answer: "11/2"
+    skill_ids: ["linear_equation.distribute", "linear_equation.both_sides"]
+    steps: ["6*x - 3 = 4*x + 8", "2*x - 3 = 8", "2*x = 11", "x = 11/2"]
+    misconceptions:
+      - {type: "distribution_error", step_index: 1, expression: "6*x - 1 = 4*x + 8"}
+      - {type: "sign_error", step_index: 3, expression: "2*x = 5"}
+    difficulty: 3
+  - problem_id: "P-SLIN-011"
+    statement: "Solve x/2 + x/3 = 10."
+    statement_vi: "Giải phương trình x/2 + x/3 = 10."
+    kind: "equation"
+    equation: "x/2 + x/3 = 10"
+    answer: "12"
+    skill_ids: ["linear_equation.fractions"]
+    steps: ["3*x + 2*x = 60", "5*x = 60", "x = 12"]
+    misconceptions:
+      - {type: "arithmetic_slip", step_index: 1, expression: "3*x + 2*x = 10"}
+      - {type: "arithmetic_slip", step_index: 3, expression: "x = 300"}
+    difficulty: 3
+  - problem_id: "P-SLIN-012"
+    statement: "Solve 0.5x + 2 = 7."
+    statement_vi: "Giải phương trình 0,5x + 2 = 7."
+    kind: "equation"
+    equation: "0.5*x + 2 = 7"
+    answer: "10"
+    skill_ids: ["linear_equation.isolate_variable", "linear_equation.fractions"]
+    steps: ["0.5*x = 5", "x = 10"]
+    misconceptions:
+      - {type: "sign_error", step_index: 1, expression: "0.5*x = 9"}
+      - {type: "arithmetic_slip", step_index: 2, expression: "x = 2.5"}
+    difficulty: 2
+  - problem_id: "P-SLIN-013"
+    statement: "Solve -3x + 8 = -7."
+    statement_vi: "Giải phương trình -3x + 8 = -7."
+    kind: "equation"
+    equation: "-3*x + 8 = -7"
+    answer: "5"
+    skill_ids: ["linear_equation.isolate_variable"]
+    steps: ["-3*x = -15", "x = 5"]
+    misconceptions:
+      - {type: "sign_error", step_index: 1, expression: "-3*x = 1"}
+      - {type: "sign_error", step_index: 2, expression: "x = -5"}
+    difficulty: 2
+  - problem_id: "P-SLIN-014"
+    statement: "Solve 4(x - 1) - 2(x + 3) = 0."
+    statement_vi: "Giải phương trình 4(x - 1) - 2(x + 3) = 0."
+    kind: "equation"
+    equation: "4*(x - 1) - 2*(x + 3) = 0"
+    answer: "5"
+    skill_ids: ["linear_equation.distribute", "linear_equation.isolate_variable"]
+    steps: ["4*x - 4 - 2*x - 6 = 0", "2*x - 10 = 0", "2*x = 10", "x = 5"]
+    misconceptions:
+      - {type: "distribution_error", step_index: 1, expression: "4*x - 4 - 2*x + 6 = 0"}
+      - {type: "sign_error", step_index: 3, expression: "2*x = -10"}
+    difficulty: 3
+  - problem_id: "P-SLIN-015"
+    statement: "Solve 7 - (x - 3) = 2x."
+    statement_vi: "Giải phương trình 7 - (x - 3) = 2x."
+    kind: "equation"
+    equation: "7 - (x - 3) = 2*x"
+    answer: "10/3"
+    skill_ids: ["linear_equation.distribute", "linear_equation.both_sides"]
+    steps: ["7 - x + 3 = 2*x", "10 - x = 2*x", "10 = 3*x", "x = 10/3"]
+    misconceptions:
+      - {type: "distribution_error", step_index: 1, expression: "7 - x - 3 = 2*x"}
+      - {type: "sign_error", step_index: 3, expression: "10 = x"}
+    difficulty: 3
+  - problem_id: "P-SLIN-016"
+    statement: "Solve (x + 5)/2 = (x - 1)/3."
+    statement_vi: "Giải phương trình (x + 5)/2 = (x - 1)/3."
+    kind: "equation"
+    equation: "(x + 5)/2 = (x - 1)/3"
+    answer: "-17"
+    skill_ids: ["linear_equation.fractions", "linear_equation.both_sides"]
+    steps: ["3*x + 15 = 2*x - 2", "x + 15 = -2", "x = -17"]
+    misconceptions:
+      - {type: "distribution_error", step_index: 1, expression: "3*x + 5 = 2*x - 1"}
+      - {type: "sign_error", step_index: 3, expression: "x = 13"}
+    difficulty: 4
+  - problem_id: "P-SLIN-017"
+    statement: "Solve 2x + 3 = 5x - 9."
+    statement_vi: "Giải phương trình 2x + 3 = 5x - 9."
+    kind: "equation"
+    equation: "2*x + 3 = 5*x - 9"
+    answer: "4"
+    skill_ids: ["linear_equation.both_sides", "linear_equation.isolate_variable"]
+    steps: ["3 = 3*x - 9", "12 = 3*x", "x = 4"]
+    misconceptions:
+      - {type: "sign_error", step_index: 1, expression: "3 = 7*x - 9"}
+      - {type: "sign_error", step_index: 2, expression: "-6 = 3*x"}
+    difficulty: 2
+  - problem_id: "P-SLIN-018"
+    statement: "Solve 8 = 2(3x - 5)."
+    statement_vi: "Giải phương trình 8 = 2(3x - 5)."
+    kind: "equation"
+    equation: "8 = 2*(3*x - 5)"
+    answer: "3"
+    skill_ids: ["linear_equation.distribute", "linear_equation.isolate_variable"]
+    steps: ["8 = 6*x - 10", "18 = 6*x", "x = 3"]
+    misconceptions:
+      - {type: "distribution_error", step_index: 1, expression: "8 = 6*x - 5"}
+      - {type: "sign_error", step_index: 2, expression: "-2 = 6*x"}
+    difficulty: 2
+  - problem_id: "P-SLIN-019"
+    statement: "Solve 3x/4 = 9."
+    statement_vi: "Giải phương trình 3x/4 = 9."
+    kind: "equation"
+    equation: "3*x/4 = 9"
+    answer: "12"
+    skill_ids: ["linear_equation.fractions", "linear_equation.isolate_variable"]
+    steps: ["3*x = 36", "x = 12"]
+    misconceptions:
+      - {type: "arithmetic_slip", step_index: 1, expression: "3*x = 9/4"}
+      - {type: "arithmetic_slip", step_index: 2, expression: "x = 108"}
+    difficulty: 2
+  - problem_id: "P-SLIN-020"
+    statement: "Solve 1.2x - 0.4 = 2."
+    statement_vi: "Giải phương trình 1,2x - 0,4 = 2."
+    kind: "equation"
+    equation: "1.2*x - 0.4 = 2"
+    answer: "2"
+    skill_ids: ["linear_equation.isolate_variable", "linear_equation.fractions"]
+    steps: ["1.2*x = 2.4", "x = 2"]
+    misconceptions:
+      - {type: "sign_error", step_index: 1, expression: "1.2*x = 1.6"}
+      - {type: "arithmetic_slip", step_index: 2, expression: "x = 2.88"}
+    difficulty: 2
+  - problem_id: "P-SLIN-021"
+    statement: "Solve 5 - 3(x + 1) = -10."
+    statement_vi: "Giải phương trình 5 - 3(x + 1) = -10."
+    kind: "equation"
+    equation: "5 - 3*(x + 1) = -10"
+    answer: "4"
+    skill_ids: ["linear_equation.distribute", "linear_equation.isolate_variable"]
+    steps: ["5 - 3*x - 3 = -10", "2 - 3*x = -10", "-3*x = -12", "x = 4"]
+    misconceptions:
+      - {type: "distribution_error", step_index: 1, expression: "5 - 3*x - 1 = -10"}
+      - {type: "sign_error", step_index: 3, expression: "-3*x = -8"}
+    difficulty: 3
+  - problem_id: "P-SLIN-022"
+    statement: "Solve x/5 - 2 = x/10 + 1."
+    statement_vi: "Giải phương trình x/5 - 2 = x/10 + 1."
+    kind: "equation"
+    equation: "x/5 - 2 = x/10 + 1"
+    answer: "30"
+    skill_ids: ["linear_equation.fractions", "linear_equation.both_sides"]
+    steps: ["2*x - 20 = x + 10", "x - 20 = 10", "x = 30"]
+    misconceptions:
+      - {type: "distribution_error", step_index: 1, expression: "2*x - 2 = x + 1"}
+      - {type: "sign_error", step_index: 3, expression: "x = -10"}
+    difficulty: 4

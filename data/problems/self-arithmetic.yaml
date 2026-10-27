@@ -1,0 +1,269 @@
+# Bài tự soạn: bài toán lời văn số học, bối cảnh Việt Nam (split dev). Lời giải và misconception do
+# viết trực tiếp (solution_source = authored). Mỗi bước dạng "a op b = c" phải tính đúng chính
+# xác (math_check.arith_step), bước cuối bằng đáp án; misconception phải được diagnose nhận đúng loại:
+# wrong_operation = đổi phép toán nhưng tính đúng; arithmetic_slip = tính sai; sign_error = sai dấu.
+problems:
+  - problem_id: "P-SARI-001"
+    statement: "Lan buys 3 notebooks at 12000 VND each and a pen for 8000 VND. How much does she pay in total?"
+    statement_vi: "Lan mua 3 quyển vở, mỗi quyển 12.000 đồng, và một cây bút giá 8.000 đồng. Lan phải trả tất cả bao nhiêu tiền?"
+    kind: "arithmetic"
+    answer: "44000"
+    skill_ids: ["arithmetic.multi_step"]
+    steps: ["3 * 12000 = 36000", "36000 + 8000 = 44000"]
+    misconceptions:
+      - {type: "wrong_operation", step_index: 1, expression: "3 + 12000 = 12003"}
+      - {type: "arithmetic_slip", step_index: 2, expression: "36000 + 8000 = 45000"}
+    difficulty: 2
+  - problem_id: "P-SARI-002"
+    statement: "A shirt costs 250000 VND and is discounted by 20%. What is the sale price?"
+    statement_vi: "Một chiếc áo giá 250.000 đồng được giảm giá 20%. Giá sau khi giảm là bao nhiêu?"
+    kind: "arithmetic"
+    answer: "200000"
+    skill_ids: ["arithmetic.percent", "arithmetic.multi_step"]
+    steps: ["250000 * 20 / 100 = 50000", "250000 - 50000 = 200000"]
+    misconceptions:
+      - {type: "wrong_operation", step_index: 2, expression: "250000 + 50000 = 300000"}
+      - {type: "arithmetic_slip", step_index: 1, expression: "250000 * 20 / 100 = 5000"}
+    difficulty: 2
+  - problem_id: "P-SARI-003"
+    statement: "A motorbike travels at 40 km/h for 2.5 hours. How far does it go?"
+    statement_vi: "Một xe máy đi với vận tốc 40 km/h trong 2,5 giờ. Xe đi được quãng đường dài bao nhiêu ki-lô-mét?"
+    kind: "arithmetic"
+    answer: "100"
+    skill_ids: ["arithmetic.rates"]
+    steps: ["40 * 2.5 = 100"]
+    misconceptions:
+      - {type: "wrong_operation", step_index: 1, expression: "40 + 2.5 = 42.5"}
+      - {type: "arithmetic_slip", step_index: 1, expression: "40 * 2.5 = 80"}
+    difficulty: 1
+  - problem_id: "P-SARI-004"
+    statement: "A class has 36 students, and 2/3 of them like football. How many students like football?"
+    statement_vi: "Lớp có 36 học sinh, trong đó 2/3 số học sinh thích bóng đá. Có bao nhiêu học sinh thích bóng đá?"
+    kind: "arithmetic"
+    answer: "24"
+    skill_ids: ["arithmetic.fractions", "arithmetic.multi_step"]
+    steps: ["36 / 3 = 12", "12 * 2 = 24"]
+    misconceptions:
+      - {type: "wrong_operation", step_index: 1, expression: "36 * 3 = 108"}
+      - {type: "arithmetic_slip", step_index: 2, expression: "12 * 2 = 22"}
+    difficulty: 2
+  - problem_id: "P-SARI-005"
+    statement: "Minh saves 50000 VND every week. How many weeks does he need to save 600000 VND?"
+    statement_vi: "Mỗi tuần Minh để dành 50.000 đồng. Cần bao nhiêu tuần để Minh để dành được 600.000 đồng?"
+    kind: "arithmetic"
+    answer: "12"
+    skill_ids: ["arithmetic.rates"]
+    steps: ["600000 / 50000 = 12"]
+    misconceptions:
+      - {type: "wrong_operation", step_index: 1, expression: "600000 - 50000 = 550000"}
+      - {type: "arithmetic_slip", step_index: 1, expression: "600000 / 50000 = 120"}
+    difficulty: 1
+  - problem_id: "P-SARI-006"
+    statement: "Rice cost 15000 VND per kg, then the price rose by 10%. What is the new price per kg?"
+    statement_vi: "Gạo giá 15.000 đồng một ki-lô-gam, sau đó tăng giá 10%. Giá mới của một ki-lô-gam gạo là bao nhiêu?"
+    kind: "arithmetic"
+    answer: "16500"
+    skill_ids: ["arithmetic.percent", "arithmetic.multi_step"]
+    steps: ["15000 * 10 / 100 = 1500", "15000 + 1500 = 16500"]
+    misconceptions:
+      - {type: "wrong_operation", step_index: 2, expression: "15000 - 1500 = 13500"}
+      - {type: "arithmetic_slip", step_index: 1, expression: "15000 * 10 / 100 = 150"}
+    difficulty: 2
+  - problem_id: "P-SARI-007"
+    statement: "A rectangular garden is 12 m long and 8 m wide. What is its perimeter?"
+    statement_vi: "Một mảnh vườn hình chữ nhật dài 12 m, rộng 8 m. Tính chu vi mảnh vườn."
+    kind: "arithmetic"
+    answer: "40"
+    skill_ids: ["arithmetic.multi_step"]
+    steps: ["12 + 8 = 20", "2 * 20 = 40"]
+    misconceptions:
+      - {type: "wrong_operation", step_index: 1, expression: "12 * 8 = 96"}
+      - {type: "arithmetic_slip", step_index: 2, expression: "2 * 20 = 42"}
+    difficulty: 2
+  - problem_id: "P-SARI-008"
+    statement: "Nam's test scores are 7, 8, 9 and 10. What is his average score?"
+    statement_vi: "Điểm kiểm tra của Nam là 7, 8, 9 và 10. Điểm trung bình của Nam là bao nhiêu?"
+    kind: "arithmetic"
+    answer: "8.5"
+    skill_ids: ["arithmetic.multi_step", "arithmetic.fractions"]
+    steps: ["7 + 8 + 9 + 10 = 34", "34 / 4 = 8.5"]
+    misconceptions:
+      - {type: "arithmetic_slip", step_index: 1, expression: "7 + 8 + 9 + 10 = 33"}
+      - {type: "wrong_operation", step_index: 2, expression: "34 * 4 = 136"}
+    difficulty: 2
+  - problem_id: "P-SARI-009"
+    statement: "A worker makes 15 products per hour. How many products does the worker make in 8 hours?"
+    statement_vi: "Một công nhân làm được 15 sản phẩm mỗi giờ. Trong 8 giờ người đó làm được bao nhiêu sản phẩm?"
+    kind: "arithmetic"
+    answer: "120"
+    skill_ids: ["arithmetic.rates"]
+    steps: ["15 * 8 = 120"]
+    misconceptions:
+      - {type: "wrong_operation", step_index: 1, expression: "15 + 8 = 23"}
+      - {type: "arithmetic_slip", step_index: 1, expression: "15 * 8 = 125"}
+    difficulty: 1
+  - problem_id: "P-SARI-010"
+    statement: "Mai eats 1/4 of a cake and Hoa eats 1/3 of the same cake. What fraction of the cake did they eat?"
+    statement_vi: "Mai ăn 1/4 cái bánh, Hoa ăn 1/3 cái bánh đó. Hai bạn đã ăn bao nhiêu phần cái bánh?"
+    kind: "arithmetic"
+    answer: "7/12"
+    skill_ids: ["arithmetic.fractions"]
+    steps: ["1/4 + 1/3 = 7/12"]
+    misconceptions:
+      - {type: "arithmetic_slip", step_index: 1, expression: "1/4 + 1/3 = 2/7"}
+      - {type: "wrong_operation", step_index: 1, expression: "1/4 * 1/3 = 1/12"}
+    difficulty: 2
+  - problem_id: "P-SARI-011"
+    statement: "A water tank holds 500 liters. 35% of the water has been used. How many liters are left?"
+    statement_vi: "Một bể chứa 500 lít nước. Người ta đã dùng 35% lượng nước. Trong bể còn lại bao nhiêu lít?"
+    kind: "arithmetic"
+    answer: "325"
+    skill_ids: ["arithmetic.percent", "arithmetic.multi_step"]
+    steps: ["500 * 35 / 100 = 175", "500 - 175 = 325"]
+    misconceptions:
+      - {type: "wrong_operation", step_index: 2, expression: "500 + 175 = 675"}
+      - {type: "arithmetic_slip", step_index: 1, expression: "500 * 35 / 100 = 165"}
+    difficulty: 2
+  - problem_id: "P-SARI-012"
+    statement: "A car covers 120 km in 3 hours. What is its average speed?"
+    statement_vi: "Một ô tô đi được 120 km trong 3 giờ. Vận tốc trung bình của ô tô là bao nhiêu?"
+    kind: "arithmetic"
+    answer: "40"
+    skill_ids: ["arithmetic.rates"]
+    steps: ["120 / 3 = 40"]
+    misconceptions:
+      - {type: "wrong_operation", step_index: 1, expression: "120 * 3 = 360"}
+      - {type: "arithmetic_slip", step_index: 1, expression: "120 / 3 = 30"}
+    difficulty: 1
+  - problem_id: "P-SARI-013"
+    statement: "Bao buys 4 kg of apples at 35000 VND per kg and pays with a 200000 VND note. How much change does he get?"
+    statement_vi: "Bảo mua 4 kg táo, mỗi ki-lô-gam 35.000 đồng, và trả bằng tờ 200.000 đồng. Bảo được trả lại bao nhiêu tiền?"
+    kind: "arithmetic"
+    answer: "60000"
+    skill_ids: ["arithmetic.multi_step", "arithmetic.rates"]
+    steps: ["4 * 35000 = 140000", "200000 - 140000 = 60000"]
+    misconceptions:
+      - {type: "wrong_operation", step_index: 1, expression: "4 + 35000 = 35004"}
+      - {type: "sign_error", step_index: 2, expression: "140000 - 200000 = -60000"}
+    difficulty: 2
+  - problem_id: "P-SARI-014"
+    statement: "The morning temperature in Sa Pa is -3 degrees Celsius. By noon it rises by 8 degrees. What is the noon temperature?"
+    statement_vi: "Buổi sáng nhiệt độ ở Sa Pa là -3 độ C. Đến trưa nhiệt độ tăng thêm 8 độ. Nhiệt độ buổi trưa là bao nhiêu?"
+    kind: "arithmetic"
+    answer: "5"
+    skill_ids: ["arithmetic.multi_step"]
+    steps: ["-3 + 8 = 5"]
+    misconceptions:
+      - {type: "sign_error", step_index: 1, expression: "-3 + 8 = -5"}
+      - {type: "wrong_operation", step_index: 1, expression: "-3 - 8 = -11"}
+    difficulty: 1
+  - problem_id: "P-SARI-015"
+    statement: "How many minutes are there in 2.5 hours?"
+    statement_vi: "2,5 giờ bằng bao nhiêu phút?"
+    kind: "arithmetic"
+    answer: "150"
+    skill_ids: ["arithmetic.rates"]
+    steps: ["2.5 * 60 = 150"]
+    misconceptions:
+      - {type: "wrong_operation", step_index: 1, expression: "2.5 + 60 = 62.5"}
+      - {type: "arithmetic_slip", step_index: 1, expression: "2.5 * 60 = 125"}
+    difficulty: 1
+  - problem_id: "P-SARI-016"
+    statement: "Mrs. Thu deposits 10000000 VND at 6% simple interest per year. How much money does she have after one year?"
+    statement_vi: "Cô Thu gửi tiết kiệm 10.000.000 đồng với lãi suất 6% một năm. Sau một năm cô Thu có tất cả bao nhiêu tiền?"
+    kind: "arithmetic"
+    answer: "10600000"
+    skill_ids: ["arithmetic.percent", "arithmetic.multi_step"]
+    steps: ["10000000 * 6 / 100 = 600000", "10000000 + 600000 = 10600000"]
+    misconceptions:
+      - {type: "arithmetic_slip", step_index: 1, expression: "10000000 * 6 / 100 = 60000"}
+      - {type: "wrong_operation", step_index: 2, expression: "10000000 - 600000 = 9400000"}
+    difficulty: 2
+  - problem_id: "P-SARI-017"
+    statement: "The ratio of boys to girls in a class is 3 : 5 and the class has 40 students. How many girls are there?"
+    statement_vi: "Tỉ số giữa số học sinh nam và nữ của một lớp là 3 : 5, lớp có 40 học sinh. Lớp có bao nhiêu học sinh nữ?"
+    kind: "arithmetic"
+    answer: "25"
+    skill_ids: ["arithmetic.rates", "arithmetic.multi_step"]
+    steps: ["3 + 5 = 8", "40 / 8 = 5", "5 * 5 = 25"]
+    misconceptions:
+      - {type: "wrong_operation", step_index: 2, expression: "40 * 8 = 320"}
+      - {type: "arithmetic_slip", step_index: 3, expression: "5 * 5 = 30"}
+    difficulty: 3
+  - problem_id: "P-SARI-018"
+    statement: "A 1.5-liter bottle of juice is poured into cups of 0.25 liters each. How many cups can be filled?"
+    statement_vi: "Một chai nước ép 1,5 lít được rót vào các cốc, mỗi cốc 0,25 lít. Rót được bao nhiêu cốc?"
+    kind: "arithmetic"
+    answer: "6"
+    skill_ids: ["arithmetic.fractions"]
+    steps: ["1.5 / 0.25 = 6"]
+    misconceptions:
+      - {type: "wrong_operation", step_index: 1, expression: "1.5 * 0.25 = 0.375"}
+      - {type: "arithmetic_slip", step_index: 1, expression: "1.5 / 0.25 = 0.6"}
+    difficulty: 2
+  - problem_id: "P-SARI-019"
+    statement: "A bag costs 400000 VND. The shop gives a 10% discount, then another 5% off the reduced price. What is the final price?"
+    statement_vi: "Một chiếc cặp giá 400.000 đồng. Cửa hàng giảm 10%, sau đó giảm tiếp 5% trên giá đã giảm. Giá cuối cùng là bao nhiêu?"
+    kind: "arithmetic"
+    answer: "342000"
+    skill_ids: ["arithmetic.percent", "arithmetic.multi_step"]
+    steps: ["400000 * 10 / 100 = 40000", "400000 - 40000 = 360000", "360000 * 5 / 100 = 18000", "360000 - 18000 = 342000"]
+    misconceptions:
+      - {type: "wrong_operation", step_index: 2, expression: "400000 + 40000 = 440000"}
+      - {type: "arithmetic_slip", step_index: 3, expression: "360000 * 5 / 100 = 20000"}
+    difficulty: 4
+  - problem_id: "P-SARI-020"
+    statement: "Pump A fills a tank in 6 hours and pump B fills it in 3 hours. Working together, how many hours do they take to fill the tank?"
+    statement_vi: "Vòi A chảy đầy bể trong 6 giờ, vòi B chảy đầy bể trong 3 giờ. Nếu mở cả hai vòi cùng lúc thì sau bao nhiêu giờ bể đầy?"
+    kind: "arithmetic"
+    answer: "2"
+    skill_ids: ["arithmetic.rates", "arithmetic.fractions"]
+    steps: ["1/6 + 1/3 = 1/2", "1 / (1/2) = 2"]
+    misconceptions:
+      - {type: "arithmetic_slip", step_index: 1, expression: "1/6 + 1/3 = 2/9"}
+      - {type: "wrong_operation", step_index: 2, expression: "1 * (1/2) = 1/2"}
+    difficulty: 4
+  - problem_id: "P-SARI-021"
+    statement: "Hoa has 120 stamps. She gives 1/4 of them to her brother and then buys 15 more. How many stamps does she have now?"
+    statement_vi: "Hoa có 120 con tem. Hoa cho em trai 1/4 số tem rồi mua thêm 15 con tem. Bây giờ Hoa có bao nhiêu con tem?"
+    kind: "arithmetic"
+    answer: "105"
+    skill_ids: ["arithmetic.fractions", "arithmetic.multi_step"]
+    steps: ["120 / 4 = 30", "120 - 30 = 90", "90 + 15 = 105"]
+    misconceptions:
+      - {type: "wrong_operation", step_index: 2, expression: "120 + 30 = 150"}
+      - {type: "arithmetic_slip", step_index: 3, expression: "90 + 15 = 95"}
+    difficulty: 3
+  - problem_id: "P-SARI-022"
+    statement: "A bus ticket costs 7000 VND. Linh rides the bus twice a day for 22 school days. How much does she spend?"
+    statement_vi: "Vé xe buýt giá 7.000 đồng một lượt. Linh đi xe buýt 2 lượt mỗi ngày trong 22 ngày học. Linh tiêu hết bao nhiêu tiền vé?"
+    kind: "arithmetic"
+    answer: "308000"
+    skill_ids: ["arithmetic.multi_step"]
+    steps: ["22 * 2 = 44", "44 * 7000 = 308000"]
+    misconceptions:
+      - {type: "wrong_operation", step_index: 1, expression: "22 + 2 = 24"}
+      - {type: "arithmetic_slip", step_index: 2, expression: "44 * 7000 = 30800"}
+    difficulty: 2
+  - problem_id: "P-SARI-023"
+    statement: "18 students make up 45% of a class. How many students are in the class?"
+    statement_vi: "18 học sinh chiếm 45% số học sinh của một lớp. Lớp đó có bao nhiêu học sinh?"
+    kind: "arithmetic"
+    answer: "40"
+    skill_ids: ["arithmetic.percent", "arithmetic.multi_step"]
+    steps: ["18 / 45 = 0.4", "0.4 * 100 = 40"]
+    misconceptions:
+      - {type: "wrong_operation", step_index: 1, expression: "18 * 45 = 810"}
+      - {type: "arithmetic_slip", step_index: 2, expression: "0.4 * 100 = 4"}
+    difficulty: 3
+  - problem_id: "P-SARI-024"
+    statement: "A cyclist rides 60 km at 30 km/h and then another 60 km at 60 km/h. What is the average speed for the whole trip?"
+    statement_vi: "Một người đi xe đạp 60 km đầu với vận tốc 30 km/h, 60 km sau với vận tốc 60 km/h. Vận tốc trung bình trên cả quãng đường là bao nhiêu?"
+    kind: "arithmetic"
+    answer: "40"
+    skill_ids: ["arithmetic.rates", "arithmetic.multi_step"]
+    steps: ["60 / 30 = 2", "60 / 60 = 1", "2 + 1 = 3", "60 + 60 = 120", "120 / 3 = 40"]
+    misconceptions:
+      - {type: "arithmetic_slip", step_index: 3, expression: "2 + 1 = 4"}
+      - {type: "wrong_operation", step_index: 5, expression: "120 * 3 = 360"}
+    difficulty: 4

@@ -1,0 +1,94 @@
+# Lời giải từng bước viết trực tiếp cho một số bài số học NuminaMath (chỉ nguồn bài lời văn gsm8k)
+# mà cách tách bước từ CoT (derived_from_cot) không dùng được (thiếu mắt xích, không ra đáp án, không có
+# phép tính kiểm được, quá ít bước). Chỉ là phương án dự phòng thiểu số; KHÔNG dùng cho bài bị loại vì làm
+# tròn hay bài số học từ nguồn math/synthetic_math.
+# Đề và đáp án lấy nguyên từ ứng viên NuminaMath (numina_row); chỉ phần `steps` được viết thêm.
+# Mỗi đáp án của tập dữ liệu đã được đọc lại và kiểm tay trước khi viết; bài có đề mơ hồ bị bỏ qua.
+# scripts/write-step-solutions.py chỉ áp dụng khi cách tách từ CoT thất bại. Mọi bước vẫn phải qua
+# math_check.arith_step, bước cuối bằng đáp án, và các bộ lọc chuỗi của solution_writer.check_arith_chain:
+# không bước đồng nhất (0 + a, a * 1, 1 ^ n, ...), ít nhất 2 bước, kết quả trung gian nào cũng được dùng,
+# số liệu nào của đề (trừ 0 và 1) cũng được dùng. Misconception sinh tự động như các bài khác.
+# Kho v2 bỏ 5 mục của bản v1: 118354 và 126651 (giờ tách được từ CoT), 96264 (có bước đồng nhất 1 * 8 = 8),
+# 114648 và 124200 (số "2" của "2nd-grade"/"Period 2" là nhãn, bộ lọc số liệu coi là số liệu chưa dùng);
+# mục 15764 viết rõ bước 2 + 0.5 = 2.5, mục 121431 viết rõ hỗn số 1 1/4 = 1 + 1/4.
+numina_solutions:
+  - numina_row: 175
+    steps: ["8 * 5 = 40", "40 * 25 / 100 = 10"]
+  - numina_row: 197
+    steps: ["4 * 52 = 208", "2 * 208 = 416", "416 * 200 = 83200"]
+  - numina_row: 2586
+    steps: ["180 + 20 = 200", "200 / 2 = 100", "100 - 20 = 80"]
+  - numina_row: 11836
+    steps: ["200 * 4 / 5 = 160", "200 - 160 = 40"]
+  - numina_row: 12190
+    steps: ["40 * 25 / 100 = 10", "100 - 10 = 90"]
+  - numina_row: 14987
+    steps: ["60 / 2 = 30", "30 / 2 = 15", "60 + 30 + 15 = 105", "105 / 3 = 35"]
+  - numina_row: 15764
+    steps: ["2000 * 8 / 100 = 160", "2 + 0.5 = 2.5", "160 * 2.5 = 400", "2000 + 400 = 2400"]
+  - numina_row: 19126
+    steps: ["3 * 72 = 216", "216 / 8 = 27"]
+  - numina_row: 22291
+    steps: ["30 * 40 = 1200", "1200 * 160 = 192000", "192000 * 5 = 960000"]
+  - numina_row: 22631
+    steps: ["215 - 55 = 160", "160 / 2 = 80"]
+  - numina_row: 25687
+    steps: ["400 - 120 = 280", "280 - 80 = 200", "200 / 2 = 100", "100 * 0.75 = 75"]
+  - numina_row: 33865
+    steps: ["3 + 2 = 5", "1000 * 3 / 5 = 600", "1000 * 2 / 5 = 400", "600 * 2 / 3 = 400", "400 * 1 / 5 = 80",
+            "400 + 80 = 480", "1000 - 480 = 520", "520 / 1000 * 100 = 52"]
+  - numina_row: 34908
+    steps: ["3 * 4 = 12", "45 + 18 = 63", "63 - 12 = 51"]
+  - numina_row: 34937
+    steps: ["2 * 8 = 16", "4 + 8 + 16 = 28", "28 - 1 = 27"]
+  - numina_row: 49101
+    steps: ["12 * 8 * 6 = 576", "576 * 10 = 5760", "5760 / 8 = 720"]
+  - numina_row: 52605
+    steps: ["5 * 60 = 300", "300 - 20 = 280", "280 + 10 = 290"]
+  - numina_row: 54875
+    steps: ["5 - 2 = 3", "5 + 3 = 8", "8 * 2200 = 17600"]
+  - numina_row: 58522
+    steps: ["4 * 4 = 16", "16 * 4 = 64", "8 * 2 = 16", "16 * 3 = 48", "64 + 48 = 112", "112 + 1 = 113"]
+  - numina_row: 60340
+    steps: ["33 - 1 = 32", "3 + 1 = 4", "32 / 4 = 8", "3 * 8 + 1 = 25"]
+  - numina_row: 62448
+    steps: ["20 - 4 = 16", "16 / 2 = 8"]
+  - numina_row: 63265
+    steps: ["11 + 1 + 13 = 25", "13 / 25 * 100 = 52"]
+  - numina_row: 63894
+    steps: ["1000 - 300 - 40 = 660", "5 - 2 = 3", "660 / 3 = 220", "220 / 10 = 22", "22 * 4 = 88"]
+  - numina_row: 63914
+    steps: ["2 * 5 = 10", "5 * 6 = 30", "10 + 30 = 40"]
+  - numina_row: 67502
+    steps: ["2 * 8 = 16", "100 - 75 = 25", "16 * 25 / 100 = 4", "4 * 60 = 240", "240 / 80 = 3"]
+  - numina_row: 67776
+    steps: ["10 + 5 + 3 = 18", "21 * 4 = 84", "84 - 18 = 66"]
+  - numina_row: 75367
+    steps: ["50 + 2 * 100 = 250", "100 + 2 * 50 = 200", "250 + 200 = 450"]
+  - numina_row: 79827
+    steps: ["12 + 28 = 40", "40 / 4 = 10", "2 * 10 = 20", "40 - 20 = 20"]
+  - numina_row: 85641
+    steps: ["9 + 2 * 20 + 11 = 60", "60 * 30 / 100 = 18", "60 + 18 = 78"]
+  - numina_row: 87580
+    steps: ["3500 / 7 = 500", "500 / 50 = 10"]
+  - numina_row: 96482
+    steps: ["20 * 3 = 60", "60 * 0.10 = 6", "20 * 0.25 = 5", "6 - 5 = 1", "20 * 7 = 140", "140 * 0.05 = 7",
+            "7 - 5 = 2", "1 + 2 = 3"]
+  - numina_row: 99657
+    steps: ["450 + 650 = 1100", "1100 - 1000 = 100"]
+  - numina_row: 102292
+    steps: ["400 * 0.40 = 160", "160 / 10 = 16", "16 * 2 = 32", "160 - 32 = 128"]
+  - numina_row: 102537
+    steps: ["12 - 8 = 4", "80 / 4 = 20"]
+  - numina_row: 103259
+    steps: ["1/5 + 3/4 = 19/20", "19/20 * 100 = 95"]
+  - numina_row: 121431
+    steps: ["1 + 1/4 = 5/4", "18 * 2 = 36", "36 / 9 = 4", "4 * 5/4 = 5"]
+  - numina_row: 125997
+    steps: ["15 - 4 - 5 = 6", "4 * 6 = 24", "5 * 8 = 40", "6 * 12 = 72", "24 + 40 + 72 = 136"]
+  - numina_row: 126918
+    steps: ["7 + 5 + 7 = 19", "19 * 10 = 190", "18 + 12 + 20 = 50", "190 + 50 = 240"]
+  - numina_row: 130623
+    steps: ["6 * 6 = 36", "2 * 4 = 8", "6 + 2 = 8", "8 * 2 = 16", "36 + 8 + 16 = 60"]
+  - numina_row: 131310
+    steps: ["60 / 3 = 20", "2 * 4 = 8", "20 - 4 - 8 = 8"]
