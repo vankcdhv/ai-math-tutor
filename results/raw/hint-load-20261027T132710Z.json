@@ -1,0 +1,325 @@
+{
+  "tag": "20261027T132710Z",
+  "parameters": {
+    "duration_s": 60,
+    "pacing_s": 1.0,
+    "attack_fraction": 0.0,
+    "hint_generator": "ladder",
+    "math_workers": 4,
+    "math_timeout_s": 0.2,
+    "port": 8765,
+    "key_prefix": "lt-20261027T132710Z:",
+    "fixture_learners": 100,
+    "audit_log": true,
+    "loop": "closed (Locust, fixed per-user schedule)",
+    "uvicorn_workers": 1,
+    "start_jitter": true,
+    "locust_user": "FastHttpUser"
+  },
+  "data_version": "problem-bank-v2.jsonl@sha256:2792649903a6c3e3b66c3febe603e22d92fdbbe4c82237e3b9186370385e617d",
+  "server_health_after": {
+    "status": "ok",
+    "generator": "ladder",
+    "problems": 1260,
+    "unverified_problems": 0,
+    "redis": "ok",
+    "math_timeout_s": 0.2,
+    "counters": {
+      "diagnose_timeouts": 0,
+      "diagnose_errors": 0,
+      "lasthint_errors": 0
+    },
+    "audit": {
+      "queued": 9625,
+      "delivered": 9625,
+      "errors": 0,
+      "dropped": 0
+    }
+  },
+  "levels": [
+    {
+      "users": 1,
+      "locust_exit_code": 0,
+      "runtime_s": 61.088,
+      "requests": 59,
+      "throughput_rps": 1.017,
+      "status_counts": {
+        "200": 59
+      },
+      "latency_all": {
+        "count": 59,
+        "p50_ms": 1.692,
+        "p95_ms": 14.117,
+        "p99_ms": 16.053,
+        "max_ms": 16.053,
+        "mean_ms": 2.568593220338983
+      },
+      "latency_ok_non_attack": {
+        "count": 59,
+        "p50_ms": 1.692,
+        "p95_ms": 14.117,
+        "p99_ms": 16.053,
+        "max_ms": 16.053,
+        "mean_ms": 2.568593220338983
+      },
+      "latency_attack": {
+        "count": 0,
+        "p50_ms": null,
+        "p95_ms": null,
+        "p99_ms": null,
+        "max_ms": null,
+        "mean_ms": null
+      },
+      "slo_p95_ms": 300.0,
+      "slo_met": true,
+      "state_source_default": 0,
+      "state_source_default_ratio": 0.0,
+      "hint_level_counts": {
+        "1": 7,
+        "2": 6,
+        "3": 46
+      },
+      "source_counts": {
+        "ladder": 42,
+        "template": 17
+      },
+      "verified_false": 0,
+      "request_kind_counts": {
+        "correct": 26,
+        "wrong": 14,
+        "none": 19
+      },
+      "pacing_overruns": 0,
+      "client_cpu_percent": {
+        "mean": 0.5409836065573771,
+        "max": 25.0
+      },
+      "server_cpu_percent": {
+        "mean": 0.29508196721311475,
+        "max": 1.0
+      },
+      "locust_aggregate": {
+        "requests": 59,
+        "failures": 0,
+        "p50_ms": 2.0,
+        "p95_ms": 14.0,
+        "p99_ms": 16.0,
+        "rps": 1.0004061513222067
+      },
+      "request_log": "/home/vankcdhv/nhom8-data/hint-load/20261027T132710Z/requests-u1.jsonl"
+    },
+    {
+      "users": 10,
+      "locust_exit_code": 0,
+      "runtime_s": 61.084,
+      "requests": 598,
+      "throughput_rps": 10.031,
+      "status_counts": {
+        "200": 598
+      },
+      "latency_all": {
+        "count": 598,
+        "p50_ms": 1.646,
+        "p95_ms": 2.752,
+        "p99_ms": 4.507,
+        "max_ms": 21.36,
+        "mean_ms": 1.8577408026755855
+      },
+      "latency_ok_non_attack": {
+        "count": 598,
+        "p50_ms": 1.646,
+        "p95_ms": 2.752,
+        "p99_ms": 4.507,
+        "max_ms": 21.36,
+        "mean_ms": 1.8577408026755855
+      },
+      "latency_attack": {
+        "count": 0,
+        "p50_ms": null,
+        "p95_ms": null,
+        "p99_ms": null,
+        "max_ms": null,
+        "mean_ms": null
+      },
+      "slo_p95_ms": 300.0,
+      "slo_met": true,
+      "state_source_default": 0,
+      "state_source_default_ratio": 0.0,
+      "hint_level_counts": {
+        "1": 38,
+        "2": 40,
+        "3": 520
+      },
+      "source_counts": {
+        "ladder": 426,
+        "template": 172
+      },
+      "verified_false": 0,
+      "request_kind_counts": {
+        "none": 259,
+        "correct": 228,
+        "wrong": 111
+      },
+      "pacing_overruns": 0,
+      "client_cpu_percent": {
+        "mean": 0.9672131147540983,
+        "max": 22.0
+      },
+      "server_cpu_percent": {
+        "mean": 1.6885245901639345,
+        "max": 3.0
+      },
+      "locust_aggregate": {
+        "requests": 590,
+        "failures": 0,
+        "p50_ms": 2.0,
+        "p95_ms": 3.0,
+        "p99_ms": 4.0,
+        "rps": 10.004183611405946
+      },
+      "request_log": "/home/vankcdhv/nhom8-data/hint-load/20261027T132710Z/requests-u10.jsonl"
+    },
+    {
+      "users": 50,
+      "locust_exit_code": 0,
+      "runtime_s": 61.105,
+      "requests": 2990,
+      "throughput_rps": 49.953,
+      "status_counts": {
+        "200": 2990
+      },
+      "latency_all": {
+        "count": 2990,
+        "p50_ms": 1.675,
+        "p95_ms": 2.643,
+        "p99_ms": 4.486,
+        "max_ms": 16.272,
+        "mean_ms": 1.8210026755852846
+      },
+      "latency_ok_non_attack": {
+        "count": 2990,
+        "p50_ms": 1.675,
+        "p95_ms": 2.643,
+        "p99_ms": 4.486,
+        "max_ms": 16.272,
+        "mean_ms": 1.8210026755852846
+      },
+      "latency_attack": {
+        "count": 0,
+        "p50_ms": null,
+        "p95_ms": null,
+        "p99_ms": null,
+        "max_ms": null,
+        "mean_ms": null
+      },
+      "slo_p95_ms": 300.0,
+      "slo_met": true,
+      "state_source_default": 0,
+      "state_source_default_ratio": 0.0,
+      "hint_level_counts": {
+        "1": 180,
+        "2": 192,
+        "3": 2618
+      },
+      "source_counts": {
+        "ladder": 1628,
+        "template": 1362
+      },
+      "verified_false": 0,
+      "request_kind_counts": {
+        "wrong": 680,
+        "correct": 1026,
+        "none": 1284
+      },
+      "pacing_overruns": 0,
+      "client_cpu_percent": {
+        "mean": 3.0163934426229506,
+        "max": 24.0
+      },
+      "server_cpu_percent": {
+        "mean": 7.819672131147541,
+        "max": 9.0
+      },
+      "locust_aggregate": {
+        "requests": 2951,
+        "failures": 0,
+        "p50_ms": 2.0,
+        "p95_ms": 3.0,
+        "p99_ms": 4.0,
+        "rps": 49.99363538969328
+      },
+      "request_log": "/home/vankcdhv/nhom8-data/hint-load/20261027T132710Z/requests-u50.jsonl"
+    },
+    {
+      "users": 100,
+      "locust_exit_code": 0,
+      "runtime_s": 61.086,
+      "requests": 5978,
+      "throughput_rps": 99.915,
+      "status_counts": {
+        "200": 5978
+      },
+      "latency_all": {
+        "count": 5978,
+        "p50_ms": 1.604,
+        "p95_ms": 2.536,
+        "p99_ms": 4.365,
+        "max_ms": 31.598,
+        "mean_ms": 1.734230344596855
+      },
+      "latency_ok_non_attack": {
+        "count": 5978,
+        "p50_ms": 1.604,
+        "p95_ms": 2.536,
+        "p99_ms": 4.365,
+        "max_ms": 31.598,
+        "mean_ms": 1.734230344596855
+      },
+      "latency_attack": {
+        "count": 0,
+        "p50_ms": null,
+        "p95_ms": null,
+        "p99_ms": null,
+        "max_ms": null,
+        "mean_ms": null
+      },
+      "slo_p95_ms": 300.0,
+      "slo_met": true,
+      "state_source_default": 0,
+      "state_source_default_ratio": 0.0,
+      "hint_level_counts": {
+        "1": 343,
+        "2": 390,
+        "3": 5245
+      },
+      "source_counts": {
+        "ladder": 3261,
+        "template": 2717
+      },
+      "verified_false": 0,
+      "request_kind_counts": {
+        "none": 2585,
+        "wrong": 1319,
+        "correct": 2074
+      },
+      "pacing_overruns": 0,
+      "client_cpu_percent": {
+        "mean": 4.852459016393443,
+        "max": 28.0
+      },
+      "server_cpu_percent": {
+        "mean": 14.836065573770492,
+        "max": 18.0
+      },
+      "locust_aggregate": {
+        "requests": 5903,
+        "failures": 0,
+        "p50_ms": 2.0,
+        "p95_ms": 3.0,
+        "p99_ms": 4.0,
+        "rps": 100.00355888442049
+      },
+      "request_log": "/home/vankcdhv/nhom8-data/hint-load/20261027T132710Z/requests-u100.jsonl"
+    }
+  ]
+}

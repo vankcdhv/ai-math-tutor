@@ -1,0 +1,115 @@
+{
+  "run_id": "batch-daily-20261027T112548Z-e62290",
+  "status": "success",
+  "parameters": {
+    "schedule": {
+      "name": "daily",
+      "period_ms": 86400000,
+      "phase_ms": 61298000,
+      "anchor_ms": 1793577600000,
+      "phase_source": "seed",
+      "phase_s": 61298.0,
+      "period_s": 86400.0
+    },
+    "impl": "dataframe",
+    "partitions": 3,
+    "events": "/home/vankcdhv/nhom8-data/sim-bench/day-1k-s11/events.parquet",
+    "format": "parquet",
+    "ground_truth": "/home/vankcdhv/nhom8-data/sim-bench/day-1k-s11/ground_truth.jsonl",
+    "t0_ms": 1793577600000,
+    "time_base_ms": 1793577600000,
+    "replay_start_ms": null,
+    "restamped": false,
+    "parity_check": true,
+    "snapshot_root": "/home/vankcdhv/nhom8-data/batch/batch-daily-20261027T112548Z-e62290",
+    "raw_dir": "/mnt/d/develop/thacsi/bigdata/nhom8-ai-math-tutor/results/raw/batch/batch-daily-20261027T112548Z-e62290"
+  },
+  "metrics": {
+    "runtime_s_total": 31.35,
+    "spark_startup_s": 2.663,
+    "inventory_s": 3.658,
+    "jobs": 2,
+    "cutoffs_first_iso": "2026-11-02T17:01:38.000Z",
+    "cutoffs_last_iso": "2026-11-03T17:01:38.000Z",
+    "job_runtime_s": {
+      "n": 2,
+      "mean": 6.575073152000073,
+      "p50": 6.575073152000073,
+      "p95": 7.199184875900062,
+      "max": 7.268530623000061
+    },
+    "job_runtime_total_s": 13.15,
+    "rows_in": 74680,
+    "rows_invalid": 0,
+    "rows_unique": 73212,
+    "rows_out_last": 5882,
+    "final_snapshot": {
+      "stuck": 141,
+      "consec_wrong_alert": 320,
+      "mastered": 5496,
+      "hints": 141
+    },
+    "episodes": {
+      "true_episodes": 1131,
+      "detected_episodes": 1131,
+      "true_positives": 1131,
+      "false_positives": 0,
+      "false_negatives": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "time_to_detect_s": {
+        "n": 1131,
+        "mean": 37184.95250839965,
+        "p50": 29077.218,
+        "p95": 82867.9265,
+        "max": 86178.938
+      },
+      "detected_while_open": 181,
+      "detected_while_open_share": 0.16003536693191867,
+      "onset_event_match": 1131,
+      "trigger_rule_holds": 1131,
+      "by_connection": {
+        "cellular": {
+          "true_episodes": 510,
+          "recall": 1.0,
+          "time_to_detect_s": {
+            "n": 510,
+            "mean": 38159.99393333334,
+            "p50": 29766.101,
+            "p95": 83108.72864999999,
+            "max": 85922.971
+          }
+        },
+        "wifi": {
+          "true_episodes": 621,
+          "recall": 1.0,
+          "time_to_detect_s": {
+            "n": 621,
+            "mean": 36384.19385024154,
+            "p50": 27222.778,
+            "p95": 82614.374,
+            "max": 86178.938
+          }
+        }
+      }
+    },
+    "staleness": {
+      "events": 60794,
+      "not_covered": 0,
+      "mean_s": 39238.96851113597,
+      "p50_s": 30259.811999999998,
+      "p95_s": 83200.25624999999,
+      "max_s": 86403.4
+    },
+    "profile_digest": "sha256:32ff235cf55f096043249579ddc7b87b4f543afa12db14a20b2c42851e892aa1",
+    "parity": {
+      "rows_left": 5882,
+      "rows_right": 5882,
+      "differing_rows": 0,
+      "identical": true,
+      "cutoff_ms": 1793725298000,
+      "seconds": 10.349
+    },
+    "error": null
+  }
+}

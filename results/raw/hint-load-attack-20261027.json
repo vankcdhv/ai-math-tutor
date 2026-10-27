@@ -1,0 +1,113 @@
+{
+  "tag": "attack-20261027",
+  "parameters": {
+    "duration_s": 60,
+    "pacing_s": 1.0,
+    "attack_fraction": 0.1,
+    "hint_generator": "ladder",
+    "math_workers": 4,
+    "math_timeout_s": 0.2,
+    "port": 8765,
+    "key_prefix": "lt-attack-20261027:",
+    "fixture_learners": 50,
+    "audit_log": true,
+    "loop": "closed (Locust, fixed per-user schedule)",
+    "uvicorn_workers": 1,
+    "start_jitter": true,
+    "locust_user": "FastHttpUser"
+  },
+  "data_version": "problem-bank-v2.jsonl@sha256:2792649903a6c3e3b66c3febe603e22d92fdbbe4c82237e3b9186370385e617d",
+  "server_health_after": {
+    "status": "ok",
+    "generator": "ladder",
+    "problems": 1260,
+    "unverified_problems": 0,
+    "redis": "ok",
+    "math_timeout_s": 0.2,
+    "counters": {
+      "diagnose_timeouts": 0,
+      "diagnose_errors": 0,
+      "lasthint_errors": 0
+    },
+    "audit": {
+      "queued": 2989,
+      "delivered": 2989,
+      "errors": 0,
+      "dropped": 0
+    }
+  },
+  "levels": [
+    {
+      "users": 50,
+      "locust_exit_code": 0,
+      "runtime_s": 61.077,
+      "requests": 2989,
+      "throughput_rps": 49.987,
+      "status_counts": {
+        "200": 2989
+      },
+      "latency_all": {
+        "count": 2989,
+        "p50_ms": 1.564,
+        "p95_ms": 2.872,
+        "p99_ms": 4.494,
+        "max_ms": 28.736,
+        "mean_ms": 1.7764600200736032
+      },
+      "latency_ok_non_attack": {
+        "count": 2695,
+        "p50_ms": 1.549,
+        "p95_ms": 2.811,
+        "p99_ms": 4.561,
+        "max_ms": 28.736,
+        "mean_ms": 1.740946567717996
+      },
+      "latency_attack": {
+        "count": 294,
+        "p50_ms": 1.935,
+        "p95_ms": 3.615,
+        "p99_ms": 4.286,
+        "max_ms": 20.341,
+        "mean_ms": 2.102
+      },
+      "slo_p95_ms": 300.0,
+      "slo_met": true,
+      "state_source_default": 0,
+      "state_source_default_ratio": 0.0,
+      "hint_level_counts": {
+        "2": 195,
+        "1": 149,
+        "3": 2645
+      },
+      "source_counts": {
+        "ladder": 1658,
+        "template": 1331
+      },
+      "verified_false": 0,
+      "request_kind_counts": {
+        "wrong": 628,
+        "correct": 935,
+        "none": 1132,
+        "attack": 294
+      },
+      "pacing_overruns": 0,
+      "client_cpu_percent": {
+        "mean": 2.5901639344262297,
+        "max": 25.0
+      },
+      "server_cpu_percent": {
+        "mean": 7.311475409836065,
+        "max": 9.0
+      },
+      "locust_aggregate": {
+        "requests": 2951,
+        "failures": 0,
+        "p50_ms": 2.0,
+        "p95_ms": 3.0,
+        "p99_ms": 4.0,
+        "rps": 49.99362327391079
+      },
+      "request_log": "/home/vankcdhv/nhom8-data/hint-load/attack-20261027/requests-u50.jsonl"
+    }
+  ]
+}

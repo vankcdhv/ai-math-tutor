@@ -1,0 +1,70 @@
+{
+  "ok": true,
+  "topic": "learner-events",
+  "partitions": 3,
+  "partitions_with_records": [
+    0,
+    1,
+    2
+  ],
+  "events_path": "/home/vankcdhv/nhom8-data/sim-ingest/r100/events.parquet",
+  "replay_start_ms": 1793100326069,
+  "cutoff_ms": 60000,
+  "expected": {
+    "deliveries": 6180,
+    "unique_events": 6070,
+    "duplicate_deliveries": 110,
+    "window_complete": false,
+    "end_of_log": "2026-10-27T11:26:25.937Z"
+  },
+  "manifest_counts": {
+    "unique_events": 9140,
+    "duplicate_deliveries": 173,
+    "deliveries": 9313
+  },
+  "manifest_match": null,
+  "topic_records": 6186,
+  "topic_unique_events": 6070,
+  "topic_duplicate_deliveries": 110,
+  "heartbeats": 6,
+  "failures": {
+    "validator_errors": 0,
+    "missing_events": 0,
+    "unexpected_events": 0,
+    "extra_duplicates": 0,
+    "content_mismatch": 0,
+    "duplicate_bytes_mismatch": 0,
+    "key_mismatch": 0,
+    "order_mismatch_learners": 0,
+    "learners_in_many_partitions": 0,
+    "undecodable": 0
+  },
+  "drain": {
+    "required": true,
+    "watermark_s": 120.0,
+    "max_event_time": "2026-10-27T11:28:27.937Z",
+    "watermark": "2026-10-27T11:26:27.937Z",
+    "watermark_past_end_of_log": true,
+    "heartbeat_partitions": [
+      0,
+      1,
+      2
+    ],
+    "all_partitions_heartbeat": true
+  },
+  "validation": {
+    "lines": 6186,
+    "unique_events": 6070,
+    "duplicate_deliveries": 110,
+    "late_events": 8,
+    "out_of_order_events": 8,
+    "sessions": 1000,
+    "math_labels_checked": 0,
+    "heartbeats": 6,
+    "errors": [],
+    "error_count": 0,
+    "seq_gap_sessions": 51
+  },
+  "wall_s": 2.469,
+  "run_id": "ingestion-r100-p2-20261027T112413Z"
+}

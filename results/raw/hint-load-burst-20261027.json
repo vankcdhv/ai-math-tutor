@@ -1,0 +1,183 @@
+{
+  "tag": "burst-20261027",
+  "parameters": {
+    "duration_s": 60,
+    "pacing_s": 1.0,
+    "attack_fraction": 0.0,
+    "hint_generator": "ladder",
+    "math_workers": 4,
+    "math_timeout_s": 0.2,
+    "port": 8765,
+    "key_prefix": "lt-burst-20261027:",
+    "fixture_learners": 100,
+    "audit_log": true,
+    "loop": "closed (Locust, fixed per-user schedule)",
+    "uvicorn_workers": 1,
+    "start_jitter": false,
+    "locust_user": "FastHttpUser"
+  },
+  "data_version": "problem-bank-v2.jsonl@sha256:2792649903a6c3e3b66c3febe603e22d92fdbbe4c82237e3b9186370385e617d",
+  "server_health_after": {
+    "status": "ok",
+    "generator": "ladder",
+    "problems": 1260,
+    "unverified_problems": 0,
+    "redis": "ok",
+    "math_timeout_s": 0.2,
+    "counters": {
+      "diagnose_timeouts": 0,
+      "diagnose_errors": 0,
+      "lasthint_errors": 0
+    },
+    "audit": {
+      "queued": 9000,
+      "delivered": 9000,
+      "errors": 0,
+      "dropped": 0
+    }
+  },
+  "levels": [
+    {
+      "users": 50,
+      "locust_exit_code": 0,
+      "runtime_s": 61.09,
+      "requests": 3000,
+      "throughput_rps": 50.853,
+      "status_counts": {
+        "200": 3000
+      },
+      "latency_all": {
+        "count": 3000,
+        "p50_ms": 32.924,
+        "p95_ms": 53.854,
+        "p99_ms": 149.373,
+        "max_ms": 169.991,
+        "mean_ms": 37.608470000000004
+      },
+      "latency_ok_non_attack": {
+        "count": 3000,
+        "p50_ms": 32.924,
+        "p95_ms": 53.854,
+        "p99_ms": 149.373,
+        "max_ms": 169.991,
+        "mean_ms": 37.608470000000004
+      },
+      "latency_attack": {
+        "count": 0,
+        "p50_ms": null,
+        "p95_ms": null,
+        "p99_ms": null,
+        "max_ms": null,
+        "mean_ms": null
+      },
+      "slo_p95_ms": 300.0,
+      "slo_met": true,
+      "state_source_default": 0,
+      "state_source_default_ratio": 0.0,
+      "hint_level_counts": {
+        "1": 180,
+        "2": 195,
+        "3": 2625
+      },
+      "source_counts": {
+        "ladder": 1633,
+        "template": 1367
+      },
+      "verified_false": 0,
+      "request_kind_counts": {
+        "none": 1287,
+        "correct": 1025,
+        "wrong": 688
+      },
+      "pacing_overruns": 0,
+      "client_cpu_percent": {
+        "mean": 1.3934426229508197,
+        "max": 27.0
+      },
+      "server_cpu_percent": {
+        "mean": 6.491803278688525,
+        "max": 14.0
+      },
+      "locust_aggregate": {
+        "requests": 2994,
+        "failures": 0,
+        "p50_ms": 33.0,
+        "p95_ms": 54.0,
+        "p99_ms": 150.0,
+        "rps": 50.708349045244006
+      },
+      "request_log": "/home/vankcdhv/nhom8-data/hint-load/burst-20261027/requests-u50.jsonl"
+    },
+    {
+      "users": 100,
+      "locust_exit_code": 0,
+      "runtime_s": 61.112,
+      "requests": 6000,
+      "throughput_rps": 101.65,
+      "status_counts": {
+        "200": 6000
+      },
+      "latency_all": {
+        "count": 6000,
+        "p50_ms": 62.159,
+        "p95_ms": 126.518,
+        "p99_ms": 144.791,
+        "max_ms": 154.483,
+        "mean_ms": 64.87695083333334
+      },
+      "latency_ok_non_attack": {
+        "count": 6000,
+        "p50_ms": 62.159,
+        "p95_ms": 126.518,
+        "p99_ms": 144.791,
+        "max_ms": 154.483,
+        "mean_ms": 64.87695083333334
+      },
+      "latency_attack": {
+        "count": 0,
+        "p50_ms": null,
+        "p95_ms": null,
+        "p99_ms": null,
+        "max_ms": null,
+        "mean_ms": null
+      },
+      "slo_p95_ms": 300.0,
+      "slo_met": true,
+      "state_source_default": 0,
+      "state_source_default_ratio": 0.0,
+      "hint_level_counts": {
+        "2": 392,
+        "1": 343,
+        "3": 5265
+      },
+      "source_counts": {
+        "ladder": 3266,
+        "template": 2734
+      },
+      "verified_false": 0,
+      "request_kind_counts": {
+        "none": 2594,
+        "correct": 2074,
+        "wrong": 1332
+      },
+      "pacing_overruns": 0,
+      "client_cpu_percent": {
+        "mean": 2.2131147540983607,
+        "max": 25.0
+      },
+      "server_cpu_percent": {
+        "mean": 12.729508196721312,
+        "max": 19.0
+      },
+      "locust_aggregate": {
+        "requests": 5940,
+        "failures": 0,
+        "p50_ms": 62.0,
+        "p95_ms": 130.0,
+        "p99_ms": 140.0,
+        "rps": 100.59711163605598
+      },
+      "request_log": "/home/vankcdhv/nhom8-data/hint-load/burst-20261027/requests-u100.jsonl"
+    }
+  ]
+}
