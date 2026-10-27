@@ -1,0 +1,35 @@
+# Cấu hình chạy thử vòng đời runner (một run streaming nhỏ, ~3 phút máy): kiểm runner chạy được
+# trên stack thật trước khi chạy ma trận plan-v1.0. Kết quả có experiment = "smoke", không vào tổng hợp.
+version: "smoke-1"
+
+defaults:
+  learners: 60
+  rate_events_per_s: 100
+  kafka_partitions: 3
+  replay_processes: 1
+  trigger: asap
+  mode: eager
+  watermark: "2 minutes"
+  dedup: true
+  learner_model: rule
+  late_profile: low
+  duplicate_rate: 0.02
+  duration_s: 60
+  warmup_s: 10
+  seeds: [11]
+  repeats: 1
+
+slo:
+  state_update_p95_ms: 5000
+  hint_api_p95_ms: 300
+
+sustainable:
+  window_s: 30
+  lag_slope_ratio: 0.01
+
+order: [smoke]
+
+experiments:
+  smoke:
+    kind: stream
+    question: "Runner chạy trọn một run (dữ liệu → reset → job → phát lại → drain → đối soát → run record) không?"

@@ -1,0 +1,57 @@
+# Ma trận thí nghiệm v0.1 — thay đổi một yếu tố mỗi lần quanh cấu hình mặc định,
+# cộng một lưới rate × partitions. Mỗi cấu hình lặp `repeats` lần với seed khác nhau.
+# Giao thức thống kê: docs/experiment-protocol.md.
+
+defaults:
+  learners: 1000
+  rate_events_per_s: 1000
+  kafka_partitions: 3
+  trigger: asap            # asap | "1 second" | "10 seconds" | "60 seconds"
+  watermark: "2 minutes"
+  late_profile: low        # low | high (phân bố độ trễ gửi do bộ mô phỏng chèn)
+  duplicate_rate: 0.02
+  duration_s: 600
+  warmup_s: 60
+  repeats: 3
+  seeds: [11, 22, 33]
+
+slo:
+  # Chốt sau spike 27/10/2026: P95 (visible − sent_time)
+  # ở 1K ev/s, trigger ASAP. Spike tối giản (dedup + transformWithStateInPandas + foreachBatch,
+  # RocksDB, i9-14900K/WSL2) đo được 2,3–2,6 s (processor ít lời gọi state) và 3,3 s (bản thường);
+  # 100 ev/s: 1,1–1,2 s. Pipeline đầy đủ thêm BKT, Redis, alerts, lake ⇒ chừa ~2×.
+  state_update_p95_ms: 5000
+  hint_api_p95_ms: 300         # khi không gọi LLM; chưa đo
+
+experiments:
+  A_throughput:
+    question: "Hệ thống chịu tải thế nào khi tăng tốc độ sự kiện và số partition?"
+    grid:
+      rate_events_per_s: [100, 1000, 10000]
+      kafka_partitions: [1, 3, 6]
+  B_cardinality:
+    question: "Số người học (kích thước trạng thái) ảnh hưởng độ trễ thế nào?"
+    vary:
+      learners: [100, 1000, 10000]
+  C_freshness_cost:
+    question: "RQ1 — streaming rút ngắn thời gian phát hiện bế tắc bao nhiêu, tốn thêm bao nhiêu tài nguyên?"
+    vary:
+      trigger: [asap, "1 second", "10 seconds", "60 seconds"]
+    batch_baselines: [daily, hourly]   # cùng event log; độ trễ = lịch chạy kế tiếp + runtime đo được
+  D_late_duplicate:
+    question: "RQ3 — watermark và khử trùng ảnh hưởng độ đúng trạng thái và công bằng thế nào?"
+    grid:
+      watermark: [none, "30 seconds", "2 minutes", "10 minutes"]
+      late_profile: [low, high]
+    slices: [client.connection]
+  E_hint_service:
+    question: "RQ2 (độ trễ) — API gợi ý giữ P95 khi tăng yêu cầu đồng thời?"
+    duration_s: 300
+    vary:
+      concurrent_requests: [1, 10, 50, 100]
+
+ablations:   # tuần 8
+  - dedup: [on, off]
+  - late_handling: [on, off]
+  - learner_model: [rule_profile, bkt]
+  - hint: [template, verified_ladder]

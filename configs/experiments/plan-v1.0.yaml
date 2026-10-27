@@ -1,0 +1,117 @@
+# Ma trận thí nghiệm v1.0 (máy đọc: ai_math_tutor.experiments.matrix). Bản v0.1 giữ làm lịch sử.
+# Thay đổi so với v0.1 (27/10/2026):
+#   - mọi thí nghiệm streaming khai báo `mode`: A, B, C, E chạy eager với W = 2 phút; D là trục
+#     mode × watermark × late_profile (12 ô) + mode none × late_profile (2 ô) = 14 cấu hình;
+#   - mục `ablations` có cấu trúc (mỗi ablation đổi đúng một yếu tố quanh cấu hình mặc định);
+#   - mục `stress`: soak 30 phút ở 1K ev/s và trần ingestion 30K/60K ev/s × P = 1/4/8.
+# Cấu hình trùng nhau giữa các thí nghiệm (vd. cấu hình mặc định nằm trong A, B, C, D và ablation)
+# là MỘT cấu hình, chạy một lần mỗi seed và phục vụ mọi thí nghiệm chứa nó (trường `groups`).
+# Giao thức thống kê: docs/experiment-protocol.md.
+
+version: "1.0"
+
+defaults:
+  learners: 1000
+  rate_events_per_s: 1000
+  kafka_partitions: 3
+  replay_processes: 2        # số tiến trình gửi của bộ phát lại (shard theo learner)
+  trigger: asap              # asap | "1 second" | "10 seconds" | "60 seconds"
+  mode: eager                # eager | ordered | none
+  watermark: "2 minutes"
+  dedup: true
+  learner_model: rule        # rule | bkt
+  late_profile: low          # low | high
+  duplicate_rate: 0.02
+  duration_s: 600
+  warmup_s: 60
+  problem_bank: data_sample/problem-bank-v2.jsonl   # kho bài của bộ mô phỏng: tập test 1.000 bài
+  problem_split: test
+  seeds: [11, 22, 33]
+  repeats: 3
+
+slo:
+  state_update_p95_ms: 5000  # P95 (visible − sent_time) ở 1K ev/s, eager
+  hint_api_p95_ms: 300
+
+# Throughput bền vững: độ dốc processing lag trong 5 phút cuối của phần phát lại ≤ tỉ lệ này × tốc độ mục tiêu.
+sustainable:
+  window_s: 300
+  lag_slope_ratio: 0.01
+
+# Thứ tự chạy khi --exp all (theo mức ưu tiên nếu ma trận phải chia hai đêm).
+order: [A_throughput, C_freshness_cost, D_late_duplicate, E_hint_service, B_cardinality, ablations, soak, ingest_ceiling]
+
+experiments:
+  A_throughput:
+    kind: stream
+    question: "Hệ thống chịu tải thế nào khi tăng tốc độ sự kiện và số partition?"
+    grid:
+      rate_events_per_s: [100, 1000, 10000]
+      kafka_partitions: [1, 3, 6]
+  B_cardinality:
+    kind: stream
+    question: "Số người học (kích thước trạng thái) ảnh hưởng độ trễ thế nào?"
+    vary:
+      learners: [100, 1000, 10000]
+  C_freshness_cost:
+    kind: stream
+    question: "RQ1 — streaming rút ngắn thời gian phát hiện bế tắc bao nhiêu, tốn thêm bao nhiêu tài nguyên?"
+    vary:
+      trigger: [asap, "1 second", "10 seconds", "60 seconds"]
+    # Batch daily/hourly chạy trên chính log đã phát lại của run streaming cùng seed (cửa sổ phát lại,
+    # cùng tập episode), dịch thời gian bằng replay_start của run đó.
+    batch_baselines:
+      schedules: [daily, hourly]
+      source: {trigger: asap}
+  D_late_duplicate:
+    kind: stream
+    question: "RQ3 — watermark và khử trùng ảnh hưởng độ đúng trạng thái và công bằng thế nào?"
+    grid:
+      mode: [eager, ordered]
+      watermark: ["30 seconds", "2 minutes", "10 minutes"]
+      late_profile: [low, high]
+    extra:
+      - {mode: none, late_profile: low}
+      - {mode: none, late_profile: high}
+    slices: [client.connection]
+  E_hint_service:
+    kind: hint
+    question: "RQ2 (độ trễ) — API gợi ý giữ P95 khi tăng yêu cầu đồng thời?"
+    duration_s: 300
+    hint_generator: ladder
+    vary:
+      concurrent_users: [1, 10, 50, 100]
+
+ablations:
+  dedup:
+    kind: stream
+    vary: {dedup: [true, false]}
+  late_handling:            # eager = áp ngay (không xử lý muộn), ordered = đệm tới watermark
+    kind: stream
+    vary: {mode: [eager, ordered]}
+  learner_model:
+    kind: stream
+    vary: {learner_model: [rule, bkt]}
+  hint_generator:
+    kind: hint
+    duration_s: 300
+    concurrent_users: 10
+    vary: {hint_generator: [template, ladder]}
+
+stress:
+  soak:
+    kind: stream
+    question: "Pipeline chạy 30 phút ở 1K ev/s có rò bộ nhớ hay vượt SLO P95 5 s không?"
+    duration_s: 1800
+    seeds: [11]
+    repeats: 1
+  ingest_ceiling:
+    kind: ingest
+    question: "Bộ phát lại + Kafka một node giữ được bao nhiêu ev/s với P tiến trình gửi?"
+    learners: 10000
+    duration_s: 60
+    seeds: [11]
+    repeats: 1
+    grid:
+      rate_events_per_s: [30000, 60000]
+      replay_processes: [1, 4, 8]
