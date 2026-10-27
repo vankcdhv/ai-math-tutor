@@ -1,0 +1,7 @@
+# Mã nguồn chạy trong WSL/Linux: luôn giữ LF để script bash và Python không vỡ.
+* text=auto eol=lf
+*.pdf binary
+*.png binary
+*.pptx binary
+*.docx binary
+*.parquet binary

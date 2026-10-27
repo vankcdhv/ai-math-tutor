@@ -1,0 +1,53 @@
+# Cấu hình chạy chung cho mọi thành phần (replay, Spark job, dịch vụ gợi ý, dashboard, runner).
+# Đọc qua ai_math_tutor.config.load_config(); biến môi trường ghi đè (xem docs/setup.md):
+#   NHOM8_ENV=host|container   chọn bootstrap/Redis host mặc định (host khi thí nghiệm)
+#   NHOM8_KAFKA_BOOTSTRAP      ghi đè bootstrap servers
+#   NHOM8_KAFKA_PARTITIONS     số partition learner-events của run
+#   NHOM8_SHUFFLE_PARTITIONS   spark.sql.shuffle.partitions (mặc định = NHOM8_KAFKA_PARTITIONS)
+#   NHOM8_REDIS_HOST, NHOM8_REDIS_PORT, REDIS_PASSWORD (bắt buộc khi dùng Redis; đặt trong .env)
+#   NHOM8_REDIS_DB             DB Redis (runner thí nghiệm dùng DB riêng, mặc định 9)
+#   NHOM8_DATA_ROOT            thư mục dữ liệu nóng trên ext4/SSD (checkpoints/, lake/)
+#   NHOM8_RESULTS_DIR          thư mục kết quả của job (progress.jsonl, job.json); mặc định results/raw
+# Không ghi mật khẩu hay khóa vào tệp này.
+
+kafka:
+  bootstrap_servers:
+    host: "127.0.0.1:9092"       # listener EXTERNAL — client chạy trên host/WSL
+    container: "kafka:29092"     # listener INTERNAL — container trong mạng Compose
+  partitions: 3                  # learner-events; thí nghiệm A đổi 1/3/6
+  topics:
+    learner_events: learner-events
+    alerts: alerts
+    dead_letter: dead-letter
+    hint_requests: hint-requests
+
+redis:
+  host:
+    host: "127.0.0.1"
+    container: "redis"
+  port: 6379
+  db: 0
+
+paths:
+  # Mặc định khi không đặt NHOM8_DATA_ROOT; "~" mở rộng theo người dùng hiện tại.
+  data_root: "~/nhom8-data"
+  checkpoints: checkpoints       # <data_root>/checkpoints/<run_id>
+  lake: lake                     # <data_root>/lake/<run_id>
+  results: results/raw           # tương đối với gốc repo; kết quả thô nhỏ, chỉ ghi nối
+
+spark:
+  master: "local[*]"
+  # Phiên bản connector phải khớp pyspark==4.1.3 (Scala 2.13).
+  packages:
+    - org.apache.spark:spark-sql-kafka-0-10_2.13:4.1.3
+  state_store_provider: org.apache.spark.sql.execution.streaming.state.RocksDBStateStoreProvider
+  # null = bằng kafka.partitions của run. Bị cố định theo checkpoint → checkpoint mới mỗi run.
+  shuffle_partitions: null
+  driver_memory: 4g
+  conf:
+    spark.sql.session.timeZone: UTC
+    # Driver và Spark UI không nghe trên mọi giao diện mạng.
+    spark.driver.host: 127.0.0.1
+    spark.driver.bindAddress: 127.0.0.1
+    spark.ui.enabled: "false"
+    spark.ui.showConsoleProgress: "false"

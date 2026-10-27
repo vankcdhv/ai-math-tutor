@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+# Dữ liệu đầy đủ, checkpoint, lake không đưa vào Git; chỉ giữ data_sample/, manifest và kho bài đã kiểm.
+data/*
+!data/problems/
+checkpoints/
+lake/
+*.parquet
+.env
+results/raw/*/logs/
