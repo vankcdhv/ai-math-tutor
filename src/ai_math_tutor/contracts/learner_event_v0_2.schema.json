@@ -1,0 +1,134 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://int4418.nhom8/contracts/learner-event/0.2",
+  "title": "LearnerEvent v0.2",
+  "description": "Một bản ghi trên topic Kafka learner-events (key = learner_id). v0.2 = v0.1 + loại heartbeat (bản ghi kỹ thuật đẩy watermark, không phải tương tác học tập). Sự kiện học tập mang schema_version 0.1 hoặc 0.2 với cùng cấu trúc v0.1; heartbeat bắt buộc 0.2. Không chứa PII và không chứa ground truth của bộ mô phỏng.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "event_id", "event_type", "learner_id", "event_time", "sent_time", "payload"],
+  "properties": {
+    "schema_version": { "enum": ["0.1", "0.2"] },
+    "event_id": {
+      "description": "UUID do client sinh một lần; gửi lại (retry) giữ nguyên event_id. Khóa khử trùng.",
+      "type": "string",
+      "format": "uuid",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+    },
+    "event_type": {
+      "enum": ["open_problem", "submit_step", "wrong_answer", "request_hint", "complete", "heartbeat"]
+    },
+    "learner_id": {
+      "description": "Bút danh: 16 ký tự hex đầu của HMAC-SHA256(salt bí mật, mã người học gốc). L-0000000000000000 dành riêng cho heartbeat.",
+      "type": "string",
+      "pattern": "^L-[0-9a-f]{16}$"
+    },
+    "class_id": { "type": "string", "pattern": "^C-[A-Z0-9-]{2,32}$" },
+    "session_id": { "type": "string", "pattern": "^S-[0-9a-f]{8}$" },
+    "session_seq": {
+      "description": "Số thứ tự tăng dần trong một phiên, bắt đầu từ 1; dùng để phát hiện mất, trùng và đảo thứ tự.",
+      "type": "integer",
+      "minimum": 1
+    },
+    "problem_id": { "type": "string", "pattern": "^P-[A-Z]+-[0-9]{3}$" },
+    "skill_ids": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^[a-z_]+\\.[a-z_]+$" }
+    },
+    "event_time": {
+      "description": "Thời điểm người học thao tác, theo đồng hồ thiết bị (UTC, ISO 8601). Mọi trạng thái tính theo trường này. Heartbeat: thời điểm watermark cần đạt tới (tổng hợp).",
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]{1,6})?Z$"
+    },
+    "sent_time": {
+      "description": "Thời điểm client gửi đi (UTC). sent_time - event_time lớn nghĩa là sự kiện bị đệm khi mất mạng (đến muộn). Heartbeat: bằng event_time.",
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]{1,6})?Z$"
+    },
+    "client": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["platform", "app_version", "connection"],
+      "properties": {
+        "platform": { "enum": ["web", "android", "ios"] },
+        "app_version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+        "connection": { "enum": ["wifi", "cellular", "unknown"] }
+      }
+    },
+    "payload": { "type": "object" }
+  },
+  "allOf": [
+    {
+      "if": { "required": ["event_type"], "properties": { "event_type": { "const": "heartbeat" } } },
+      "then": {
+        "description": "Heartbeat: chỉ các trường kỹ thuật, người học dành riêng, payload rỗng, chỉ có từ v0.2.",
+        "propertyNames": { "enum": ["schema_version", "event_id", "event_type", "learner_id", "event_time", "sent_time", "payload"] },
+        "properties": {
+          "schema_version": { "const": "0.2" },
+          "learner_id": { "const": "L-0000000000000000" },
+          "payload": { "type": "object", "additionalProperties": false, "maxProperties": 0 }
+        }
+      },
+      "else": {
+        "description": "Sự kiện học tập: đủ trường như v0.1 và không được dùng learner_id dành riêng.",
+        "required": ["class_id", "session_id", "session_seq", "problem_id", "skill_ids", "client"],
+        "properties": {
+          "learner_id": { "not": { "const": "L-0000000000000000" } }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "event_type": { "const": "open_problem" } } },
+      "then": { "properties": { "payload": { "type": "object", "additionalProperties": false, "maxProperties": 0 } } }
+    },
+    {
+      "if": { "properties": { "event_type": { "const": "submit_step" } } },
+      "then": { "properties": { "payload": {
+        "type": "object", "additionalProperties": false,
+        "required": ["step_index", "expression", "is_correct"],
+        "properties": {
+          "step_index": { "type": "integer", "minimum": 1 },
+          "expression": { "type": "string", "minLength": 1, "maxLength": 500 },
+          "is_correct": { "type": "boolean" }
+        }
+      } } }
+    },
+    {
+      "if": { "properties": { "event_type": { "const": "wrong_answer" } } },
+      "then": { "properties": { "payload": {
+        "type": "object", "additionalProperties": false,
+        "required": ["answer", "attempt"],
+        "properties": {
+          "answer": { "type": "string", "minLength": 1, "maxLength": 200 },
+          "attempt": { "type": "integer", "minimum": 1 }
+        }
+      } } }
+    },
+    {
+      "if": { "properties": { "event_type": { "const": "request_hint" } } },
+      "then": { "properties": { "payload": {
+        "type": "object", "additionalProperties": false,
+        "required": ["hint_level", "step_index"],
+        "properties": {
+          "hint_level": { "type": "integer", "minimum": 1, "maximum": 3 },
+          "step_index": { "type": "integer", "minimum": 1 }
+        }
+      } } }
+    },
+    {
+      "if": { "properties": { "event_type": { "const": "complete" } } },
+      "then": { "properties": { "payload": {
+        "type": "object", "additionalProperties": false,
+        "required": ["answer", "attempts", "hints_used"],
+        "properties": {
+          "answer": { "type": "string", "minLength": 1, "maxLength": 200 },
+          "attempts": { "type": "integer", "minimum": 1 },
+          "hints_used": { "type": "integer", "minimum": 0 }
+        }
+      } } }
+    }
+  ]
+}
