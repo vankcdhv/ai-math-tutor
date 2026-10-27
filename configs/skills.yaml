@@ -1,0 +1,69 @@
+# Kỹ năng (knowledge component) và khoảng tham số BKT cho bộ mô phỏng người học.
+# Đọc bởi ai_math_tutor.simulator.population.load_skills_config.
+#
+# Mỗi (người học, kỹ năng) lấy p_init (L0), p_learn (T), p_guess (G), p_slip (S) trong
+# khoảng [thấp, cao] dưới đây. Ràng buộc: G < 0.3 và S < 0.1 theo Corbett & Anderson
+# (qua nguồn thứ cấp); G + S < 1 được kiểm khi nạp. Đây là GIẢ ĐỊNH MÔ HÌNH
+# để tạo dữ liệu có ground truth, không phải ước lượng từ học sinh thật.
+#
+# Nhóm năng lực: mỗi người học thuộc một nhóm (theo share); với mỗi kỹ năng lấy
+# q ~ U(quantile) rồi đặt L0 = thấp + q·(cao − thấp), T tương tự, S = cao − q·(cao − thấp)
+# (năng lực cao ⇒ L0, T cao hơn, S thấp hơn). G lấy đều trong khoảng, không theo nhóm.
+#
+# Thứ tự danh sách = thứ tự chương trình học mà bộ mô phỏng đi qua.
+version: 1
+
+ability_groups:
+  low:    {share: 0.25, quantile: [0.0, 0.35]}
+  medium: {share: 0.50, quantile: [0.30, 0.70]}
+  high:   {share: 0.25, quantile: [0.65, 1.0]}
+
+skills:
+  - skill_id: arithmetic.multi_step
+    kind: arithmetic
+    name_vi: "Bài lời văn nhiều bước tính"
+    bkt: {p_init: [0.15, 0.50], p_learn: [0.05, 0.45], p_guess: [0.08, 0.25], p_slip: [0.02, 0.09]}
+  - skill_id: arithmetic.fractions
+    kind: arithmetic
+    name_vi: "Tính với phân số"
+    bkt: {p_init: [0.10, 0.45], p_learn: [0.04, 0.42], p_guess: [0.08, 0.22], p_slip: [0.03, 0.09]}
+  - skill_id: arithmetic.percent
+    kind: arithmetic
+    name_vi: "Phần trăm"
+    bkt: {p_init: [0.10, 0.45], p_learn: [0.04, 0.42], p_guess: [0.08, 0.22], p_slip: [0.03, 0.09]}
+  - skill_id: arithmetic.rates
+    kind: arithmetic
+    name_vi: "Tỉ lệ, vận tốc, năng suất"
+    bkt: {p_init: [0.08, 0.40], p_learn: [0.04, 0.40], p_guess: [0.08, 0.22], p_slip: [0.03, 0.09]}
+  - skill_id: linear_equation.isolate_variable
+    kind: equation
+    name_vi: "Cô lập ẩn (chuyển vế, chia hệ số)"
+    bkt: {p_init: [0.15, 0.50], p_learn: [0.05, 0.45], p_guess: [0.10, 0.25], p_slip: [0.02, 0.08]}
+  - skill_id: linear_equation.distribute
+    kind: equation
+    name_vi: "Phá ngoặc (tính chất phân phối)"
+    bkt: {p_init: [0.10, 0.45], p_learn: [0.04, 0.42], p_guess: [0.10, 0.25], p_slip: [0.03, 0.09]}
+  - skill_id: linear_equation.both_sides
+    kind: equation
+    name_vi: "Ẩn ở cả hai vế"
+    bkt: {p_init: [0.08, 0.40], p_learn: [0.04, 0.40], p_guess: [0.10, 0.25], p_slip: [0.03, 0.09]}
+  - skill_id: linear_equation.fractions
+    kind: equation
+    name_vi: "Phương trình có mẫu số"
+    bkt: {p_init: [0.06, 0.35], p_learn: [0.03, 0.38], p_guess: [0.08, 0.22], p_slip: [0.03, 0.09]}
+  - skill_id: quadratic_equation.factorization
+    kind: equation
+    name_vi: "Giải bậc hai bằng phân tích nhân tử"
+    bkt: {p_init: [0.05, 0.35], p_learn: [0.03, 0.36], p_guess: [0.08, 0.20], p_slip: [0.03, 0.09]}
+  - skill_id: quadratic_equation.square_root
+    kind: equation
+    name_vi: "Dạng x² = k (hai nghiệm đối nhau)"
+    bkt: {p_init: [0.08, 0.40], p_learn: [0.04, 0.40], p_guess: [0.08, 0.20], p_slip: [0.03, 0.09]}
+  - skill_id: quadratic_equation.formula
+    kind: equation
+    name_vi: "Công thức nghiệm / phần bù bình phương"
+    bkt: {p_init: [0.04, 0.30], p_learn: [0.03, 0.34], p_guess: [0.06, 0.18], p_slip: [0.04, 0.09]}
+  - skill_id: quadratic_equation.missing_root
+    kind: equation
+    name_vi: "Không bỏ sót nghiệm (đủ tập nghiệm)"
+    bkt: {p_init: [0.06, 0.35], p_learn: [0.03, 0.36], p_guess: [0.08, 0.22], p_slip: [0.03, 0.09]}
