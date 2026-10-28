@@ -1,0 +1,76 @@
+{
+  "scenario": "s2-d1-l100-B",
+  "design_number": 2,
+  "dataset": "D1",
+  "config": {
+    "name": "B",
+    "workers": 2,
+    "cores_per_worker": 2,
+    "memory_mb_per_worker": 4096,
+    "total_cores": 4
+  },
+  "spark_mode": "local-cluster",
+  "spark_conf_file": "spark-B.json",
+  "repeats": 3,
+  "input_partitions": 8,
+  "partitions": 8,
+  "k": 10,
+  "late_threshold_s": 30.0,
+  "dataset_info": {
+    "learners": 100,
+    "dataset_key": "l100-r10-low-dup2-h1230s-pbv2test-s11",
+    "seed": 11,
+    "params": {
+      "learners": 100,
+      "rate_events_per_s": 10.0,
+      "late_profile": "low",
+      "duplicate_rate": 0.02,
+      "duration_s": 1200,
+      "problem_bank": "data_sample/problem-bank-v2.jsonl",
+      "problem_split": "test"
+    },
+    "sim_dir": "/home/vankcdhv/nhom8-data/exp-sim/l100-r10-low-dup2-h1230s-pbv2test-s11",
+    "input": "/home/vankcdhv/nhom8-data/mapreduce/input/l100-r10-low-dup2-h1230s-pbv2test-s11-inv0.001-hb3/deliveries.jsonl",
+    "input_checksum": "sha256:e10be0622991c474df0abf8af1421c5139e8ee09d6aaf9a2b5294d9f0878e52c",
+    "input_size": 6860528,
+    "lines": 12448,
+    "invalid_rate": 0.001,
+    "injected": {
+      "invalid_by_reason": {
+        "malformed_json": 2,
+        "unknown_field": 0,
+        "missing_field": 0,
+        "event_type": 2,
+        "learner_id": 1,
+        "event_time": 1,
+        "learning_fields": 0,
+        "payload": 2,
+        "sent_before_event": 0
+      },
+      "invalid_total": 8,
+      "heartbeats": 3
+    },
+    "reference": "/home/vankcdhv/nhom8-data/mapreduce/input/l100-r10-low-dup2-h1230s-pbv2test-s11-inv0.001-hb3/reference-k10-late30.json.gz",
+    "manifest_counts": {
+      "unique_events": 12198,
+      "deliveries": 12437,
+      "duplicate_deliveries": 239,
+      "late_events": 132,
+      "sessions": 269,
+      "learners": 100
+    },
+    "by_event_type": {
+      "complete": 1213,
+      "open_problem": 1683,
+      "request_hint": 1642,
+      "submit_step": 7510,
+      "wrong_answer": 150
+    },
+    "cache": {
+      "simulation": false,
+      "input": false,
+      "reference": false
+    },
+    "simulate_s": 0.395
+  }
+}

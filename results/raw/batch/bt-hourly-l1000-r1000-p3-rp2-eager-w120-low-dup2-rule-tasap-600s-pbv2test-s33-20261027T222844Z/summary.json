@@ -1,0 +1,109 @@
+{
+  "run_id": "bt-hourly-l1000-r1000-p3-rp2-eager-w120-low-dup2-rule-tasap-600s-pbv2test-s33-20261027T222844Z",
+  "status": "success",
+  "parameters": {
+    "schedule": {
+      "name": "hourly",
+      "period_ms": 3600000,
+      "phase_ms": 1582000,
+      "anchor_ms": 1793122066685,
+      "phase_source": "seed",
+      "phase_s": 1582.0,
+      "period_s": 3600.0
+    },
+    "impl": "dataframe",
+    "partitions": 3,
+    "events": "/home/vankcdhv/nhom8-data/exp-work/bt-hourly-l1000-r1000-p3-rp2-eager-w120-low-dup2-rule-tasap-600s-pbv2test-s33-20261027T222844Z/window/events.parquet",
+    "format": "parquet",
+    "ground_truth": "/home/vankcdhv/nhom8-data/exp-work/bt-hourly-l1000-r1000-p3-rp2-eager-w120-low-dup2-rule-tasap-600s-pbv2test-s33-20261027T222844Z/window/ground_truth.jsonl",
+    "t0_ms": 1793577600000,
+    "time_base_ms": 1793122066685,
+    "replay_start_ms": 1793122066685,
+    "restamped": true,
+    "parity_check": false,
+    "snapshot_root": "/home/vankcdhv/nhom8-data/batch/bt-hourly-l1000-r1000-p3-rp2-eager-w120-low-dup2-rule-tasap-600s-pbv2test-s33-20261027T222844Z",
+    "raw_dir": "/mnt/d/develop/thacsi/bigdata/nhom8-ai-math-tutor/results/raw/batch/bt-hourly-l1000-r1000-p3-rp2-eager-w120-low-dup2-rule-tasap-600s-pbv2test-s33-20261027T222844Z"
+  },
+  "metrics": {
+    "runtime_s_total": 44.041,
+    "spark_startup_s": 2.935,
+    "inventory_s": 13.56,
+    "jobs": 1,
+    "cutoffs_first_iso": "2026-10-27T17:54:08.685Z",
+    "cutoffs_last_iso": "2026-10-27T17:54:08.685Z",
+    "job_runtime_s": {
+      "n": 1,
+      "mean": 26.416290232999017,
+      "p50": 26.416290232999017,
+      "p95": 26.416290232999017,
+      "max": 26.416290232999017
+    },
+    "job_runtime_total_s": 26.416,
+    "rows_in": 611215,
+    "rows_invalid": 0,
+    "rows_heartbeat": 0,
+    "rows_unique": 599334,
+    "rows_out_last": 11000,
+    "final_snapshot": {
+      "stuck": 0,
+      "consec_wrong_alert": 44,
+      "mastered": 11000,
+      "hints": 0
+    },
+    "episodes": {
+      "true_episodes": 2987,
+      "detected_episodes": 2987,
+      "true_positives": 2987,
+      "false_positives": 0,
+      "false_negatives": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "time_to_detect_s": {
+        "n": 2987,
+        "mean": 1539.7595118848344,
+        "p50": 1547.786,
+        "p95": 1594.115,
+        "max": 1598.948
+      },
+      "detected_while_open": 0,
+      "detected_while_open_share": 0.0,
+      "onset_event_match": 2981,
+      "trigger_rule_holds": 2987,
+      "by_connection": {
+        "cellular": {
+          "true_episodes": 1217,
+          "recall": 1.0,
+          "time_to_detect_s": {
+            "n": 1217,
+            "mean": 1540.3220353327854,
+            "p50": 1547.366,
+            "p95": 1593.889,
+            "max": 1598.948
+          }
+        },
+        "wifi": {
+          "true_episodes": 1770,
+          "recall": 1.0,
+          "time_to_detect_s": {
+            "n": 1770,
+            "mean": 1539.3727372881353,
+            "p50": 1548.191,
+            "p95": 1594.2864,
+            "max": 1597.659
+          }
+        }
+      }
+    },
+    "staleness": {
+      "events": 505046,
+      "not_covered": 0,
+      "mean_s": 1310.5335215128916,
+      "p50_s": 1311.1174999999998,
+      "p95_s": 1578.99725,
+      "max_s": 1608.172
+    },
+    "profile_digest": "sha256:f537685f3d69f78eae85ecc69d4c6e92f5b244f386bc9359956e1bab7ee79d82",
+    "parity": null,
+    "error": null
+  }
+}

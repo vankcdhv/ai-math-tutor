@@ -1,0 +1,653 @@
+{
+  "config": "B",
+  "resources": {
+    "name": "B",
+    "workers": 2,
+    "cores_per_worker": 2,
+    "memory_mb_per_worker": 4096,
+    "total_cores": 4
+  },
+  "spark_mode": "local-cluster",
+  "driver_memory": "2g",
+  "input_partitions": 8,
+  "partitions": 8,
+  "k": 10,
+  "late_threshold_s": 30.0,
+  "job_timeout_s": 900.0,
+  "results_dir": "/mnt/d/develop/thacsi/bigdata/nhom8-ai-math-tutor/results/mapreduce",
+  "runs_jsonl": "/mnt/d/develop/thacsi/bigdata/nhom8-ai-math-tutor/results/raw/runs.jsonl",
+  "data_root": "/home/vankcdhv/nhom8-data",
+  "work_dir": "/home/vankcdhv/nhom8-data/mapreduce/out",
+  "runs": [
+    {
+      "run_key": "warmup-B",
+      "warmup": true,
+      "scenario": "warmup-B",
+      "repeat": 0,
+      "dataset": {
+        "learners": 100,
+        "dataset_key": "l100-r10-low-dup2-h1230s-pbv2test-s11",
+        "seed": 11,
+        "params": {
+          "learners": 100,
+          "rate_events_per_s": 10.0,
+          "late_profile": "low",
+          "duplicate_rate": 0.02,
+          "duration_s": 1200,
+          "problem_bank": "data_sample/problem-bank-v2.jsonl",
+          "problem_split": "test"
+        },
+        "sim_dir": "/home/vankcdhv/nhom8-data/exp-sim/l100-r10-low-dup2-h1230s-pbv2test-s11",
+        "input": "/home/vankcdhv/nhom8-data/mapreduce/input/l100-r10-low-dup2-h1230s-pbv2test-s11-inv0.001-hb3/deliveries.jsonl",
+        "input_checksum": "sha256:e10be0622991c474df0abf8af1421c5139e8ee09d6aaf9a2b5294d9f0878e52c",
+        "input_size": 6860528,
+        "lines": 12448,
+        "invalid_rate": 0.001,
+        "injected": {
+          "invalid_by_reason": {
+            "malformed_json": 2,
+            "unknown_field": 0,
+            "missing_field": 0,
+            "event_type": 2,
+            "learner_id": 1,
+            "event_time": 1,
+            "learning_fields": 0,
+            "payload": 2,
+            "sent_before_event": 0
+          },
+          "invalid_total": 8,
+          "heartbeats": 3
+        },
+        "reference": "/home/vankcdhv/nhom8-data/mapreduce/input/l100-r10-low-dup2-h1230s-pbv2test-s11-inv0.001-hb3/reference-k10-late30.json.gz",
+        "manifest_counts": {
+          "unique_events": 12198,
+          "deliveries": 12437,
+          "duplicate_deliveries": 239,
+          "late_events": 132,
+          "sessions": 269,
+          "learners": 100
+        },
+        "by_event_type": {
+          "complete": 1213,
+          "open_problem": 1683,
+          "request_hint": 1642,
+          "submit_step": 7510,
+          "wrong_answer": 150
+        },
+        "cache": {
+          "simulation": false,
+          "input": false,
+          "reference": false
+        },
+        "simulate_s": 0.395
+      }
+    },
+    {
+      "run_key": "s2-d1-l100-B-r1",
+      "warmup": false,
+      "scenario": "s2-d1-l100-B",
+      "repeat": 1,
+      "dataset": {
+        "learners": 100,
+        "dataset_key": "l100-r10-low-dup2-h1230s-pbv2test-s11",
+        "seed": 11,
+        "params": {
+          "learners": 100,
+          "rate_events_per_s": 10.0,
+          "late_profile": "low",
+          "duplicate_rate": 0.02,
+          "duration_s": 1200,
+          "problem_bank": "data_sample/problem-bank-v2.jsonl",
+          "problem_split": "test"
+        },
+        "sim_dir": "/home/vankcdhv/nhom8-data/exp-sim/l100-r10-low-dup2-h1230s-pbv2test-s11",
+        "input": "/home/vankcdhv/nhom8-data/mapreduce/input/l100-r10-low-dup2-h1230s-pbv2test-s11-inv0.001-hb3/deliveries.jsonl",
+        "input_checksum": "sha256:e10be0622991c474df0abf8af1421c5139e8ee09d6aaf9a2b5294d9f0878e52c",
+        "input_size": 6860528,
+        "lines": 12448,
+        "invalid_rate": 0.001,
+        "injected": {
+          "invalid_by_reason": {
+            "malformed_json": 2,
+            "unknown_field": 0,
+            "missing_field": 0,
+            "event_type": 2,
+            "learner_id": 1,
+            "event_time": 1,
+            "learning_fields": 0,
+            "payload": 2,
+            "sent_before_event": 0
+          },
+          "invalid_total": 8,
+          "heartbeats": 3
+        },
+        "reference": "/home/vankcdhv/nhom8-data/mapreduce/input/l100-r10-low-dup2-h1230s-pbv2test-s11-inv0.001-hb3/reference-k10-late30.json.gz",
+        "manifest_counts": {
+          "unique_events": 12198,
+          "deliveries": 12437,
+          "duplicate_deliveries": 239,
+          "late_events": 132,
+          "sessions": 269,
+          "learners": 100
+        },
+        "by_event_type": {
+          "complete": 1213,
+          "open_problem": 1683,
+          "request_hint": 1642,
+          "submit_step": 7510,
+          "wrong_answer": 150
+        },
+        "cache": {
+          "simulation": false,
+          "input": false,
+          "reference": false
+        },
+        "simulate_s": 0.395
+      }
+    },
+    {
+      "run_key": "s2-d1-l100-B-r2",
+      "warmup": false,
+      "scenario": "s2-d1-l100-B",
+      "repeat": 2,
+      "dataset": {
+        "learners": 100,
+        "dataset_key": "l100-r10-low-dup2-h1230s-pbv2test-s11",
+        "seed": 11,
+        "params": {
+          "learners": 100,
+          "rate_events_per_s": 10.0,
+          "late_profile": "low",
+          "duplicate_rate": 0.02,
+          "duration_s": 1200,
+          "problem_bank": "data_sample/problem-bank-v2.jsonl",
+          "problem_split": "test"
+        },
+        "sim_dir": "/home/vankcdhv/nhom8-data/exp-sim/l100-r10-low-dup2-h1230s-pbv2test-s11",
+        "input": "/home/vankcdhv/nhom8-data/mapreduce/input/l100-r10-low-dup2-h1230s-pbv2test-s11-inv0.001-hb3/deliveries.jsonl",
+        "input_checksum": "sha256:e10be0622991c474df0abf8af1421c5139e8ee09d6aaf9a2b5294d9f0878e52c",
+        "input_size": 6860528,
+        "lines": 12448,
+        "invalid_rate": 0.001,
+        "injected": {
+          "invalid_by_reason": {
+            "malformed_json": 2,
+            "unknown_field": 0,
+            "missing_field": 0,
+            "event_type": 2,
+            "learner_id": 1,
+            "event_time": 1,
+            "learning_fields": 0,
+            "payload": 2,
+            "sent_before_event": 0
+          },
+          "invalid_total": 8,
+          "heartbeats": 3
+        },
+        "reference": "/home/vankcdhv/nhom8-data/mapreduce/input/l100-r10-low-dup2-h1230s-pbv2test-s11-inv0.001-hb3/reference-k10-late30.json.gz",
+        "manifest_counts": {
+          "unique_events": 12198,
+          "deliveries": 12437,
+          "duplicate_deliveries": 239,
+          "late_events": 132,
+          "sessions": 269,
+          "learners": 100
+        },
+        "by_event_type": {
+          "complete": 1213,
+          "open_problem": 1683,
+          "request_hint": 1642,
+          "submit_step": 7510,
+          "wrong_answer": 150
+        },
+        "cache": {
+          "simulation": false,
+          "input": false,
+          "reference": false
+        },
+        "simulate_s": 0.395
+      }
+    },
+    {
+      "run_key": "s2-d1-l100-B-r3",
+      "warmup": false,
+      "scenario": "s2-d1-l100-B",
+      "repeat": 3,
+      "dataset": {
+        "learners": 100,
+        "dataset_key": "l100-r10-low-dup2-h1230s-pbv2test-s11",
+        "seed": 11,
+        "params": {
+          "learners": 100,
+          "rate_events_per_s": 10.0,
+          "late_profile": "low",
+          "duplicate_rate": 0.02,
+          "duration_s": 1200,
+          "problem_bank": "data_sample/problem-bank-v2.jsonl",
+          "problem_split": "test"
+        },
+        "sim_dir": "/home/vankcdhv/nhom8-data/exp-sim/l100-r10-low-dup2-h1230s-pbv2test-s11",
+        "input": "/home/vankcdhv/nhom8-data/mapreduce/input/l100-r10-low-dup2-h1230s-pbv2test-s11-inv0.001-hb3/deliveries.jsonl",
+        "input_checksum": "sha256:e10be0622991c474df0abf8af1421c5139e8ee09d6aaf9a2b5294d9f0878e52c",
+        "input_size": 6860528,
+        "lines": 12448,
+        "invalid_rate": 0.001,
+        "injected": {
+          "invalid_by_reason": {
+            "malformed_json": 2,
+            "unknown_field": 0,
+            "missing_field": 0,
+            "event_type": 2,
+            "learner_id": 1,
+            "event_time": 1,
+            "learning_fields": 0,
+            "payload": 2,
+            "sent_before_event": 0
+          },
+          "invalid_total": 8,
+          "heartbeats": 3
+        },
+        "reference": "/home/vankcdhv/nhom8-data/mapreduce/input/l100-r10-low-dup2-h1230s-pbv2test-s11-inv0.001-hb3/reference-k10-late30.json.gz",
+        "manifest_counts": {
+          "unique_events": 12198,
+          "deliveries": 12437,
+          "duplicate_deliveries": 239,
+          "late_events": 132,
+          "sessions": 269,
+          "learners": 100
+        },
+        "by_event_type": {
+          "complete": 1213,
+          "open_problem": 1683,
+          "request_hint": 1642,
+          "submit_step": 7510,
+          "wrong_answer": 150
+        },
+        "cache": {
+          "simulation": false,
+          "input": false,
+          "reference": false
+        },
+        "simulate_s": 0.395
+      }
+    },
+    {
+      "run_key": "s4-d2-l1000-B-r1",
+      "warmup": false,
+      "scenario": "s4-d2-l1000-B",
+      "repeat": 1,
+      "dataset": {
+        "learners": 1000,
+        "dataset_key": "l1000-r100-low-dup2-h1230s-pbv2test-s11",
+        "seed": 11,
+        "params": {
+          "learners": 1000,
+          "rate_events_per_s": 100.0,
+          "late_profile": "low",
+          "duplicate_rate": 0.02,
+          "duration_s": 1200,
+          "problem_bank": "data_sample/problem-bank-v2.jsonl",
+          "problem_split": "test"
+        },
+        "sim_dir": "/home/vankcdhv/nhom8-data/exp-sim/l1000-r100-low-dup2-h1230s-pbv2test-s11",
+        "input": "/home/vankcdhv/nhom8-data/mapreduce/input/l1000-r100-low-dup2-h1230s-pbv2test-s11-inv0.001-hb3/deliveries.jsonl",
+        "input_checksum": "sha256:899ee2585980fd612e09c9eb19e3db4ec9f46aaae5a7d50b084fd5bec20bf034",
+        "input_size": 69087582,
+        "lines": 125486,
+        "invalid_rate": 0.001,
+        "injected": {
+          "invalid_by_reason": {
+            "malformed_json": 14,
+            "unknown_field": 11,
+            "missing_field": 12,
+            "event_type": 19,
+            "learner_id": 11,
+            "event_time": 15,
+            "learning_fields": 15,
+            "payload": 19,
+            "sent_before_event": 9
+          },
+          "invalid_total": 125,
+          "heartbeats": 3
+        },
+        "reference": "/home/vankcdhv/nhom8-data/mapreduce/input/l1000-r100-low-dup2-h1230s-pbv2test-s11-inv0.001-hb3/reference-k10-late30.json.gz",
+        "manifest_counts": {
+          "unique_events": 122887,
+          "deliveries": 125358,
+          "duplicate_deliveries": 2471,
+          "late_events": 1641,
+          "sessions": 2617,
+          "learners": 1000
+        },
+        "by_event_type": {
+          "complete": 11898,
+          "open_problem": 16924,
+          "request_hint": 17276,
+          "submit_step": 74950,
+          "wrong_answer": 1839
+        },
+        "cache": {
+          "simulation": false,
+          "input": false,
+          "reference": false
+        },
+        "simulate_s": 2.678
+      }
+    },
+    {
+      "run_key": "s4-d2-l1000-B-r2",
+      "warmup": false,
+      "scenario": "s4-d2-l1000-B",
+      "repeat": 2,
+      "dataset": {
+        "learners": 1000,
+        "dataset_key": "l1000-r100-low-dup2-h1230s-pbv2test-s11",
+        "seed": 11,
+        "params": {
+          "learners": 1000,
+          "rate_events_per_s": 100.0,
+          "late_profile": "low",
+          "duplicate_rate": 0.02,
+          "duration_s": 1200,
+          "problem_bank": "data_sample/problem-bank-v2.jsonl",
+          "problem_split": "test"
+        },
+        "sim_dir": "/home/vankcdhv/nhom8-data/exp-sim/l1000-r100-low-dup2-h1230s-pbv2test-s11",
+        "input": "/home/vankcdhv/nhom8-data/mapreduce/input/l1000-r100-low-dup2-h1230s-pbv2test-s11-inv0.001-hb3/deliveries.jsonl",
+        "input_checksum": "sha256:899ee2585980fd612e09c9eb19e3db4ec9f46aaae5a7d50b084fd5bec20bf034",
+        "input_size": 69087582,
+        "lines": 125486,
+        "invalid_rate": 0.001,
+        "injected": {
+          "invalid_by_reason": {
+            "malformed_json": 14,
+            "unknown_field": 11,
+            "missing_field": 12,
+            "event_type": 19,
+            "learner_id": 11,
+            "event_time": 15,
+            "learning_fields": 15,
+            "payload": 19,
+            "sent_before_event": 9
+          },
+          "invalid_total": 125,
+          "heartbeats": 3
+        },
+        "reference": "/home/vankcdhv/nhom8-data/mapreduce/input/l1000-r100-low-dup2-h1230s-pbv2test-s11-inv0.001-hb3/reference-k10-late30.json.gz",
+        "manifest_counts": {
+          "unique_events": 122887,
+          "deliveries": 125358,
+          "duplicate_deliveries": 2471,
+          "late_events": 1641,
+          "sessions": 2617,
+          "learners": 1000
+        },
+        "by_event_type": {
+          "complete": 11898,
+          "open_problem": 16924,
+          "request_hint": 17276,
+          "submit_step": 74950,
+          "wrong_answer": 1839
+        },
+        "cache": {
+          "simulation": false,
+          "input": false,
+          "reference": false
+        },
+        "simulate_s": 2.678
+      }
+    },
+    {
+      "run_key": "s4-d2-l1000-B-r3",
+      "warmup": false,
+      "scenario": "s4-d2-l1000-B",
+      "repeat": 3,
+      "dataset": {
+        "learners": 1000,
+        "dataset_key": "l1000-r100-low-dup2-h1230s-pbv2test-s11",
+        "seed": 11,
+        "params": {
+          "learners": 1000,
+          "rate_events_per_s": 100.0,
+          "late_profile": "low",
+          "duplicate_rate": 0.02,
+          "duration_s": 1200,
+          "problem_bank": "data_sample/problem-bank-v2.jsonl",
+          "problem_split": "test"
+        },
+        "sim_dir": "/home/vankcdhv/nhom8-data/exp-sim/l1000-r100-low-dup2-h1230s-pbv2test-s11",
+        "input": "/home/vankcdhv/nhom8-data/mapreduce/input/l1000-r100-low-dup2-h1230s-pbv2test-s11-inv0.001-hb3/deliveries.jsonl",
+        "input_checksum": "sha256:899ee2585980fd612e09c9eb19e3db4ec9f46aaae5a7d50b084fd5bec20bf034",
+        "input_size": 69087582,
+        "lines": 125486,
+        "invalid_rate": 0.001,
+        "injected": {
+          "invalid_by_reason": {
+            "malformed_json": 14,
+            "unknown_field": 11,
+            "missing_field": 12,
+            "event_type": 19,
+            "learner_id": 11,
+            "event_time": 15,
+            "learning_fields": 15,
+            "payload": 19,
+            "sent_before_event": 9
+          },
+          "invalid_total": 125,
+          "heartbeats": 3
+        },
+        "reference": "/home/vankcdhv/nhom8-data/mapreduce/input/l1000-r100-low-dup2-h1230s-pbv2test-s11-inv0.001-hb3/reference-k10-late30.json.gz",
+        "manifest_counts": {
+          "unique_events": 122887,
+          "deliveries": 125358,
+          "duplicate_deliveries": 2471,
+          "late_events": 1641,
+          "sessions": 2617,
+          "learners": 1000
+        },
+        "by_event_type": {
+          "complete": 11898,
+          "open_problem": 16924,
+          "request_hint": 17276,
+          "submit_step": 74950,
+          "wrong_answer": 1839
+        },
+        "cache": {
+          "simulation": false,
+          "input": false,
+          "reference": false
+        },
+        "simulate_s": 2.678
+      }
+    },
+    {
+      "run_key": "s6-d3-l10000-B-r1",
+      "warmup": false,
+      "scenario": "s6-d3-l10000-B",
+      "repeat": 1,
+      "dataset": {
+        "learners": 10000,
+        "dataset_key": "l10000-r1000-low-dup2-h1230s-pbv2test-s11",
+        "seed": 11,
+        "params": {
+          "learners": 10000,
+          "rate_events_per_s": 1000.0,
+          "late_profile": "low",
+          "duplicate_rate": 0.02,
+          "duration_s": 1200,
+          "problem_bank": "data_sample/problem-bank-v2.jsonl",
+          "problem_split": "test"
+        },
+        "sim_dir": "/home/vankcdhv/nhom8-data/exp-sim/l10000-r1000-low-dup2-h1230s-pbv2test-s11",
+        "input": "/home/vankcdhv/nhom8-data/mapreduce/input/l10000-r1000-low-dup2-h1230s-pbv2test-s11-inv0.001-hb3/deliveries.jsonl",
+        "input_checksum": "sha256:4d31961ab7e47fef34fab07d65ab22177c118fc6ec962db17fb57d96275d97e8",
+        "input_size": 692045959,
+        "lines": 1256768,
+        "invalid_rate": 0.001,
+        "injected": {
+          "invalid_by_reason": {
+            "malformed_json": 131,
+            "unknown_field": 123,
+            "missing_field": 130,
+            "event_type": 148,
+            "learner_id": 146,
+            "event_time": 150,
+            "learning_fields": 138,
+            "payload": 146,
+            "sent_before_event": 149
+          },
+          "invalid_total": 1261,
+          "heartbeats": 3
+        },
+        "reference": "/home/vankcdhv/nhom8-data/mapreduce/input/l10000-r1000-low-dup2-h1230s-pbv2test-s11-inv0.001-hb3/reference-k10-late30.json.gz",
+        "manifest_counts": {
+          "unique_events": 1230985,
+          "deliveries": 1255504,
+          "duplicate_deliveries": 24519,
+          "late_events": 16085,
+          "sessions": 26058,
+          "learners": 10000
+        },
+        "by_event_type": {
+          "complete": 119654,
+          "open_problem": 169467,
+          "request_hint": 171457,
+          "submit_step": 752384,
+          "wrong_answer": 18023
+        },
+        "cache": {
+          "simulation": false,
+          "input": false,
+          "reference": false
+        },
+        "simulate_s": 33.785
+      }
+    },
+    {
+      "run_key": "s6-d3-l10000-B-r2",
+      "warmup": false,
+      "scenario": "s6-d3-l10000-B",
+      "repeat": 2,
+      "dataset": {
+        "learners": 10000,
+        "dataset_key": "l10000-r1000-low-dup2-h1230s-pbv2test-s11",
+        "seed": 11,
+        "params": {
+          "learners": 10000,
+          "rate_events_per_s": 1000.0,
+          "late_profile": "low",
+          "duplicate_rate": 0.02,
+          "duration_s": 1200,
+          "problem_bank": "data_sample/problem-bank-v2.jsonl",
+          "problem_split": "test"
+        },
+        "sim_dir": "/home/vankcdhv/nhom8-data/exp-sim/l10000-r1000-low-dup2-h1230s-pbv2test-s11",
+        "input": "/home/vankcdhv/nhom8-data/mapreduce/input/l10000-r1000-low-dup2-h1230s-pbv2test-s11-inv0.001-hb3/deliveries.jsonl",
+        "input_checksum": "sha256:4d31961ab7e47fef34fab07d65ab22177c118fc6ec962db17fb57d96275d97e8",
+        "input_size": 692045959,
+        "lines": 1256768,
+        "invalid_rate": 0.001,
+        "injected": {
+          "invalid_by_reason": {
+            "malformed_json": 131,
+            "unknown_field": 123,
+            "missing_field": 130,
+            "event_type": 148,
+            "learner_id": 146,
+            "event_time": 150,
+            "learning_fields": 138,
+            "payload": 146,
+            "sent_before_event": 149
+          },
+          "invalid_total": 1261,
+          "heartbeats": 3
+        },
+        "reference": "/home/vankcdhv/nhom8-data/mapreduce/input/l10000-r1000-low-dup2-h1230s-pbv2test-s11-inv0.001-hb3/reference-k10-late30.json.gz",
+        "manifest_counts": {
+          "unique_events": 1230985,
+          "deliveries": 1255504,
+          "duplicate_deliveries": 24519,
+          "late_events": 16085,
+          "sessions": 26058,
+          "learners": 10000
+        },
+        "by_event_type": {
+          "complete": 119654,
+          "open_problem": 169467,
+          "request_hint": 171457,
+          "submit_step": 752384,
+          "wrong_answer": 18023
+        },
+        "cache": {
+          "simulation": false,
+          "input": false,
+          "reference": false
+        },
+        "simulate_s": 33.785
+      }
+    },
+    {
+      "run_key": "s6-d3-l10000-B-r3",
+      "warmup": false,
+      "scenario": "s6-d3-l10000-B",
+      "repeat": 3,
+      "dataset": {
+        "learners": 10000,
+        "dataset_key": "l10000-r1000-low-dup2-h1230s-pbv2test-s11",
+        "seed": 11,
+        "params": {
+          "learners": 10000,
+          "rate_events_per_s": 1000.0,
+          "late_profile": "low",
+          "duplicate_rate": 0.02,
+          "duration_s": 1200,
+          "problem_bank": "data_sample/problem-bank-v2.jsonl",
+          "problem_split": "test"
+        },
+        "sim_dir": "/home/vankcdhv/nhom8-data/exp-sim/l10000-r1000-low-dup2-h1230s-pbv2test-s11",
+        "input": "/home/vankcdhv/nhom8-data/mapreduce/input/l10000-r1000-low-dup2-h1230s-pbv2test-s11-inv0.001-hb3/deliveries.jsonl",
+        "input_checksum": "sha256:4d31961ab7e47fef34fab07d65ab22177c118fc6ec962db17fb57d96275d97e8",
+        "input_size": 692045959,
+        "lines": 1256768,
+        "invalid_rate": 0.001,
+        "injected": {
+          "invalid_by_reason": {
+            "malformed_json": 131,
+            "unknown_field": 123,
+            "missing_field": 130,
+            "event_type": 148,
+            "learner_id": 146,
+            "event_time": 150,
+            "learning_fields": 138,
+            "payload": 146,
+            "sent_before_event": 149
+          },
+          "invalid_total": 1261,
+          "heartbeats": 3
+        },
+        "reference": "/home/vankcdhv/nhom8-data/mapreduce/input/l10000-r1000-low-dup2-h1230s-pbv2test-s11-inv0.001-hb3/reference-k10-late30.json.gz",
+        "manifest_counts": {
+          "unique_events": 1230985,
+          "deliveries": 1255504,
+          "duplicate_deliveries": 24519,
+          "late_events": 16085,
+          "sessions": 26058,
+          "learners": 10000
+        },
+        "by_event_type": {
+          "complete": 119654,
+          "open_problem": 169467,
+          "request_hint": 171457,
+          "submit_step": 752384,
+          "wrong_answer": 18023
+        },
+        "cache": {
+          "simulation": false,
+          "input": false,
+          "reference": false
+        },
+        "simulate_s": 33.785
+      }
+    }
+  ]
+}

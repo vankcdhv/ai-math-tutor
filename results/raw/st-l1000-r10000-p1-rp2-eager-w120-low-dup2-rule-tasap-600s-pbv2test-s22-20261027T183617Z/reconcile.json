@@ -1,0 +1,185 @@
+{
+  "alerts": {
+    "by_type": {
+      "consec_wrong": 38018,
+      "stuck": 2916
+    },
+    "duplicate_stream_entries": 0,
+    "lake_matches_stream": true,
+    "lake_unique_alert_ids": 40934,
+    "stream_entries": 40934,
+    "unique_alert_ids": 40934,
+    "vs_ground_truth": {
+      "alert_ids_per_episode": {
+        "0": 98,
+        "1": 2815
+      },
+      "detected": 2815,
+      "detected_exact_onset": 2572,
+      "episodes_in_window": 2913,
+      "recall": 0.9663577068314453,
+      "time_to_detect_staleness_ms": {
+        "max": 57932.0,
+        "mean": 32227.62806394316,
+        "n": 2815,
+        "p50": 26634.0,
+        "p95": 56689.0
+      },
+      "time_to_detect_system_ms": {
+        "max": 57668.0,
+        "mean": 31233.672824156307,
+        "n": 2815,
+        "p50": 26402.0,
+        "p95": 56524.0
+      }
+    },
+    "vs_oracle": {
+      "extra": 335,
+      "matched": 2581,
+      "missing": 330,
+      "oracle_onsets": 2911,
+      "system_stuck_alerts": 2916
+    }
+  },
+  "applied": {
+    "event_ids_applied_more_than_once": 0,
+    "examples": [],
+    "rows": 5983429,
+    "unique": 5983429
+  },
+  "checks": {
+    "applied_subset_of_window": true,
+    "lake_alerts_match_stream": true,
+    "no_duplicate_alert_in_stream": true,
+    "no_event_applied_twice": true,
+    "watermark_past_end_of_log": true
+  },
+  "cutoff_ms": 600000,
+  "dropped": {
+    "applied_not_in_window": 0,
+    "applied_unique": 5983429,
+    "by_connection": {
+      "cellular": {
+        "applied": 2421726,
+        "drop_rate": 0.00010776275842933922,
+        "dropped": 261,
+        "window": 2421987
+      },
+      "wifi": {
+        "applied": 3561703,
+        "drop_rate": 0.0,
+        "dropped": 0,
+        "window": 3561703
+      }
+    },
+    "by_event_type": {
+      "complete": {
+        "applied": 966880,
+        "drop_rate": 2.8958287655081974e-05,
+        "dropped": 28,
+        "window": 966908
+      },
+      "open_problem": {
+        "applied": 976137,
+        "drop_rate": 3.995181196833358e-05,
+        "dropped": 39,
+        "window": 976176
+      },
+      "request_hint": {
+        "applied": 175710,
+        "drop_rate": 0.00010812102726357061,
+        "dropped": 19,
+        "window": 175729
+      },
+      "submit_step": {
+        "applied": 3742024,
+        "drop_rate": 4.4091840364022234e-05,
+        "dropped": 165,
+        "window": 3742189
+      },
+      "wrong_answer": {
+        "applied": 122678,
+        "drop_rate": 8.15075639019301e-05,
+        "dropped": 10,
+        "window": 122688
+      }
+    },
+    "deliveries": 6102898,
+    "injected_duplicates": 119208,
+    "late_events_by_connection": {
+      "cellular": {
+        "applied": 61409,
+        "drop_rate": 0.004232203664666775,
+        "dropped": 261,
+        "window": 61670
+      },
+      "wifi": {
+        "applied": 6554,
+        "drop_rate": 0.0,
+        "dropped": 0,
+        "window": 6554
+      }
+    },
+    "rate": 4.361856981227303e-05,
+    "spark_dropped_by_watermark_rows": 263,
+    "spark_dropped_duplicate_rows": 119206,
+    "total": 261,
+    "total_by_formula": 261,
+    "unique_events": 5983690
+  },
+  "end_of_log_ms": 1793126922869,
+  "final_watermark_ms": 1793127192869,
+  "inputs": {
+    "events": "/home/vankcdhv/nhom8-data/exp-sim/l1000-r10000-low-dup2-h630s-pbv2test-s22/events.parquet",
+    "ground_truth": "/home/vankcdhv/nhom8-data/exp-sim/l1000-r10000-low-dup2-h630s-pbv2test-s22/ground_truth.jsonl",
+    "key_prefix": "",
+    "lake": "/home/vankcdhv/nhom8-data/lake/st-l1000-r10000-p1-rp2-eager-w120-low-dup2-rule-tasap-600s-pbv2test-s22-20261027T183617Z",
+    "progress": "/home/vankcdhv/nhom8-data/exp-work/st-l1000-r10000-p1-rp2-eager-w120-low-dup2-rule-tasap-600s-pbv2test-s22-20261027T183617Z/progress.jsonl"
+  },
+  "latency": {
+    "count": 5983429,
+    "out_of_order": 41577,
+    "staleness_ms": {
+      "max": 834480.0,
+      "p50": 322552.0,
+      "p95": 508835.0,
+      "p99": 532651.0
+    },
+    "system_ms": {
+      "max": 537180.0,
+      "p50": 321275.0,
+      "p95": 507292.0,
+      "p99": 531199.0
+    }
+  },
+  "model": "rule",
+  "progress_batches": 12,
+  "replay_start_ms": 1793126322887,
+  "replay_stopped_early": false,
+  "run_id": "st-l1000-r10000-p1-rp2-eager-w120-low-dup2-rule-tasap-600s-pbv2test-s22-20261027T183617Z",
+  "state_vs_latent": {
+    "end_offset_s": 599.982,
+    "pairs_without_ground_truth": 0,
+    "rule_mastered": {
+      "accuracy": 1.0,
+      "fn": 0,
+      "fp": 0,
+      "pairs": 11000,
+      "tn": 0,
+      "tp": 11000
+    }
+  },
+  "state_vs_oracle": {
+    "accuracy": 1.0,
+    "examples": [],
+    "extra_in_redis": 0,
+    "matched": 11000,
+    "mismatch_by_field": {},
+    "missing_examples": [],
+    "missing_in_redis": 0,
+    "model": "rule",
+    "pairs_expected": 11000,
+    "pairs_in_redis": 11000
+  },
+  "status": "ok"
+}

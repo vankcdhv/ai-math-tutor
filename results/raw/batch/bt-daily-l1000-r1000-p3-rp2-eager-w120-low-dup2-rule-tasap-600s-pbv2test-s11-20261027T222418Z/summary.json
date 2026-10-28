@@ -1,0 +1,109 @@
+{
+  "run_id": "bt-daily-l1000-r1000-p3-rp2-eager-w120-low-dup2-rule-tasap-600s-pbv2test-s11-20261027T222418Z",
+  "status": "success",
+  "parameters": {
+    "schedule": {
+      "name": "daily",
+      "period_ms": 86400000,
+      "phase_ms": 61298000,
+      "anchor_ms": 1793120695625,
+      "phase_source": "seed",
+      "phase_s": 61298.0,
+      "period_s": 86400.0
+    },
+    "impl": "dataframe",
+    "partitions": 3,
+    "events": "/home/vankcdhv/nhom8-data/exp-work/bt-daily-l1000-r1000-p3-rp2-eager-w120-low-dup2-rule-tasap-600s-pbv2test-s11-20261027T222418Z/window/events.parquet",
+    "format": "parquet",
+    "ground_truth": "/home/vankcdhv/nhom8-data/exp-work/bt-daily-l1000-r1000-p3-rp2-eager-w120-low-dup2-rule-tasap-600s-pbv2test-s11-20261027T222418Z/window/ground_truth.jsonl",
+    "t0_ms": 1793577600000,
+    "time_base_ms": 1793120695625,
+    "replay_start_ms": 1793120695625,
+    "restamped": true,
+    "parity_check": false,
+    "snapshot_root": "/home/vankcdhv/nhom8-data/batch/bt-daily-l1000-r1000-p3-rp2-eager-w120-low-dup2-rule-tasap-600s-pbv2test-s11-20261027T222418Z",
+    "raw_dir": "/mnt/d/develop/thacsi/bigdata/nhom8-ai-math-tutor/results/raw/batch/bt-daily-l1000-r1000-p3-rp2-eager-w120-low-dup2-rule-tasap-600s-pbv2test-s11-20261027T222418Z"
+  },
+  "metrics": {
+    "runtime_s_total": 46.724,
+    "spark_startup_s": 2.799,
+    "inventory_s": 13.649,
+    "jobs": 1,
+    "cutoffs_first_iso": "2026-10-28T10:06:33.625Z",
+    "cutoffs_last_iso": "2026-10-28T10:06:33.625Z",
+    "job_runtime_s": {
+      "n": 1,
+      "mean": 29.140296133002266,
+      "p50": 29.140296133002266,
+      "p95": 29.140296133002266,
+      "max": 29.140296133002266
+    },
+    "job_runtime_total_s": 29.14,
+    "rows_in": 611253,
+    "rows_invalid": 0,
+    "rows_heartbeat": 0,
+    "rows_unique": 599166,
+    "rows_out_last": 11000,
+    "final_snapshot": {
+      "stuck": 0,
+      "consec_wrong_alert": 47,
+      "mastered": 11000,
+      "hints": 0
+    },
+    "episodes": {
+      "true_episodes": 3085,
+      "detected_episodes": 3087,
+      "true_positives": 3085,
+      "false_positives": 2,
+      "false_negatives": 0,
+      "precision": 0.9993521218011014,
+      "recall": 1.0,
+      "time_to_detect_s": {
+        "n": 3085,
+        "mean": 61258.28528427877,
+        "p50": 61267.009,
+        "p95": 61312.9566,
+        "max": 61317.961
+      },
+      "detected_while_open": 0,
+      "detected_while_open_share": 0.0,
+      "onset_event_match": 3083,
+      "trigger_rule_holds": 3085,
+      "by_connection": {
+        "cellular": {
+          "true_episodes": 1272,
+          "recall": 1.0,
+          "time_to_detect_s": {
+            "n": 1272,
+            "mean": 61258.539805817614,
+            "p50": 61266.995500000005,
+            "p95": 61312.95595,
+            "max": 61317.961
+          }
+        },
+        "wifi": {
+          "true_episodes": 1813,
+          "recall": 1.0,
+          "time_to_detect_s": {
+            "n": 1813,
+            "mean": 61258.10671207943,
+            "p50": 61267.017,
+            "p95": 61312.9304,
+            "max": 61316.89
+          }
+        }
+      }
+    },
+    "staleness": {
+      "events": 504955,
+      "not_covered": 0,
+      "mean_s": 61029.21506429682,
+      "p50_s": 61029.743,
+      "p95_s": 61297.7323,
+      "max_s": 61326.957
+    },
+    "profile_digest": "sha256:019e62647cf71ca0542c07ec2c8aa406498145c9062f4880edacafd535eccf67",
+    "parity": null,
+    "error": null
+  }
+}

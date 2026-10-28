@@ -1,0 +1,449 @@
+{
+  "alerts": {
+    "by_type": {
+      "consec_wrong": 3747,
+      "stuck": 264
+    },
+    "duplicate_stream_entries": 0,
+    "lake_matches_stream": true,
+    "lake_unique_alert_ids": 4011,
+    "stream_entries": 4011,
+    "unique_alert_ids": 4011,
+    "vs_ground_truth": {
+      "alert_ids_per_episode": {
+        "0": 27,
+        "1": 235
+      },
+      "detected": 235,
+      "detected_exact_onset": 204,
+      "episodes_in_window": 262,
+      "recall": 0.8969465648854962,
+      "time_to_detect_staleness_ms": {
+        "max": 3511.0,
+        "mean": 1755.9276595744682,
+        "n": 235,
+        "p50": 1666.0,
+        "p95": 2809.0
+      },
+      "time_to_detect_system_ms": {
+        "max": 2988.0,
+        "mean": 1587.4553191489363,
+        "n": 235,
+        "p50": 1532.0,
+        "p95": 2642.0
+      }
+    },
+    "vs_oracle": {
+      "extra": 57,
+      "matched": 207,
+      "missing": 54,
+      "oracle_onsets": 261,
+      "system_stuck_alerts": 264
+    }
+  },
+  "applied": {
+    "event_ids_applied_more_than_once": 0,
+    "examples": [],
+    "rows": 597126,
+    "unique": 597126
+  },
+  "checks": {
+    "applied_subset_of_window": true,
+    "lake_alerts_match_stream": true,
+    "no_duplicate_alert_in_stream": true,
+    "no_event_applied_twice": true,
+    "watermark_past_end_of_log": true
+  },
+  "cutoff_ms": 600000,
+  "dropped": {
+    "applied_not_in_window": 0,
+    "applied_unique": 597126,
+    "by_connection": {
+      "cellular": {
+        "applied": 248977,
+        "drop_rate": 0.004251319788833786,
+        "dropped": 1063,
+        "window": 250040
+      },
+      "wifi": {
+        "applied": 348149,
+        "drop_rate": 4.308314472489976e-05,
+        "dropped": 15,
+        "window": 348164
+      }
+    },
+    "by_event_type": {
+      "complete": {
+        "applied": 96837,
+        "drop_rate": 0.0015260091766768056,
+        "dropped": 148,
+        "window": 96985
+      },
+      "open_problem": {
+        "applied": 97712,
+        "drop_rate": 0.0017367851086001512,
+        "dropped": 170,
+        "window": 97882
+      },
+      "request_hint": {
+        "applied": 17097,
+        "drop_rate": 0.002566944752348171,
+        "dropped": 44,
+        "window": 17141
+      },
+      "submit_step": {
+        "applied": 373621,
+        "drop_rate": 0.0018433869162274151,
+        "dropped": 690,
+        "window": 374311
+      },
+      "wrong_answer": {
+        "applied": 11859,
+        "drop_rate": 0.002187631468237274,
+        "dropped": 26,
+        "window": 11885
+      }
+    },
+    "deliveries": 610274,
+    "injected_duplicates": 12070,
+    "late_events_by_connection": {
+      "cellular": {
+        "applied": 5205,
+        "drop_rate": 0.16959157626037014,
+        "dropped": 1063,
+        "window": 6268
+      },
+      "wifi": {
+        "applied": 600,
+        "drop_rate": 0.024390243902439025,
+        "dropped": 15,
+        "window": 615
+      }
+    },
+    "rate": 0.001802060835434066,
+    "spark_dropped_by_watermark_rows": 1102,
+    "spark_dropped_duplicate_rows": 12046,
+    "total": 1078,
+    "total_by_formula": 1078,
+    "unique_events": 598204
+  },
+  "end_of_log_ms": 1793172278127,
+  "final_watermark_ms": 1793172282127,
+  "inputs": {
+    "events": "/home/vankcdhv/nhom8-data/exp-sim/l100-r1000-low-dup2-h630s-pbv2test-s22/events.parquet",
+    "ground_truth": "/home/vankcdhv/nhom8-data/exp-sim/l100-r1000-low-dup2-h630s-pbv2test-s22/ground_truth.jsonl",
+    "key_prefix": "",
+    "lake": "/home/vankcdhv/nhom8-data/lake/st-l100-r1000-p3-rp2-eager-w120-low-dup2-rule-tasap-600s-pbv2test-s22-20261028T071415Z",
+    "progress": "/home/vankcdhv/nhom8-data/exp-work/st-l100-r1000-p3-rp2-eager-w120-low-dup2-rule-tasap-600s-pbv2test-s22-20261028T071415Z/progress.jsonl"
+  },
+  "latency": {
+    "count": 597126,
+    "out_of_order": 48261,
+    "staleness_ms": {
+      "max": 123003.0,
+      "p50": 1493.0,
+      "p95": 2371.0,
+      "p99": 7681.0
+    },
+    "system_ms": {
+      "max": 2937.0,
+      "p50": 1338.0,
+      "p95": 1801.0,
+      "p99": 1930.0
+    }
+  },
+  "model": "rule",
+  "progress_batches": 663,
+  "replay_start_ms": 1793171678157,
+  "replay_stopped_early": false,
+  "run_id": "st-l100-r1000-p3-rp2-eager-w120-low-dup2-rule-tasap-600s-pbv2test-s22-20261028T071415Z",
+  "state_vs_latent": {
+    "end_offset_s": 599.97,
+    "pairs_without_ground_truth": 0,
+    "rule_mastered": {
+      "accuracy": 1.0,
+      "fn": 0,
+      "fp": 0,
+      "pairs": 1100,
+      "tn": 0,
+      "tp": 1100
+    }
+  },
+  "state_vs_oracle": {
+    "accuracy": 0.7854545454545454,
+    "examples": [
+      {
+        "actual": {
+          "consec_wrong": 0,
+          "correct": 1841,
+          "mastered": true,
+          "opportunities": 1961,
+          "p_mastery": null,
+          "streak": 2,
+          "stuck": false
+        },
+        "expected": {
+          "consec_wrong": 0,
+          "correct": 1841,
+          "hints_used": 25,
+          "mastered": true,
+          "opportunities": 1961,
+          "p_mastery": null,
+          "streak": 1,
+          "stuck": false
+        },
+        "fields": [
+          "streak"
+        ],
+        "learner_id": "L-02e49a8d78c96bba",
+        "skill_id": "arithmetic.multi_step"
+      },
+      {
+        "actual": {
+          "consec_wrong": 0,
+          "correct": 556,
+          "mastered": true,
+          "opportunities": 602,
+          "p_mastery": null,
+          "streak": 9,
+          "stuck": false
+        },
+        "expected": {
+          "consec_wrong": 0,
+          "correct": 556,
+          "hints_used": 7,
+          "mastered": true,
+          "opportunities": 602,
+          "p_mastery": null,
+          "streak": 10,
+          "stuck": false
+        },
+        "fields": [
+          "streak"
+        ],
+        "learner_id": "L-02e49a8d78c96bba",
+        "skill_id": "arithmetic.percent"
+      },
+      {
+        "actual": {
+          "consec_wrong": 0,
+          "correct": 784,
+          "mastered": true,
+          "opportunities": 871,
+          "p_mastery": null,
+          "streak": 14,
+          "stuck": false
+        },
+        "expected": {
+          "consec_wrong": 0,
+          "correct": 784,
+          "hints_used": 31,
+          "mastered": true,
+          "opportunities": 871,
+          "p_mastery": null,
+          "streak": 13,
+          "stuck": false
+        },
+        "fields": [
+          "streak"
+        ],
+        "learner_id": "L-02e49a8d78c96bba",
+        "skill_id": "quadratic_equation.missing_root"
+      },
+      {
+        "actual": {
+          "consec_wrong": 0,
+          "correct": 740,
+          "mastered": true,
+          "opportunities": 879,
+          "p_mastery": null,
+          "streak": 9,
+          "stuck": false
+        },
+        "expected": {
+          "consec_wrong": 0,
+          "correct": 740,
+          "hints_used": 55,
+          "mastered": true,
+          "opportunities": 879,
+          "p_mastery": null,
+          "streak": 10,
+          "stuck": false
+        },
+        "fields": [
+          "streak"
+        ],
+        "learner_id": "L-06225e8185269c12",
+        "skill_id": "arithmetic.fractions"
+      },
+      {
+        "actual": {
+          "consec_wrong": 0,
+          "correct": 1693,
+          "mastered": true,
+          "opportunities": 1935,
+          "p_mastery": null,
+          "streak": 29,
+          "stuck": false
+        },
+        "expected": {
+          "consec_wrong": 0,
+          "correct": 1693,
+          "hints_used": 82,
+          "mastered": true,
+          "opportunities": 1935,
+          "p_mastery": null,
+          "streak": 30,
+          "stuck": false
+        },
+        "fields": [
+          "streak"
+        ],
+        "learner_id": "L-06225e8185269c12",
+        "skill_id": "arithmetic.multi_step"
+      },
+      {
+        "actual": {
+          "consec_wrong": 0,
+          "correct": 422,
+          "mastered": true,
+          "opportunities": 495,
+          "p_mastery": null,
+          "streak": 9,
+          "stuck": false
+        },
+        "expected": {
+          "consec_wrong": 0,
+          "correct": 422,
+          "hints_used": 26,
+          "mastered": true,
+          "opportunities": 495,
+          "p_mastery": null,
+          "streak": 10,
+          "stuck": false
+        },
+        "fields": [
+          "streak"
+        ],
+        "learner_id": "L-06225e8185269c12",
+        "skill_id": "arithmetic.rates"
+      },
+      {
+        "actual": {
+          "consec_wrong": 0,
+          "correct": 1086,
+          "mastered": true,
+          "opportunities": 1278,
+          "p_mastery": null,
+          "streak": 25,
+          "stuck": false
+        },
+        "expected": {
+          "consec_wrong": 0,
+          "correct": 1086,
+          "hints_used": 64,
+          "mastered": true,
+          "opportunities": 1278,
+          "p_mastery": null,
+          "streak": 24,
+          "stuck": false
+        },
+        "fields": [
+          "streak"
+        ],
+        "learner_id": "L-06225e8185269c12",
+        "skill_id": "linear_equation.both_sides"
+      },
+      {
+        "actual": {
+          "consec_wrong": 0,
+          "correct": 551,
+          "mastered": true,
+          "opportunities": 659,
+          "p_mastery": null,
+          "streak": 11,
+          "stuck": false
+        },
+        "expected": {
+          "consec_wrong": 0,
+          "correct": 551,
+          "hints_used": 36,
+          "mastered": true,
+          "opportunities": 659,
+          "p_mastery": null,
+          "streak": 13,
+          "stuck": false
+        },
+        "fields": [
+          "streak"
+        ],
+        "learner_id": "L-06225e8185269c12",
+        "skill_id": "linear_equation.fractions"
+      },
+      {
+        "actual": {
+          "consec_wrong": 0,
+          "correct": 1661,
+          "mastered": true,
+          "opportunities": 1896,
+          "p_mastery": null,
+          "streak": 36,
+          "stuck": false
+        },
+        "expected": {
+          "consec_wrong": 0,
+          "correct": 1661,
+          "hints_used": 73,
+          "mastered": true,
+          "opportunities": 1896,
+          "p_mastery": null,
+          "streak": 34,
+          "stuck": false
+        },
+        "fields": [
+          "streak"
+        ],
+        "learner_id": "L-06225e8185269c12",
+        "skill_id": "linear_equation.isolate_variable"
+      },
+      {
+        "actual": {
+          "consec_wrong": 0,
+          "correct": 788,
+          "mastered": true,
+          "opportunities": 901,
+          "p_mastery": null,
+          "streak": 4,
+          "stuck": false
+        },
+        "expected": {
+          "consec_wrong": 0,
+          "correct": 788,
+          "hints_used": 40,
+          "mastered": true,
+          "opportunities": 901,
+          "p_mastery": null,
+          "streak": 3,
+          "stuck": false
+        },
+        "fields": [
+          "streak"
+        ],
+        "learner_id": "L-06225e8185269c12",
+        "skill_id": "quadratic_equation.missing_root"
+      }
+    ],
+    "extra_in_redis": 0,
+    "matched": 864,
+    "mismatch_by_field": {
+      "consec_wrong": 19,
+      "streak": 234
+    },
+    "missing_examples": [],
+    "missing_in_redis": 0,
+    "model": "rule",
+    "pairs_expected": 1100,
+    "pairs_in_redis": 1100
+  },
+  "status": "ok"
+}

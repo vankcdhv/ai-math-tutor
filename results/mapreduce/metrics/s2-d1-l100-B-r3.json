@@ -1,0 +1,862 @@
+{
+  "run_key": "s2-d1-l100-B-r3",
+  "run_id": "mr-s2-d1-l100-B-r3-20261028T110101Z",
+  "status": "success",
+  "error": null,
+  "warmup": false,
+  "scenario": "s2-d1-l100-B",
+  "config": "B",
+  "scale_learners": 100,
+  "repeat": 3,
+  "started_at": "2026-10-28T11:01:01.511124+00:00",
+  "job_wall_s": 1.798,
+  "throughput_deliveries_per_s": 6923.2,
+  "actions_s": {
+    "stats": 0.504,
+    "invalid_output": 0.18,
+    "counters_output": 0.555,
+    "dedup_stats": 0.159,
+    "top_k": 0.347
+  },
+  "counts": {
+    "deliveries": 12448,
+    "valid_deliveries": 12437,
+    "heartbeats": 3,
+    "invalid": 8,
+    "invalid_with_event_id": 8,
+    "unique_events": 12198,
+    "duplicate_deliveries": 239,
+    "conflicting_event_ids": 0,
+    "late_events": 132,
+    "output_keys": 1561
+  },
+  "invalid_by_reason": {
+    "event_time": 1,
+    "event_type": 2,
+    "learner_id": 1,
+    "malformed_json": 2,
+    "payload": 2
+  },
+  "top_k": [
+    [
+      "P-NTE-058",
+      370
+    ],
+    [
+      "P-NTE-054",
+      67
+    ],
+    [
+      "P-NTE-062",
+      64
+    ],
+    [
+      "P-NTE-158",
+      57
+    ],
+    [
+      "P-NTE-070",
+      53
+    ],
+    [
+      "P-NTE-087",
+      50
+    ],
+    [
+      "P-NTE-023",
+      49
+    ],
+    [
+      "P-NTE-034",
+      46
+    ],
+    [
+      "P-NTE-235",
+      43
+    ],
+    [
+      "P-NTE-049",
+      26
+    ]
+  ],
+  "correctness": {
+    "match": true,
+    "checks": {
+      "stats": true,
+      "invalid_by_reason": true,
+      "counters": true,
+      "counter_totals": true,
+      "top_k": true
+    },
+    "diffs": {
+      "stats": {},
+      "invalid_by_reason": {},
+      "counters": {
+        "missing": 0,
+        "extra": 0,
+        "different": 0,
+        "examples": []
+      },
+      "counter_totals": {
+        "fields": [
+          "events",
+          "attempts",
+          "wrong",
+          "hint_requests",
+          "completed"
+        ],
+        "actual": [
+          12198,
+          8873,
+          3275,
+          1642,
+          1159
+        ],
+        "expected": [
+          12198,
+          8873,
+          3275,
+          1642,
+          1159
+        ]
+      },
+      "top_k": null
+    }
+  },
+  "data_checks": {
+    "ok": true,
+    "checks": {
+      "unique_events": {
+        "expected": 12198,
+        "actual": 12198,
+        "ok": true
+      },
+      "duplicate_deliveries": {
+        "expected": 239,
+        "actual": 239,
+        "ok": true
+      },
+      "late_events": {
+        "expected": 132,
+        "actual": 132,
+        "ok": true
+      },
+      "invalid": {
+        "expected": 8,
+        "actual": 8,
+        "ok": true
+      },
+      "heartbeats": {
+        "expected": 3,
+        "actual": 3,
+        "ok": true
+      },
+      "deliveries": {
+        "expected": 12448,
+        "actual": 12448,
+        "ok": true
+      }
+    }
+  },
+  "resources": {
+    "driver_cpu_percent_mean": 31.674999999999997,
+    "driver_cpu_percent_peak": 49.6,
+    "driver_rss_bytes_peak": 766623744.0,
+    "executors_cpu_percent_mean": 368.225,
+    "executors_rss_bytes_peak_sum": 1481953280.0,
+    "per_role": {
+      "driver": {
+        "cpu_percent": {
+          "samples": 4,
+          "peak": 49.6,
+          "mean": 31.674999999999997
+        },
+        "rss_bytes": {
+          "samples": 4,
+          "peak": 766623744.0,
+          "mean": 765200384.0
+        }
+      },
+      "executor-0": {
+        "cpu_percent": {
+          "samples": 4,
+          "peak": 265.7,
+          "mean": 184.625
+        },
+        "rss_bytes": {
+          "samples": 4,
+          "peak": 768937984.0,
+          "mean": 758905856.0
+        }
+      },
+      "executor-1": {
+        "cpu_percent": {
+          "samples": 4,
+          "peak": 259.4,
+          "mean": 183.6
+        },
+        "rss_bytes": {
+          "samples": 4,
+          "peak": 713015296.0,
+          "mean": 703173632.0
+        }
+      }
+    },
+    "samples_interval_s": 0.5,
+    "monitor_errors": 0,
+    "executor_pids": {
+      "1": 3795533,
+      "0": 3795534
+    }
+  },
+  "io_delta_machine": {
+    "disk_read_bytes": 0,
+    "disk_write_bytes": 1716224,
+    "loopback_bytes_sent": 22074390
+  },
+  "spark": {
+    "stages": [
+      {
+        "stage_id": 36,
+        "attempt": 0,
+        "label": "stats",
+        "name": "reduceByKey at /mnt/d/develop/thacsi/bigdata/nhom8-ai-math-tutor/src/ai_math_tutor/batch/mapreduce_problems.py:671",
+        "status": "COMPLETE",
+        "duration_ms": 334,
+        "num_tasks": 8,
+        "failed_tasks": 0,
+        "killed_tasks": 0,
+        "executor_run_time_ms": 1250,
+        "executor_cpu_time_ns": 92546499,
+        "jvm_gc_time_ms": 4,
+        "input_bytes": 7738846,
+        "input_records": 12448,
+        "output_bytes": 0,
+        "output_records": 0,
+        "shuffle_read_bytes": 0,
+        "shuffle_read_records": 0,
+        "shuffle_remote_bytes_read": 0,
+        "shuffle_local_bytes_read": 0,
+        "shuffle_fetch_wait_ms": 0,
+        "shuffle_write_bytes": 1291,
+        "shuffle_write_records": 15,
+        "shuffle_write_time_ns": 3653302,
+        "memory_spilled_bytes": 0,
+        "disk_spilled_bytes": 0,
+        "task_attempts_retried": 0,
+        "speculative_tasks": 0,
+        "skew": null
+      },
+      {
+        "stage_id": 37,
+        "attempt": 0,
+        "label": "stats",
+        "name": "collect at /mnt/d/develop/thacsi/bigdata/nhom8-ai-math-tutor/src/ai_math_tutor/batch/mapreduce_problems.py:671",
+        "status": "COMPLETE",
+        "duration_ms": 151,
+        "num_tasks": 8,
+        "failed_tasks": 0,
+        "killed_tasks": 0,
+        "executor_run_time_ms": 531,
+        "executor_cpu_time_ns": 33575210,
+        "jvm_gc_time_ms": 0,
+        "input_bytes": 0,
+        "input_records": 0,
+        "output_bytes": 0,
+        "output_records": 0,
+        "shuffle_read_bytes": 1291,
+        "shuffle_read_records": 15,
+        "shuffle_remote_bytes_read": 791,
+        "shuffle_local_bytes_read": 500,
+        "shuffle_fetch_wait_ms": 0,
+        "shuffle_write_bytes": 0,
+        "shuffle_write_records": 0,
+        "shuffle_write_time_ns": 0,
+        "memory_spilled_bytes": 0,
+        "disk_spilled_bytes": 0,
+        "task_attempts_retried": 0,
+        "speculative_tasks": 0,
+        "skew": {
+          "tasks": 8,
+          "records": {
+            "max": 8.0,
+            "median": 1.0,
+            "max_over_median": 8.0
+          },
+          "run_time_ms": {
+            "max": 78.0,
+            "median": 66.5,
+            "max_over_median": 1.173
+          },
+          "tasks_by_executor": {
+            "0": 4,
+            "1": 4
+          },
+          "slowest_task": {
+            "index": 2,
+            "executor": "1",
+            "run_time_ms": 78.0,
+            "records": 0.0
+          }
+        }
+      },
+      {
+        "stage_id": 38,
+        "attempt": 0,
+        "label": "invalid_output",
+        "name": "runJob at SparkHadoopWriter.scala:85",
+        "status": "COMPLETE",
+        "duration_ms": 155,
+        "num_tasks": 8,
+        "failed_tasks": 0,
+        "killed_tasks": 0,
+        "executor_run_time_ms": 499,
+        "executor_cpu_time_ns": 44722982,
+        "jvm_gc_time_ms": 9,
+        "input_bytes": 929658,
+        "input_records": 88,
+        "output_bytes": 3369,
+        "output_records": 8,
+        "shuffle_read_bytes": 0,
+        "shuffle_read_records": 0,
+        "shuffle_remote_bytes_read": 0,
+        "shuffle_local_bytes_read": 0,
+        "shuffle_fetch_wait_ms": 0,
+        "shuffle_write_bytes": 0,
+        "shuffle_write_records": 0,
+        "shuffle_write_time_ns": 0,
+        "memory_spilled_bytes": 0,
+        "disk_spilled_bytes": 0,
+        "task_attempts_retried": 0,
+        "speculative_tasks": 0,
+        "skew": null
+      },
+      {
+        "stage_id": 39,
+        "attempt": 0,
+        "label": "counters_output",
+        "name": "reduceByKey at /mnt/d/develop/thacsi/bigdata/nhom8-ai-math-tutor/src/ai_math_tutor/batch/mapreduce_problems.py:678",
+        "status": "COMPLETE",
+        "duration_ms": 145,
+        "num_tasks": 8,
+        "failed_tasks": 0,
+        "killed_tasks": 0,
+        "executor_run_time_ms": 513,
+        "executor_cpu_time_ns": 67085833,
+        "jvm_gc_time_ms": 0,
+        "input_bytes": 929658,
+        "input_records": 88,
+        "output_bytes": 0,
+        "output_records": 0,
+        "shuffle_read_bytes": 0,
+        "shuffle_read_records": 0,
+        "shuffle_remote_bytes_read": 0,
+        "shuffle_local_bytes_read": 0,
+        "shuffle_fetch_wait_ms": 0,
+        "shuffle_write_bytes": 979783,
+        "shuffle_write_records": 384,
+        "shuffle_write_time_ns": 4965939,
+        "memory_spilled_bytes": 0,
+        "disk_spilled_bytes": 0,
+        "task_attempts_retried": 0,
+        "speculative_tasks": 0,
+        "skew": null
+      },
+      {
+        "stage_id": 40,
+        "attempt": 0,
+        "label": "counters_output",
+        "name": "reduceByKey at /mnt/d/develop/thacsi/bigdata/nhom8-ai-math-tutor/src/ai_math_tutor/batch/mapreduce_problems.py:680",
+        "status": "COMPLETE",
+        "duration_ms": 216,
+        "num_tasks": 8,
+        "failed_tasks": 0,
+        "killed_tasks": 0,
+        "executor_run_time_ms": 712,
+        "executor_cpu_time_ns": 69630647,
+        "jvm_gc_time_ms": 4,
+        "input_bytes": 0,
+        "input_records": 0,
+        "output_bytes": 0,
+        "output_records": 0,
+        "shuffle_read_bytes": 979783,
+        "shuffle_read_records": 384,
+        "shuffle_remote_bytes_read": 487864,
+        "shuffle_local_bytes_read": 491919,
+        "shuffle_fetch_wait_ms": 0,
+        "shuffle_write_bytes": 228180,
+        "shuffle_write_records": 320,
+        "shuffle_write_time_ns": 4635196,
+        "memory_spilled_bytes": 0,
+        "disk_spilled_bytes": 0,
+        "task_attempts_retried": 0,
+        "speculative_tasks": 0,
+        "skew": {
+          "tasks": 8,
+          "records": {
+            "max": 48.0,
+            "median": 48.0,
+            "max_over_median": 1.0
+          },
+          "run_time_ms": {
+            "max": 119.0,
+            "median": 89.5,
+            "max_over_median": 1.33
+          },
+          "tasks_by_executor": {
+            "0": 4,
+            "1": 4
+          },
+          "slowest_task": {
+            "index": 4,
+            "executor": "0",
+            "run_time_ms": 119.0,
+            "records": 48.0
+          }
+        }
+      },
+      {
+        "stage_id": 41,
+        "attempt": 0,
+        "label": "counters_output",
+        "name": "runJob at SparkHadoopWriter.scala:85",
+        "status": "COMPLETE",
+        "duration_ms": 173,
+        "num_tasks": 8,
+        "failed_tasks": 0,
+        "killed_tasks": 0,
+        "executor_run_time_ms": 562,
+        "executor_cpu_time_ns": 74910817,
+        "jvm_gc_time_ms": 0,
+        "input_bytes": 0,
+        "input_records": 0,
+        "output_bytes": 133075,
+        "output_records": 1561,
+        "shuffle_read_bytes": 228180,
+        "shuffle_read_records": 320,
+        "shuffle_remote_bytes_read": 114686,
+        "shuffle_local_bytes_read": 113494,
+        "shuffle_fetch_wait_ms": 0,
+        "shuffle_write_bytes": 0,
+        "shuffle_write_records": 0,
+        "shuffle_write_time_ns": 0,
+        "memory_spilled_bytes": 0,
+        "disk_spilled_bytes": 0,
+        "task_attempts_retried": 0,
+        "speculative_tasks": 0,
+        "skew": {
+          "tasks": 8,
+          "records": {
+            "max": 40.0,
+            "median": 40.0,
+            "max_over_median": 1.0
+          },
+          "run_time_ms": {
+            "max": 88.0,
+            "median": 68.5,
+            "max_over_median": 1.285
+          },
+          "tasks_by_executor": {
+            "0": 4,
+            "1": 4
+          },
+          "slowest_task": {
+            "index": 4,
+            "executor": "1",
+            "run_time_ms": 88.0,
+            "records": 40.0
+          }
+        }
+      },
+      {
+        "stage_id": 43,
+        "attempt": 0,
+        "label": "dedup_stats",
+        "name": "fold at /mnt/d/develop/thacsi/bigdata/nhom8-ai-math-tutor/src/ai_math_tutor/batch/mapreduce_problems.py:686",
+        "status": "COMPLETE",
+        "duration_ms": 146,
+        "num_tasks": 8,
+        "failed_tasks": 0,
+        "killed_tasks": 0,
+        "executor_run_time_ms": 499,
+        "executor_cpu_time_ns": 30756513,
+        "jvm_gc_time_ms": 3,
+        "input_bytes": 0,
+        "input_records": 0,
+        "output_bytes": 0,
+        "output_records": 0,
+        "shuffle_read_bytes": 979783,
+        "shuffle_read_records": 384,
+        "shuffle_remote_bytes_read": 491290,
+        "shuffle_local_bytes_read": 488493,
+        "shuffle_fetch_wait_ms": 1,
+        "shuffle_write_bytes": 0,
+        "shuffle_write_records": 0,
+        "shuffle_write_time_ns": 0,
+        "memory_spilled_bytes": 0,
+        "disk_spilled_bytes": 0,
+        "task_attempts_retried": 0,
+        "speculative_tasks": 0,
+        "skew": {
+          "tasks": 8,
+          "records": {
+            "max": 48.0,
+            "median": 48.0,
+            "max_over_median": 1.0
+          },
+          "run_time_ms": {
+            "max": 76.0,
+            "median": 63.0,
+            "max_over_median": 1.206
+          },
+          "tasks_by_executor": {
+            "0": 4,
+            "1": 4
+          },
+          "slowest_task": {
+            "index": 5,
+            "executor": "1",
+            "run_time_ms": 76.0,
+            "records": 48.0
+          }
+        }
+      },
+      {
+        "stage_id": 46,
+        "attempt": 0,
+        "label": "top_k",
+        "name": "reduceByKey at /mnt/d/develop/thacsi/bigdata/nhom8-ai-math-tutor/src/ai_math_tutor/batch/mapreduce_problems.py:690",
+        "status": "COMPLETE",
+        "duration_ms": 151,
+        "num_tasks": 8,
+        "failed_tasks": 0,
+        "killed_tasks": 0,
+        "executor_run_time_ms": 508,
+        "executor_cpu_time_ns": 63177445,
+        "jvm_gc_time_ms": 2,
+        "input_bytes": 0,
+        "input_records": 0,
+        "output_bytes": 0,
+        "output_records": 0,
+        "shuffle_read_bytes": 228180,
+        "shuffle_read_records": 320,
+        "shuffle_remote_bytes_read": 114686,
+        "shuffle_local_bytes_read": 113494,
+        "shuffle_fetch_wait_ms": 2,
+        "shuffle_write_bytes": 15274,
+        "shuffle_write_records": 128,
+        "shuffle_write_time_ns": 6106600,
+        "memory_spilled_bytes": 0,
+        "disk_spilled_bytes": 0,
+        "task_attempts_retried": 0,
+        "speculative_tasks": 0,
+        "skew": {
+          "tasks": 8,
+          "records": {
+            "max": 40.0,
+            "median": 40.0,
+            "max_over_median": 1.0
+          },
+          "run_time_ms": {
+            "max": 78.0,
+            "median": 66.5,
+            "max_over_median": 1.173
+          },
+          "tasks_by_executor": {
+            "0": 4,
+            "1": 4
+          },
+          "slowest_task": {
+            "index": 5,
+            "executor": "1",
+            "run_time_ms": 78.0,
+            "records": 40.0
+          }
+        }
+      },
+      {
+        "stage_id": 47,
+        "attempt": 0,
+        "label": "top_k",
+        "name": "reduce at /mnt/d/develop/thacsi/bigdata/nhom8-ai-math-tutor/src/ai_math_tutor/batch/mapreduce_problems.py:691",
+        "status": "COMPLETE",
+        "duration_ms": 172,
+        "num_tasks": 8,
+        "failed_tasks": 0,
+        "killed_tasks": 0,
+        "executor_run_time_ms": 594,
+        "executor_cpu_time_ns": 32286609,
+        "jvm_gc_time_ms": 0,
+        "input_bytes": 0,
+        "input_records": 0,
+        "output_bytes": 0,
+        "output_records": 0,
+        "shuffle_read_bytes": 15274,
+        "shuffle_read_records": 128,
+        "shuffle_remote_bytes_read": 7607,
+        "shuffle_local_bytes_read": 7667,
+        "shuffle_fetch_wait_ms": 0,
+        "shuffle_write_bytes": 0,
+        "shuffle_write_records": 0,
+        "shuffle_write_time_ns": 0,
+        "memory_spilled_bytes": 0,
+        "disk_spilled_bytes": 0,
+        "task_attempts_retried": 0,
+        "speculative_tasks": 0,
+        "skew": {
+          "tasks": 8,
+          "records": {
+            "max": 16.0,
+            "median": 16.0,
+            "max_over_median": 1.0
+          },
+          "run_time_ms": {
+            "max": 97.0,
+            "median": 75.5,
+            "max_over_median": 1.285
+          },
+          "tasks_by_executor": {
+            "0": 4,
+            "1": 4
+          },
+          "slowest_task": {
+            "index": 4,
+            "executor": "1",
+            "run_time_ms": 97.0,
+            "records": 16.0
+          }
+        }
+      }
+    ],
+    "totals": {
+      "num_tasks": 72,
+      "failed_tasks": 0,
+      "killed_tasks": 0,
+      "executor_run_time_ms": 5668,
+      "executor_cpu_time_ns": 508692555,
+      "jvm_gc_time_ms": 22,
+      "input_bytes": 9598162,
+      "input_records": 12624,
+      "output_bytes": 136444,
+      "output_records": 1569,
+      "shuffle_read_bytes": 2432491,
+      "shuffle_read_records": 1551,
+      "shuffle_remote_bytes_read": 1216924,
+      "shuffle_local_bytes_read": 1215567,
+      "shuffle_fetch_wait_ms": 3,
+      "shuffle_write_bytes": 1224528,
+      "shuffle_write_records": 847,
+      "shuffle_write_time_ns": 19361037,
+      "memory_spilled_bytes": 0,
+      "disk_spilled_bytes": 0,
+      "task_attempts_retried": 0,
+      "stage_attempts_retried": 0,
+      "failed_stages": 0,
+      "stages_run": 9,
+      "stages_skipped": 3,
+      "jobs": 5,
+      "failed_jobs": 0
+    },
+    "skew_by_learner_reduce": {
+      "stage_id": 41,
+      "tasks": 8,
+      "records": {
+        "max": 40.0,
+        "median": 40.0,
+        "max_over_median": 1.0
+      },
+      "run_time_ms": {
+        "max": 88.0,
+        "median": 68.5,
+        "max_over_median": 1.285
+      },
+      "tasks_by_executor": {
+        "0": 4,
+        "1": 4
+      },
+      "slowest_task": {
+        "index": 4,
+        "executor": "1",
+        "run_time_ms": 88.0,
+        "records": 40.0
+      }
+    },
+    "worst_shuffle_skew": 1.33
+  },
+  "executors_delta": {
+    "0": {
+      "totalTasks": 36,
+      "failedTasks": 0,
+      "completedTasks": 36,
+      "totalDuration": 3094,
+      "totalGCTime": 5,
+      "totalInputBytes": 4736692,
+      "totalShuffleRead": 1222457,
+      "totalShuffleWrite": 611625,
+      "is_active": true,
+      "max_memory_bytes": 2388236697,
+      "peak_memory_metrics_session": {
+        "JVMHeapMemory": 92361008,
+        "JVMOffHeapMemory": 90926848,
+        "OnHeapExecutionMemory": 0,
+        "OffHeapExecutionMemory": 0,
+        "OnHeapStorageMemory": 1384192,
+        "OffHeapStorageMemory": 0,
+        "OnHeapUnifiedMemory": 1384192,
+        "OffHeapUnifiedMemory": 0,
+        "DirectPoolMemory": 147464,
+        "MappedPoolMemory": 0,
+        "ProcessTreeJVMVMemory": 19156664320,
+        "ProcessTreeJVMRSSMemory": 473903104,
+        "ProcessTreePythonVMemory": 522711040,
+        "ProcessTreePythonRSSMemory": 278917120,
+        "ProcessTreeOtherVMemory": 0,
+        "ProcessTreeOtherRSSMemory": 0,
+        "MinorGCCount": 14,
+        "MinorGCTime": 45,
+        "MajorGCCount": 0,
+        "MajorGCTime": 0,
+        "TotalGCTime": 45,
+        "ConcurrentGCCount": 0,
+        "ConcurrentGCTime": 0
+      }
+    },
+    "1": {
+      "totalTasks": 36,
+      "failedTasks": 0,
+      "completedTasks": 36,
+      "totalDuration": 3124,
+      "totalGCTime": 17,
+      "totalInputBytes": 4861470,
+      "totalShuffleRead": 1210034,
+      "totalShuffleWrite": 612903,
+      "is_active": true,
+      "max_memory_bytes": 2388236697,
+      "peak_memory_metrics_session": {
+        "JVMHeapMemory": 81053216,
+        "JVMOffHeapMemory": 90792704,
+        "OnHeapExecutionMemory": 0,
+        "OffHeapExecutionMemory": 0,
+        "OnHeapStorageMemory": 1571535,
+        "OffHeapStorageMemory": 0,
+        "OnHeapUnifiedMemory": 1571535,
+        "OffHeapUnifiedMemory": 0,
+        "DirectPoolMemory": 147464,
+        "MappedPoolMemory": 0,
+        "ProcessTreeJVMVMemory": 19156664320,
+        "ProcessTreeJVMRSSMemory": 417468416,
+        "ProcessTreePythonVMemory": 522477568,
+        "ProcessTreePythonRSSMemory": 279732224,
+        "ProcessTreeOtherVMemory": 0,
+        "ProcessTreeOtherRSSMemory": 0,
+        "MinorGCCount": 23,
+        "MinorGCTime": 75,
+        "MajorGCCount": 0,
+        "MajorGCTime": 0,
+        "TotalGCTime": 75,
+        "ConcurrentGCCount": 0,
+        "ConcurrentGCTime": 0
+      }
+    },
+    "driver": {
+      "totalTasks": 0,
+      "failedTasks": 0,
+      "completedTasks": 0,
+      "totalDuration": 2347,
+      "totalGCTime": 0,
+      "totalInputBytes": 0,
+      "totalShuffleRead": 0,
+      "totalShuffleWrite": 0,
+      "is_active": true,
+      "max_memory_bytes": 1099746508,
+      "peak_memory_metrics_session": null
+    }
+  },
+  "invalid_samples": [
+    {
+      "event_id": "1d0274f4-3577-5946-8b79-ab7844b8249b",
+      "reason": "event_time",
+      "raw": "{\"schema_version\": \"0.1\", \"event_id\": \"1d0274f4-3577-5946-8b79-ab7844b8249b\", \"event_type\": \"open_problem\", \"learner_id\": \"L-eebdf8161e924da4\", \"class_id\": \"C-SIM-0002\", \"session_id\": \"S-c52b1a57\", \"session_seq\": 1, \"problem_id\": \"P-NTE-058\", \"skill_ids\": [\"quadratic_equation.square_root\", \"quadrati"
+    },
+    {
+      "event_id": "1cbb9431-0490-5843-9c5a-4309898f16ac",
+      "reason": "learner_id",
+      "raw": "{\"schema_version\": \"0.1\", \"event_id\": \"1cbb9431-0490-5843-9c5a-4309898f16ac\", \"event_type\": \"open_problem\", \"learner_id\": \"L-ZZZZZZZZZZZZZZZZ\", \"class_id\": \"C-SIM-0002\", \"session_id\": \"S-5d2b1a57\", \"session_seq\": 48, \"problem_id\": \"P-NTE-275\", \"skill_ids\": [\"linear_equation.isolate_variable\"], \"even"
+    },
+    {
+      "event_id": "34b2c79d-a160-581b-b65c-d765db27fd99",
+      "reason": "malformed_json",
+      "raw": "{\"schema_version\": \"0.1\", \"event_id\": \"34b2c79d-a160-581b-b65c-d765db27fd99\", \"event_type\": \"complete\", \"learner_id\": \"L-c75cd217824ed6eb\", \"class_id\": \"C-SIM-0001\", \"session_id\": \"S-9b629408\", \"session_seq\": 7, \"problem_id\": \"P-NTE-235\", \"skill_ids\": [\"quadratic_equation.facto"
+    },
+    {
+      "event_id": "e760be6d-c19c-539a-ae24-84e1d2fcc2da",
+      "reason": "event_type",
+      "raw": "{\"schema_version\": \"0.1\", \"event_id\": \"e760be6d-c19c-539a-ae24-84e1d2fcc2da\", \"event_type\": \"OPEN_PROBLEM\", \"learner_id\": \"L-2f21e404d182b018\", \"class_id\": \"C-SIM-0003\", \"session_id\": \"S-7d9a0db9\", \"session_seq\": 8, \"problem_id\": \"P-NTE-128\", \"skill_ids\": [\"linear_equation.both_sides\", \"linear_equat"
+    },
+    {
+      "event_id": "78ccd6a6-371f-5ea3-9ec2-09c37b34a275",
+      "reason": "malformed_json",
+      "raw": "{\"schema_version\": \"0.1\", \"event_id\": \"78ccd6a6-371f-5ea3-9ec2-09c37b34a275\", \"event_type\": \"complete\", \"learner_id\": \"L-784f5db30cf3c822\", \"class_id\": \"C-SIM-0003\", \"session_id\": \"S-e9d1876a\", \"session_seq\": 5, \"problem_id\": \"P-NTE-276\", \"skill_ids\": [\"linear_equation.both_s"
+    },
+    {
+      "event_id": "8233f13a-5abe-55f3-a958-9cbd4966cfa3",
+      "reason": "payload",
+      "raw": "{\"schema_version\": \"0.1\", \"event_id\": \"8233f13a-5abe-55f3-a958-9cbd4966cfa3\", \"event_type\": \"submit_step\", \"learner_id\": \"L-5a1d5d22d2e3aaf2\", \"class_id\": \"C-SIM-0001\", \"session_id\": \"S-439a0db9\", \"session_seq\": 7, \"problem_id\": \"P-NTE-126\", \"skill_ids\": [\"quadratic_equation.factorization\", \"quadrat"
+    },
+    {
+      "event_id": "dd4716b1-fddc-5d19-a5ff-8a5a015a84b0",
+      "reason": "payload",
+      "raw": "{\"schema_version\": \"0.1\", \"event_id\": \"dd4716b1-fddc-5d19-a5ff-8a5a015a84b0\", \"event_type\": \"submit_step\", \"learner_id\": \"L-425c94f4ddb78883\", \"class_id\": \"C-SIM-0003\", \"session_id\": \"S-15629408\", \"session_seq\": 34, \"problem_id\": \"P-NTA-385\", \"skill_ids\": [\"arithmetic.percent\", \"arithmetic.fractions"
+    },
+    {
+      "event_id": "2917caee-0354-511d-867f-69c806b6eb4f",
+      "reason": "event_type",
+      "raw": "{\"schema_version\": \"0.1\", \"event_id\": \"2917caee-0354-511d-867f-69c806b6eb4f\", \"event_type\": \"REQUEST_HINT\", \"learner_id\": \"L-9da37a7938e28c41\", \"class_id\": \"C-SIM-0003\", \"session_id\": \"S-a39a0db9\", \"session_seq\": 3, \"problem_id\": \"P-NTA-613\", \"skill_ids\": [\"arithmetic.rates\", \"arithmetic.multi_step\""
+    }
+  ],
+  "runtime_s": 2.364,
+  "session": {
+    "app_id": "app-20261028110049-0000",
+    "master": "local-cluster[2,2,4096]",
+    "spark_mode": "local-cluster",
+    "startup_s": 3.803,
+    "spark_version": "4.1.3",
+    "ui_port": 48809,
+    "executors": [
+      {
+        "id": "1",
+        "hostPort": "127.0.0.1:41305",
+        "totalCores": 2,
+        "maxMemory": 2388236697
+      },
+      {
+        "id": "0",
+        "hostPort": "127.0.0.1:42379",
+        "totalCores": 2,
+        "maxMemory": 2388236697
+      }
+    ],
+    "spark_conf": {
+      "spark.sql.session.timeZone": "UTC",
+      "spark.driver.host": "127.0.0.1",
+      "spark.driver.bindAddress": "127.0.0.1",
+      "spark.ui.enabled": "true",
+      "spark.ui.showConsoleProgress": "false",
+      "spark.master": "local-cluster[2,2,4096]",
+      "spark.sql.shuffle.partitions": "8",
+      "spark.driver.memory": "2g",
+      "spark.app.name": "nhom8-mapreduce-problems-B",
+      "spark.local.dir": "/home/vankcdhv/nhom8-data/spark-tmp/batch",
+      "spark.sql.warehouse.dir": "/home/vankcdhv/nhom8-data/spark-warehouse",
+      "spark.driver.extraJavaOptions": "-Djava.io.tmpdir=/home/vankcdhv/nhom8-data/spark-tmp/batch",
+      "spark.sql.execution.arrow.pyspark.enabled": "true",
+      "spark.default.parallelism": "8",
+      "spark.ui.port": "48809",
+      "spark.executor.processTreeMetrics.enabled": "true",
+      "spark.executor.memory": "4096m",
+      "spark.executor.cores": "2",
+      "spark.cores.max": "4",
+      "spark.executor.extraJavaOptions": "-Djava.io.tmpdir=/home/vankcdhv/nhom8-data/spark-tmp/batch"
+    }
+  }
+}

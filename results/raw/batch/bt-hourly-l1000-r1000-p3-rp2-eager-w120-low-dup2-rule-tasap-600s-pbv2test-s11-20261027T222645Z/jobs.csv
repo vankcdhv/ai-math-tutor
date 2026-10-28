@@ -1,0 +1,2 @@
+job_index,cutoff_ms,cutoff_iso,runtime_s,visible_ms,rows_in,rows_unique,rows_out,stuck,consec_wrong_alert,mastered,with_onset,hints,new_detections
+0,1793122340625,2026-10-27T17:32:20.625Z,25.237,1793122365862,611253,599166,11000,0,47,11000,3087,0,3087

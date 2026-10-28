@@ -1,0 +1,21 @@
+{
+  "runs": 18,
+  "success": 18,
+  "mismatches_or_failures": 0,
+  "failed_tasks_total": 0,
+  "task_attempts_retried_total": 0,
+  "worst_shuffle_stage_run_time_skew": {
+    "run_key": "s4-d2-l1000-B-r1",
+    "stage_id": 52,
+    "label": "counters_output",
+    "tasks": 8,
+    "records_max": 96.0,
+    "records_median": 96.0,
+    "records_max_over_median": 1.0,
+    "run_time_ms_max": 145.0,
+    "run_time_ms_median": 80.0,
+    "run_time_max_over_median": 1.812,
+    "slowest_executor": "0",
+    "tasks_by_executor": "{\"0\": 4, \"1\": 4}"
+  }
+}

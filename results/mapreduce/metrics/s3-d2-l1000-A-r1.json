@@ -1,0 +1,1012 @@
+{
+  "run_key": "s3-d2-l1000-A-r1",
+  "run_id": "mr-s3-d2-l1000-A-r1-20261028T105940Z",
+  "status": "success",
+  "error": null,
+  "warmup": false,
+  "scenario": "s3-d2-l1000-A",
+  "config": "A",
+  "scale_learners": 1000,
+  "repeat": 1,
+  "started_at": "2026-10-28T10:59:40.853631+00:00",
+  "job_wall_s": 3.985,
+  "throughput_deliveries_per_s": 31489.6,
+  "actions_s": {
+    "stats": 1.532,
+    "invalid_output": 0.333,
+    "counters_output": 1.15,
+    "dedup_stats": 0.328,
+    "top_k": 0.604
+  },
+  "counts": {
+    "deliveries": 125486,
+    "valid_deliveries": 125358,
+    "heartbeats": 3,
+    "invalid": 125,
+    "invalid_with_event_id": 125,
+    "unique_events": 122887,
+    "duplicate_deliveries": 2471,
+    "conflicting_event_ids": 0,
+    "late_events": 1641,
+    "output_keys": 15665
+  },
+  "invalid_by_reason": {
+    "event_time": 15,
+    "event_type": 19,
+    "learner_id": 11,
+    "learning_fields": 15,
+    "malformed_json": 14,
+    "missing_field": 12,
+    "payload": 19,
+    "sent_before_event": 9,
+    "unknown_field": 11
+  },
+  "top_k": [
+    [
+      "P-NTE-058",
+      3881
+    ],
+    [
+      "P-NTE-070",
+      523
+    ],
+    [
+      "P-NTE-062",
+      519
+    ],
+    [
+      "P-NTE-023",
+      510
+    ],
+    [
+      "P-NTE-087",
+      487
+    ],
+    [
+      "P-NTE-158",
+      475
+    ],
+    [
+      "P-NTE-054",
+      468
+    ],
+    [
+      "P-NTE-165",
+      464
+    ],
+    [
+      "P-NTE-049",
+      455
+    ],
+    [
+      "P-NTE-235",
+      438
+    ]
+  ],
+  "correctness": {
+    "match": true,
+    "checks": {
+      "stats": true,
+      "invalid_by_reason": true,
+      "counters": true,
+      "counter_totals": true,
+      "top_k": true
+    },
+    "diffs": {
+      "stats": {},
+      "invalid_by_reason": {},
+      "counters": {
+        "missing": 0,
+        "extra": 0,
+        "different": 0,
+        "examples": []
+      },
+      "counter_totals": {
+        "fields": [
+          "events",
+          "attempts",
+          "wrong",
+          "hint_requests",
+          "completed"
+        ],
+        "actual": [
+          122887,
+          88687,
+          34284,
+          17276,
+          11369
+        ],
+        "expected": [
+          122887,
+          88687,
+          34284,
+          17276,
+          11369
+        ]
+      },
+      "top_k": null
+    }
+  },
+  "data_checks": {
+    "ok": true,
+    "checks": {
+      "unique_events": {
+        "expected": 122887,
+        "actual": 122887,
+        "ok": true
+      },
+      "duplicate_deliveries": {
+        "expected": 2471,
+        "actual": 2471,
+        "ok": true
+      },
+      "late_events": {
+        "expected": 1641,
+        "actual": 1641,
+        "ok": true
+      },
+      "invalid": {
+        "expected": 125,
+        "actual": 125,
+        "ok": true
+      },
+      "heartbeats": {
+        "expected": 3,
+        "actual": 3,
+        "ok": true
+      },
+      "deliveries": {
+        "expected": 125486,
+        "actual": 125486,
+        "ok": true
+      }
+    }
+  },
+  "resources": {
+    "driver_cpu_percent_mean": 15.4,
+    "driver_cpu_percent_peak": 57.7,
+    "driver_rss_bytes_peak": 831184896.0,
+    "executors_cpu_percent_mean": 194.28749999999997,
+    "executors_rss_bytes_peak_sum": 726761472.0,
+    "per_role": {
+      "driver": {
+        "cpu_percent": {
+          "samples": 8,
+          "peak": 57.7,
+          "mean": 15.4
+        },
+        "rss_bytes": {
+          "samples": 8,
+          "peak": 831184896.0,
+          "mean": 826330624.0
+        }
+      },
+      "executor-0": {
+        "cpu_percent": {
+          "samples": 8,
+          "peak": 244.99999999999997,
+          "mean": 194.28749999999997
+        },
+        "rss_bytes": {
+          "samples": 8,
+          "peak": 726761472.0,
+          "mean": 711965184.0
+        }
+      }
+    },
+    "samples_interval_s": 0.5,
+    "monitor_errors": 0,
+    "executor_pids": {
+      "0": 3788504
+    }
+  },
+  "io_delta_machine": {
+    "disk_read_bytes": 0,
+    "disk_write_bytes": 2228224,
+    "loopback_bytes_sent": 189227104
+  },
+  "spark": {
+    "stages": [
+      {
+        "stage_id": 48,
+        "attempt": 0,
+        "label": "stats",
+        "name": "reduceByKey at /mnt/d/develop/thacsi/bigdata/nhom8-ai-math-tutor/src/ai_math_tutor/batch/mapreduce_problems.py:671",
+        "status": "COMPLETE",
+        "duration_ms": 1220,
+        "num_tasks": 8,
+        "failed_tasks": 0,
+        "killed_tasks": 0,
+        "executor_run_time_ms": 2393,
+        "executor_cpu_time_ns": 181942969,
+        "jvm_gc_time_ms": 22,
+        "input_bytes": 69649969,
+        "input_records": 125486,
+        "output_bytes": 0,
+        "output_records": 0,
+        "shuffle_read_bytes": 0,
+        "shuffle_read_records": 0,
+        "shuffle_remote_bytes_read": 0,
+        "shuffle_local_bytes_read": 0,
+        "shuffle_fetch_wait_ms": 0,
+        "shuffle_write_bytes": 5342,
+        "shuffle_write_records": 54,
+        "shuffle_write_time_ns": 2965913,
+        "memory_spilled_bytes": 0,
+        "disk_spilled_bytes": 0,
+        "task_attempts_retried": 0,
+        "speculative_tasks": 0,
+        "skew": null
+      },
+      {
+        "stage_id": 49,
+        "attempt": 0,
+        "label": "stats",
+        "name": "collect at /mnt/d/develop/thacsi/bigdata/nhom8-ai-math-tutor/src/ai_math_tutor/batch/mapreduce_problems.py:671",
+        "status": "COMPLETE",
+        "duration_ms": 291,
+        "num_tasks": 8,
+        "failed_tasks": 0,
+        "killed_tasks": 0,
+        "executor_run_time_ms": 539,
+        "executor_cpu_time_ns": 17649243,
+        "jvm_gc_time_ms": 4,
+        "input_bytes": 0,
+        "input_records": 0,
+        "output_bytes": 0,
+        "output_records": 0,
+        "shuffle_read_bytes": 5342,
+        "shuffle_read_records": 54,
+        "shuffle_remote_bytes_read": 0,
+        "shuffle_local_bytes_read": 5342,
+        "shuffle_fetch_wait_ms": 0,
+        "shuffle_write_bytes": 0,
+        "shuffle_write_records": 0,
+        "shuffle_write_time_ns": 0,
+        "memory_spilled_bytes": 0,
+        "disk_spilled_bytes": 0,
+        "task_attempts_retried": 0,
+        "speculative_tasks": 0,
+        "skew": {
+          "tasks": 8,
+          "records": {
+            "max": 8.0,
+            "median": 8.0,
+            "max_over_median": 1.0
+          },
+          "run_time_ms": {
+            "max": 75.0,
+            "median": 71.5,
+            "max_over_median": 1.049
+          },
+          "tasks_by_executor": {
+            "0": 8
+          },
+          "slowest_task": {
+            "index": 4,
+            "executor": "0",
+            "run_time_ms": 75.0,
+            "records": 0.0
+          }
+        }
+      },
+      {
+        "stage_id": 50,
+        "attempt": 0,
+        "label": "invalid_output",
+        "name": "runJob at SparkHadoopWriter.scala:85",
+        "status": "COMPLETE",
+        "duration_ms": 309,
+        "num_tasks": 8,
+        "failed_tasks": 0,
+        "killed_tasks": 0,
+        "executor_run_time_ms": 534,
+        "executor_cpu_time_ns": 42422277,
+        "jvm_gc_time_ms": 8,
+        "input_bytes": 10446157,
+        "input_records": 200,
+        "output_bytes": 53163,
+        "output_records": 125,
+        "shuffle_read_bytes": 0,
+        "shuffle_read_records": 0,
+        "shuffle_remote_bytes_read": 0,
+        "shuffle_local_bytes_read": 0,
+        "shuffle_fetch_wait_ms": 0,
+        "shuffle_write_bytes": 0,
+        "shuffle_write_records": 0,
+        "shuffle_write_time_ns": 0,
+        "memory_spilled_bytes": 0,
+        "disk_spilled_bytes": 0,
+        "task_attempts_retried": 0,
+        "speculative_tasks": 0,
+        "skew": null
+      },
+      {
+        "stage_id": 51,
+        "attempt": 0,
+        "label": "counters_output",
+        "name": "reduceByKey at /mnt/d/develop/thacsi/bigdata/nhom8-ai-math-tutor/src/ai_math_tutor/batch/mapreduce_problems.py:678",
+        "status": "COMPLETE",
+        "duration_ms": 402,
+        "num_tasks": 8,
+        "failed_tasks": 0,
+        "killed_tasks": 0,
+        "executor_run_time_ms": 712,
+        "executor_cpu_time_ns": 84713501,
+        "jvm_gc_time_ms": 6,
+        "input_bytes": 10446157,
+        "input_records": 200,
+        "output_bytes": 0,
+        "output_records": 0,
+        "shuffle_read_bytes": 0,
+        "shuffle_read_records": 0,
+        "shuffle_remote_bytes_read": 0,
+        "shuffle_local_bytes_read": 0,
+        "shuffle_fetch_wait_ms": 0,
+        "shuffle_write_bytes": 10358679,
+        "shuffle_write_records": 768,
+        "shuffle_write_time_ns": 12921740,
+        "memory_spilled_bytes": 0,
+        "disk_spilled_bytes": 0,
+        "task_attempts_retried": 0,
+        "speculative_tasks": 0,
+        "skew": null
+      },
+      {
+        "stage_id": 52,
+        "attempt": 0,
+        "label": "counters_output",
+        "name": "reduceByKey at /mnt/d/develop/thacsi/bigdata/nhom8-ai-math-tutor/src/ai_math_tutor/batch/mapreduce_problems.py:680",
+        "status": "COMPLETE",
+        "duration_ms": 354,
+        "num_tasks": 8,
+        "failed_tasks": 0,
+        "killed_tasks": 0,
+        "executor_run_time_ms": 671,
+        "executor_cpu_time_ns": 64411856,
+        "jvm_gc_time_ms": 6,
+        "input_bytes": 0,
+        "input_records": 0,
+        "output_bytes": 0,
+        "output_records": 0,
+        "shuffle_read_bytes": 10358679,
+        "shuffle_read_records": 768,
+        "shuffle_remote_bytes_read": 0,
+        "shuffle_local_bytes_read": 10358679,
+        "shuffle_fetch_wait_ms": 0,
+        "shuffle_write_bytes": 2345072,
+        "shuffle_write_records": 704,
+        "shuffle_write_time_ns": 5319756,
+        "memory_spilled_bytes": 0,
+        "disk_spilled_bytes": 0,
+        "task_attempts_retried": 0,
+        "speculative_tasks": 0,
+        "skew": {
+          "tasks": 8,
+          "records": {
+            "max": 96.0,
+            "median": 96.0,
+            "max_over_median": 1.0
+          },
+          "run_time_ms": {
+            "max": 132.0,
+            "median": 73.0,
+            "max_over_median": 1.808
+          },
+          "tasks_by_executor": {
+            "0": 8
+          },
+          "slowest_task": {
+            "index": 2,
+            "executor": "0",
+            "run_time_ms": 132.0,
+            "records": 96.0
+          }
+        }
+      },
+      {
+        "stage_id": 53,
+        "attempt": 0,
+        "label": "counters_output",
+        "name": "runJob at SparkHadoopWriter.scala:85",
+        "status": "COMPLETE",
+        "duration_ms": 372,
+        "num_tasks": 8,
+        "failed_tasks": 0,
+        "killed_tasks": 0,
+        "executor_run_time_ms": 665,
+        "executor_cpu_time_ns": 53651545,
+        "jvm_gc_time_ms": 6,
+        "input_bytes": 0,
+        "input_records": 0,
+        "output_bytes": 1335466,
+        "output_records": 15665,
+        "shuffle_read_bytes": 2345072,
+        "shuffle_read_records": 704,
+        "shuffle_remote_bytes_read": 0,
+        "shuffle_local_bytes_read": 2345072,
+        "shuffle_fetch_wait_ms": 0,
+        "shuffle_write_bytes": 0,
+        "shuffle_write_records": 0,
+        "shuffle_write_time_ns": 0,
+        "memory_spilled_bytes": 0,
+        "disk_spilled_bytes": 0,
+        "task_attempts_retried": 0,
+        "speculative_tasks": 0,
+        "skew": {
+          "tasks": 8,
+          "records": {
+            "max": 88.0,
+            "median": 88.0,
+            "max_over_median": 1.0
+          },
+          "run_time_ms": {
+            "max": 117.0,
+            "median": 75.5,
+            "max_over_median": 1.55
+          },
+          "tasks_by_executor": {
+            "0": 8
+          },
+          "slowest_task": {
+            "index": 6,
+            "executor": "0",
+            "run_time_ms": 117.0,
+            "records": 88.0
+          }
+        }
+      },
+      {
+        "stage_id": 55,
+        "attempt": 0,
+        "label": "dedup_stats",
+        "name": "fold at /mnt/d/develop/thacsi/bigdata/nhom8-ai-math-tutor/src/ai_math_tutor/batch/mapreduce_problems.py:686",
+        "status": "COMPLETE",
+        "duration_ms": 318,
+        "num_tasks": 8,
+        "failed_tasks": 0,
+        "killed_tasks": 0,
+        "executor_run_time_ms": 598,
+        "executor_cpu_time_ns": 29029095,
+        "jvm_gc_time_ms": 6,
+        "input_bytes": 0,
+        "input_records": 0,
+        "output_bytes": 0,
+        "output_records": 0,
+        "shuffle_read_bytes": 10358679,
+        "shuffle_read_records": 768,
+        "shuffle_remote_bytes_read": 0,
+        "shuffle_local_bytes_read": 10358679,
+        "shuffle_fetch_wait_ms": 0,
+        "shuffle_write_bytes": 0,
+        "shuffle_write_records": 0,
+        "shuffle_write_time_ns": 0,
+        "memory_spilled_bytes": 0,
+        "disk_spilled_bytes": 0,
+        "task_attempts_retried": 0,
+        "speculative_tasks": 0,
+        "skew": {
+          "tasks": 8,
+          "records": {
+            "max": 96.0,
+            "median": 96.0,
+            "max_over_median": 1.0
+          },
+          "run_time_ms": {
+            "max": 87.0,
+            "median": 79.0,
+            "max_over_median": 1.101
+          },
+          "tasks_by_executor": {
+            "0": 8
+          },
+          "slowest_task": {
+            "index": 7,
+            "executor": "0",
+            "run_time_ms": 87.0,
+            "records": 96.0
+          }
+        }
+      },
+      {
+        "stage_id": 58,
+        "attempt": 0,
+        "label": "top_k",
+        "name": "reduceByKey at /mnt/d/develop/thacsi/bigdata/nhom8-ai-math-tutor/src/ai_math_tutor/batch/mapreduce_problems.py:690",
+        "status": "COMPLETE",
+        "duration_ms": 307,
+        "num_tasks": 8,
+        "failed_tasks": 0,
+        "killed_tasks": 0,
+        "executor_run_time_ms": 569,
+        "executor_cpu_time_ns": 47944467,
+        "jvm_gc_time_ms": 7,
+        "input_bytes": 0,
+        "input_records": 0,
+        "output_bytes": 0,
+        "output_records": 0,
+        "shuffle_read_bytes": 2345072,
+        "shuffle_read_records": 704,
+        "shuffle_remote_bytes_read": 0,
+        "shuffle_local_bytes_read": 2345072,
+        "shuffle_fetch_wait_ms": 0,
+        "shuffle_write_bytes": 47635,
+        "shuffle_write_records": 313,
+        "shuffle_write_time_ns": 5367750,
+        "memory_spilled_bytes": 0,
+        "disk_spilled_bytes": 0,
+        "task_attempts_retried": 0,
+        "speculative_tasks": 0,
+        "skew": {
+          "tasks": 8,
+          "records": {
+            "max": 88.0,
+            "median": 88.0,
+            "max_over_median": 1.0
+          },
+          "run_time_ms": {
+            "max": 82.0,
+            "median": 71.0,
+            "max_over_median": 1.155
+          },
+          "tasks_by_executor": {
+            "0": 8
+          },
+          "slowest_task": {
+            "index": 2,
+            "executor": "0",
+            "run_time_ms": 82.0,
+            "records": 88.0
+          }
+        }
+      },
+      {
+        "stage_id": 59,
+        "attempt": 0,
+        "label": "top_k",
+        "name": "reduce at /mnt/d/develop/thacsi/bigdata/nhom8-ai-math-tutor/src/ai_math_tutor/batch/mapreduce_problems.py:691",
+        "status": "COMPLETE",
+        "duration_ms": 280,
+        "num_tasks": 8,
+        "failed_tasks": 0,
+        "killed_tasks": 0,
+        "executor_run_time_ms": 518,
+        "executor_cpu_time_ns": 17756854,
+        "jvm_gc_time_ms": 6,
+        "input_bytes": 0,
+        "input_records": 0,
+        "output_bytes": 0,
+        "output_records": 0,
+        "shuffle_read_bytes": 47635,
+        "shuffle_read_records": 313,
+        "shuffle_remote_bytes_read": 0,
+        "shuffle_local_bytes_read": 47635,
+        "shuffle_fetch_wait_ms": 0,
+        "shuffle_write_bytes": 0,
+        "shuffle_write_records": 0,
+        "shuffle_write_time_ns": 0,
+        "memory_spilled_bytes": 0,
+        "disk_spilled_bytes": 0,
+        "task_attempts_retried": 0,
+        "speculative_tasks": 0,
+        "skew": {
+          "tasks": 8,
+          "records": {
+            "max": 40.0,
+            "median": 39.0,
+            "max_over_median": 1.026
+          },
+          "run_time_ms": {
+            "max": 70.0,
+            "median": 67.0,
+            "max_over_median": 1.045
+          },
+          "tasks_by_executor": {
+            "0": 8
+          },
+          "slowest_task": {
+            "index": 4,
+            "executor": "0",
+            "run_time_ms": 70.0,
+            "records": 39.0
+          }
+        }
+      }
+    ],
+    "totals": {
+      "num_tasks": 72,
+      "failed_tasks": 0,
+      "killed_tasks": 0,
+      "executor_run_time_ms": 7199,
+      "executor_cpu_time_ns": 539521807,
+      "jvm_gc_time_ms": 71,
+      "input_bytes": 90542283,
+      "input_records": 125886,
+      "output_bytes": 1388629,
+      "output_records": 15790,
+      "shuffle_read_bytes": 25460479,
+      "shuffle_read_records": 3311,
+      "shuffle_remote_bytes_read": 0,
+      "shuffle_local_bytes_read": 25460479,
+      "shuffle_fetch_wait_ms": 0,
+      "shuffle_write_bytes": 12756728,
+      "shuffle_write_records": 1839,
+      "shuffle_write_time_ns": 26575159,
+      "memory_spilled_bytes": 0,
+      "disk_spilled_bytes": 0,
+      "task_attempts_retried": 0,
+      "stage_attempts_retried": 0,
+      "failed_stages": 0,
+      "stages_run": 9,
+      "stages_skipped": 3,
+      "jobs": 5,
+      "failed_jobs": 0
+    },
+    "skew_by_learner_reduce": {
+      "stage_id": 53,
+      "tasks": 8,
+      "records": {
+        "max": 88.0,
+        "median": 88.0,
+        "max_over_median": 1.0
+      },
+      "run_time_ms": {
+        "max": 117.0,
+        "median": 75.5,
+        "max_over_median": 1.55
+      },
+      "tasks_by_executor": {
+        "0": 8
+      },
+      "slowest_task": {
+        "index": 6,
+        "executor": "0",
+        "run_time_ms": 117.0,
+        "records": 88.0
+      }
+    },
+    "worst_shuffle_skew": 1.808
+  },
+  "executors_delta": {
+    "0": {
+      "totalTasks": 72,
+      "failedTasks": 0,
+      "completedTasks": 72,
+      "totalDuration": 7586,
+      "totalGCTime": 71,
+      "totalInputBytes": 90542283,
+      "totalShuffleRead": 25460479,
+      "totalShuffleWrite": 12756728,
+      "is_active": true,
+      "max_memory_bytes": 2388236697,
+      "peak_memory_metrics_session": {
+        "JVMHeapMemory": 93146832,
+        "JVMOffHeapMemory": 95979144,
+        "OnHeapExecutionMemory": 0,
+        "OffHeapExecutionMemory": 0,
+        "OnHeapStorageMemory": 13129961,
+        "OffHeapStorageMemory": 0,
+        "OnHeapUnifiedMemory": 13129961,
+        "OffHeapUnifiedMemory": 0,
+        "DirectPoolMemory": 247560,
+        "MappedPoolMemory": 0,
+        "ProcessTreeJVMVMemory": 19161903104,
+        "ProcessTreeJVMRSSMemory": 439955456,
+        "ProcessTreePythonVMemory": 526766080,
+        "ProcessTreePythonRSSMemory": 284536832,
+        "ProcessTreeOtherVMemory": 0,
+        "ProcessTreeOtherRSSMemory": 0,
+        "MinorGCCount": 71,
+        "MinorGCTime": 133,
+        "MajorGCCount": 0,
+        "MajorGCTime": 0,
+        "TotalGCTime": 133,
+        "ConcurrentGCCount": 0,
+        "ConcurrentGCTime": 0
+      }
+    },
+    "driver": {
+      "totalTasks": 0,
+      "failedTasks": 0,
+      "completedTasks": 0,
+      "totalDuration": 4529,
+      "totalGCTime": 0,
+      "totalInputBytes": 0,
+      "totalShuffleRead": 0,
+      "totalShuffleWrite": 0,
+      "is_active": true,
+      "max_memory_bytes": 1099746508,
+      "peak_memory_metrics_session": {
+        "JVMHeapMemory": 90487968,
+        "JVMOffHeapMemory": 149295032,
+        "OnHeapExecutionMemory": 0,
+        "OffHeapExecutionMemory": 0,
+        "OnHeapStorageMemory": 899467,
+        "OffHeapStorageMemory": 0,
+        "OnHeapUnifiedMemory": 899467,
+        "OffHeapUnifiedMemory": 0,
+        "DirectPoolMemory": 143537,
+        "MappedPoolMemory": 0,
+        "ProcessTreeJVMVMemory": 36394438656,
+        "ProcessTreeJVMRSSMemory": 1014902784,
+        "ProcessTreePythonVMemory": 522629120,
+        "ProcessTreePythonRSSMemory": 278425600,
+        "ProcessTreeOtherVMemory": 0,
+        "ProcessTreeOtherRSSMemory": 0,
+        "MinorGCCount": 32,
+        "MinorGCTime": 71,
+        "MajorGCCount": 0,
+        "MajorGCTime": 0,
+        "TotalGCTime": 71,
+        "ConcurrentGCCount": 0,
+        "ConcurrentGCTime": 0
+      }
+    }
+  },
+  "invalid_samples": [
+    {
+      "event_id": "64ff540c-1e58-521b-96d5-4a313a316a88",
+      "reason": "event_time",
+      "raw": "{\"schema_version\": \"0.1\", \"event_id\": \"64ff540c-1e58-521b-96d5-4a313a316a88\", \"event_type\": \"open_problem\", \"learner_id\": \"L-227d8f309206c58d\", \"class_id\": \"C-SIM-0006\", \"session_id\": \"S-bb2b1a57\", \"session_seq\": 1, \"problem_id\": \"P-NTA-466\", \"skill_ids\": [\"arithmetic.percent\", \"arithmetic.multi_ste"
+    },
+    {
+      "event_id": "47ea7f29-edbf-599a-8614-661779d4ff59",
+      "reason": "learner_id",
+      "raw": "{\"schema_version\": \"0.1\", \"event_id\": \"47ea7f29-edbf-599a-8614-661779d4ff59\", \"event_type\": \"request_hint\", \"learner_id\": \"L-ZZZZZZZZZZZZZZZZ\", \"class_id\": \"C-SIM-0007\", \"session_id\": \"S-d56b1a57\", \"session_seq\": 6, \"problem_id\": \"P-NTE-158\", \"skill_ids\": [\"quadratic_equation.factorization\", \"quadra"
+    },
+    {
+      "event_id": "2596154c-5b9a-5f7f-ad32-aa572973988a",
+      "reason": "malformed_json",
+      "raw": "{\"schema_version\": \"0.1\", \"event_id\": \"2596154c-5b9a-5f7f-ad32-aa572973988a\", \"event_type\": \"request_hint\", \"learner_id\": \"L-d72030ffc01dd77c\", \"class_id\": \"C-SIM-0016\", \"session_id\": \"S-932b1a57\", \"session_seq\": 4, \"problem_id\": \"P-NTE-086\", \"skill_ids\": [\"linear_e"
+    },
+    {
+      "event_id": "5a5f8a29-cf5f-5f36-8547-9cbe47ffc564",
+      "reason": "event_type",
+      "raw": "{\"schema_version\": \"0.1\", \"event_id\": \"5a5f8a29-cf5f-5f36-8547-9cbe47ffc564\", \"event_type\": \"SUBMIT_STEP\", \"learner_id\": \"L-0f189de1c02d3dbc\", \"class_id\": \"C-SIM-0003\", \"session_id\": \"S-722b1a57\", \"session_seq\": 11, \"problem_id\": \"P-NTA-215\", \"skill_ids\": [\"arithmetic.fractions\", \"arithmetic.multi_s"
+    },
+    {
+      "event_id": "27f4a09a-cd23-5e74-8427-fb58602fea01",
+      "reason": "malformed_json",
+      "raw": "{\"schema_version\": \"0.1\", \"event_id\": \"27f4a09a-cd23-5e74-8427-fb58602fea01\", \"event_type\": \"complete\", \"learner_id\": \"L-9b954a1804697deb\", \"class_id\": \"C-SIM-0016\", \"session_id\": \"S-616b1a57\", \"session_seq\": 14, \"problem_id\": \"P-NTA-036\", \"skill_ids\": [\"arithmeti"
+    },
+    {
+      "event_id": "d93ba233-e058-52fe-8922-8e76f36a1dfb",
+      "reason": "payload",
+      "raw": "{\"schema_version\": \"0.1\", \"event_id\": \"d93ba233-e058-52fe-8922-8e76f36a1dfb\", \"event_type\": \"submit_step\", \"learner_id\": \"L-eaf10315c5da6622\", \"class_id\": \"C-SIM-0022\", \"session_id\": \"S-382b1a57\", \"session_seq\": 12, \"problem_id\": \"P-NTA-071\", \"skill_ids\": [\"arithmetic.multi_step\"], \"event_time\": \"20"
+    },
+    {
+      "event_id": "e5bff8b4-ef0e-5142-9a30-52450178a84b",
+      "reason": "payload",
+      "raw": "{\"schema_version\": \"0.1\", \"event_id\": \"e5bff8b4-ef0e-5142-9a30-52450178a84b\", \"event_type\": \"submit_step\", \"learner_id\": \"L-51bb39e05a926897\", \"class_id\": \"C-SIM-0015\", \"session_id\": \"S-5a2b1a57\", \"session_seq\": 12, \"problem_id\": \"P-NTE-027\", \"skill_ids\": [\"linear_equation.both_sides\", \"linear_equat"
+    },
+    {
+      "event_id": "339146db-3d99-5273-a6c5-85065b332afb",
+      "reason": "event_type",
+      "raw": "{\"schema_version\": \"0.1\", \"event_id\": \"339146db-3d99-5273-a6c5-85065b332afb\", \"event_type\": \"COMPLETE\", \"learner_id\": \"L-6ce3cca1f0fe730e\", \"class_id\": \"C-SIM-0018\", \"session_id\": \"S-c92b1a57\", \"session_seq\": 14, \"problem_id\": \"P-NTA-353\", \"skill_ids\": [\"arithmetic.fractions\", \"arithmetic.multi_step"
+    },
+    {
+      "event_id": "d30028bf-ab9f-52d4-9439-bd599a14d47f",
+      "reason": "sent_before_event",
+      "raw": "{\"schema_version\": \"0.1\", \"event_id\": \"d30028bf-ab9f-52d4-9439-bd599a14d47f\", \"event_type\": \"submit_step\", \"learner_id\": \"L-056cb000e2b94f81\", \"class_id\": \"C-SIM-0014\", \"session_id\": \"S-b36b1a57\", \"session_seq\": 17, \"problem_id\": \"P-NTE-058\", \"skill_ids\": [\"quadratic_equation.square_root\", \"quadrati"
+    },
+    {
+      "event_id": "65fb1370-65a2-527b-9724-7a585dffaaef",
+      "reason": "missing_field",
+      "raw": "{\"schema_version\": \"0.1\", \"event_id\": \"65fb1370-65a2-527b-9724-7a585dffaaef\", \"event_type\": \"submit_step\", \"class_id\": \"C-SIM-0006\", \"session_id\": \"S-3a6b1a57\", \"session_seq\": 10, \"problem_id\": \"P-NTE-009\", \"skill_ids\": [\"quadratic_equation.factorization\"], \"event_time\": \"2026-11-02T00:02:13.383Z\", "
+    },
+    {
+      "event_id": "c68a5cdb-3aa6-57d7-adab-261b4c404b02",
+      "reason": "learning_fields",
+      "raw": "{\"schema_version\": \"0.1\", \"event_id\": \"c68a5cdb-3aa6-57d7-adab-261b4c404b02\", \"event_type\": \"submit_step\", \"learner_id\": \"L-9da8db39890722b9\", \"class_id\": \"C-SIM-0012\", \"session_id\": \"S-7d6b1a57\", \"session_seq\": 0, \"problem_id\": \"P-NTA-461\", \"skill_ids\": [\"arithmetic.multi_step\"], \"event_time\": \"202"
+    },
+    {
+      "event_id": "b5f419a6-8166-5e31-9362-85c0e67dab8d",
+      "reason": "event_time",
+      "raw": "{\"schema_version\": \"0.1\", \"event_id\": \"b5f419a6-8166-5e31-9362-85c0e67dab8d\", \"event_type\": \"submit_step\", \"learner_id\": \"L-7cbcd05ac87f20ea\", \"class_id\": \"C-SIM-0018\", \"session_id\": \"S-f0ab1a57\", \"session_seq\": 12, \"problem_id\": \"P-NTA-277\", \"skill_ids\": [\"arithmetic.percent\", \"arithmetic.multi_ste"
+    },
+    {
+      "event_id": "b358344f-2784-57b3-a85d-0932274abed8",
+      "reason": "unknown_field",
+      "raw": "{\"schema_version\": \"0.1\", \"event_id\": \"b358344f-2784-57b3-a85d-0932274abed8\", \"event_type\": \"submit_step\", \"learner_id\": \"L-b55c7616ce9280d9\", \"class_id\": \"C-SIM-0018\", \"session_id\": \"S-5ceb1a57\", \"session_seq\": 15, \"problem_id\": \"P-NTE-241\", \"skill_ids\": [\"linear_equation.isolate_variable\"], \"event"
+    },
+    {
+      "event_id": "e5c8a5cb-3386-59e1-b54d-f371e1f7e756",
+      "reason": "learning_fields",
+      "raw": "{\"schema_version\": \"0.1\", \"event_id\": \"e5c8a5cb-3386-59e1-b54d-f371e1f7e756\", \"event_type\": \"open_problem\", \"learner_id\": \"L-a2acc2682998de44\", \"class_id\": \"C-SIM-0012\", \"session_id\": \"S-b96b1a57\", \"session_seq\": 0, \"problem_id\": \"P-NTE-023\", \"skill_ids\": [\"quadratic_equation.factorization\", \"quadra"
+    },
+    {
+      "event_id": "b2240721-8b55-53ac-b876-1e4a310acb25",
+      "reason": "learning_fields",
+      "raw": "{\"schema_version\": \"0.1\", \"event_id\": \"b2240721-8b55-53ac-b876-1e4a310acb25\", \"event_type\": \"submit_step\", \"learner_id\": \"L-a803bdaf476e269d\", \"class_id\": \"C-SIM-0010\", \"session_id\": \"S-806b1a57\", \"session_seq\": 0, \"problem_id\": \"P-NTA-194\", \"skill_ids\": [\"arithmetic.multi_step\"], \"event_time\": \"202"
+    },
+    {
+      "event_id": "b11105de-d7e0-5296-90c0-ecca02631db2",
+      "reason": "missing_field",
+      "raw": "{\"schema_version\": \"0.1\", \"event_id\": \"b11105de-d7e0-5296-90c0-ecca02631db2\", \"event_type\": \"request_hint\", \"class_id\": \"C-SIM-0027\", \"session_id\": \"S-ae6b1a57\", \"session_seq\": 17, \"problem_id\": \"P-NTA-382\", \"skill_ids\": [\"arithmetic.fractions\", \"arithmetic.multi_step\"], \"event_time\": \"2026-11-02T00"
+    },
+    {
+      "event_id": "33c996b7-0a7a-57ec-8222-2a8ad2419d24",
+      "reason": "missing_field",
+      "raw": "{\"schema_version\": \"0.1\", \"event_id\": \"33c996b7-0a7a-57ec-8222-2a8ad2419d24\", \"event_type\": \"open_problem\", \"class_id\": \"C-SIM-0024\", \"session_id\": \"S-c76b1a57\", \"session_seq\": 22, \"problem_id\": \"P-NTE-236\", \"skill_ids\": [\"linear_equation.both_sides\", \"linear_equation.isolate_variable\"], \"event_time"
+    },
+    {
+      "event_id": "0a8eb57b-2c68-5189-94e4-5cb99c53e796",
+      "reason": "event_time",
+      "raw": "{\"schema_version\": \"0.1\", \"event_id\": \"0a8eb57b-2c68-5189-94e4-5cb99c53e796\", \"event_type\": \"submit_step\", \"learner_id\": \"L-63bb7043829dd27f\", \"class_id\": \"C-SIM-0012\", \"session_id\": \"S-1b6b1a57\", \"session_seq\": 22, \"problem_id\": \"P-NTA-514\", \"skill_ids\": [\"arithmetic.percent\", \"arithmetic.multi_ste"
+    },
+    {
+      "event_id": "5a7eb565-5da7-5538-b026-68579a425053",
+      "reason": "learning_fields",
+      "raw": "{\"schema_version\": \"0.1\", \"event_id\": \"5a7eb565-5da7-5538-b026-68579a425053\", \"event_type\": \"request_hint\", \"learner_id\": \"L-c22eaf76375e1bc6\", \"class_id\": \"C-SIM-0002\", \"session_id\": \"S-b86b1a57\", \"session_seq\": 0, \"problem_id\": \"P-NTE-087\", \"skill_ids\": [\"quadratic_equation.factorization\", \"quadra"
+    },
+    {
+      "event_id": "f0c8e18e-37d7-5dee-a046-0908dc3bb16f",
+      "reason": "event_type",
+      "raw": "{\"schema_version\": \"0.1\", \"event_id\": \"f0c8e18e-37d7-5dee-a046-0908dc3bb16f\", \"event_type\": \"REQUEST_HINT\", \"learner_id\": \"L-2f9ad99a26cf7046\", \"class_id\": \"C-SIM-0022\", \"session_id\": \"S-fdab1a57\", \"session_seq\": 21, \"problem_id\": \"P-NTE-186\", \"skill_ids\": [\"linear_equation.isolate_variable\"], \"even"
+    },
+    {
+      "event_id": "3a82bd4b-6ebb-5bab-8977-5a4a8c7b1998",
+      "reason": "learner_id",
+      "raw": "{\"schema_version\": \"0.1\", \"event_id\": \"3a82bd4b-6ebb-5bab-8977-5a4a8c7b1998\", \"event_type\": \"request_hint\", \"learner_id\": \"L-ZZZZZZZZZZZZZZZZ\", \"class_id\": \"C-SIM-0025\", \"session_id\": \"S-a72b1a57\", \"session_seq\": 25, \"problem_id\": \"P-NTA-067\", \"skill_ids\": [\"arithmetic.fractions\", \"arithmetic.multi_"
+    },
+    {
+      "event_id": "79ec38df-e653-564f-a1fe-6a45c056642e",
+      "reason": "event_time",
+      "raw": "{\"schema_version\": \"0.1\", \"event_id\": \"79ec38df-e653-564f-a1fe-6a45c056642e\", \"event_type\": \"request_hint\", \"learner_id\": \"L-d30bb5e57a2cfbe6\", \"class_id\": \"C-SIM-0028\", \"session_id\": \"S-a12b1a57\", \"session_seq\": 28, \"problem_id\": \"P-NTA-197\", \"skill_ids\": [\"arithmetic.percent\", \"arithmetic.multi_st"
+    },
+    {
+      "event_id": "3742502a-a1e4-5a4d-9d85-16251bad7c2b",
+      "reason": "learning_fields",
+      "raw": "{\"schema_version\": \"0.1\", \"event_id\": \"3742502a-a1e4-5a4d-9d85-16251bad7c2b\", \"event_type\": \"request_hint\", \"learner_id\": \"L-d8ee34a167b2e54a\", \"class_id\": \"C-SIM-0021\", \"session_id\": \"S-122b1a57\", \"session_seq\": 0, \"problem_id\": \"P-NTA-225\", \"skill_ids\": [\"arithmetic.rates\", \"arithmetic.multi_step\""
+    },
+    {
+      "event_id": "9f1c4394-d78f-5e10-8ec9-753801d7b2cc",
+      "reason": "missing_field",
+      "raw": "{\"schema_version\": \"0.1\", \"event_id\": \"9f1c4394-d78f-5e10-8ec9-753801d7b2cc\", \"event_type\": \"open_problem\", \"class_id\": \"C-SIM-0028\", \"session_id\": \"S-04ab1a57\", \"session_seq\": 24, \"problem_id\": \"P-NTA-536\", \"skill_ids\": [\"arithmetic.multi_step\"], \"event_time\": \"2026-11-02T00:03:56.461Z\", \"sent_time"
+    },
+    {
+      "event_id": "9ff5bab3-1386-5b3d-8e6a-6ff0832479b1",
+      "reason": "event_type",
+      "raw": "{\"schema_version\": \"0.1\", \"event_id\": \"9ff5bab3-1386-5b3d-8e6a-6ff0832479b1\", \"event_type\": \"SUBMIT_STEP\", \"learner_id\": \"L-6f6b652bb876e852\", \"class_id\": \"C-SIM-0025\", \"session_id\": \"S-3aeb1a57\", \"session_seq\": 30, \"problem_id\": \"P-NTE-062\", \"skill_ids\": [\"quadratic_equation.factorization\", \"quadra"
+    },
+    {
+      "event_id": "753f3c71-bcbd-5e65-81a0-c15b3dd317c3",
+      "reason": "payload",
+      "raw": "{\"schema_version\": \"0.1\", \"event_id\": \"753f3c71-bcbd-5e65-81a0-c15b3dd317c3\", \"event_type\": \"submit_step\", \"learner_id\": \"L-e6cedbb8492159ab\", \"class_id\": \"C-SIM-0002\", \"session_id\": \"S-696b1a57\", \"session_seq\": 24, \"problem_id\": \"P-NTE-229\", \"skill_ids\": [\"linear_equation.fractions\", \"linear_equati"
+    },
+    {
+      "event_id": "91d7f012-8642-57ea-9e6b-2da62ca21d30",
+      "reason": "sent_before_event",
+      "raw": "{\"schema_version\": \"0.1\", \"event_id\": \"91d7f012-8642-57ea-9e6b-2da62ca21d30\", \"event_type\": \"open_problem\", \"learner_id\": \"L-08db92c5da754458\", \"class_id\": \"C-SIM-0016\", \"session_id\": \"S-a6629408\", \"session_seq\": 1, \"problem_id\": \"P-NTE-058\", \"skill_ids\": [\"quadratic_equation.square_root\", \"quadrati"
+    },
+    {
+      "event_id": "43bdc0ee-d884-589e-a3d2-2d74e68388a6",
+      "reason": "payload",
+      "raw": "{\"schema_version\": \"0.1\", \"event_id\": \"43bdc0ee-d884-589e-a3d2-2d74e68388a6\", \"event_type\": \"request_hint\", \"learner_id\": \"L-66c39f85e8380774\", \"class_id\": \"C-SIM-0002\", \"session_id\": \"S-392b1a57\", \"session_seq\": 29, \"problem_id\": \"P-NTA-237\", \"skill_ids\": [\"arithmetic.fractions\", \"arithmetic.multi_"
+    },
+    {
+      "event_id": "89c2fe02-60af-507b-bcdb-146263d0c83c",
+      "reason": "unknown_field",
+      "raw": "{\"schema_version\": \"0.1\", \"event_id\": \"89c2fe02-60af-507b-bcdb-146263d0c83c\", \"event_type\": \"open_problem\", \"learner_id\": \"L-200d04594351ddc2\", \"class_id\": \"C-SIM-0004\", \"session_id\": \"S-a0eb1a57\", \"session_seq\": 35, \"problem_id\": \"P-NTE-049\", \"skill_ids\": [\"quadratic_equation.factorization\", \"quadr"
+    },
+    {
+      "event_id": "dd2f8925-9fc9-515d-afc0-388b674395b0",
+      "reason": "malformed_json",
+      "raw": "{\"schema_version\": \"0.1\", \"event_id\": \"dd2f8925-9fc9-515d-afc0-388b674395b0\", \"event_type\": \"submit_step\", \"learner_id\": \"L-f80033487753e3cd\", \"class_id\": \"C-SIM-0021\", \"session_id\": \"S-43eb1a57\", \"session_seq\": 27, \"problem_id\": \"P-NTA-669\", \"skill_ids\": [\"arithmetic.percent\", \"arit"
+    },
+    {
+      "event_id": "dea12f06-fd9e-508d-9ef9-499442e0424f",
+      "reason": "event_type",
+      "raw": "{\"schema_version\": \"0.1\", \"event_id\": \"dea12f06-fd9e-508d-9ef9-499442e0424f\", \"event_type\": \"OPEN_PROBLEM\", \"learner_id\": \"L-7b7998f711119f1f\", \"class_id\": \"C-SIM-0009\", \"session_id\": \"S-b3ab1a57\", \"session_seq\": 24, \"problem_id\": \"P-NTE-206\", \"skill_ids\": [\"linear_equation.isolate_variable\"], \"even"
+    },
+    {
+      "event_id": "40c954d9-46c8-531b-9079-de92d6b0e8e5",
+      "reason": "malformed_json",
+      "raw": "{\"schema_version\": \"0.1\", \"event_id\": \"40c954d9-46c8-531b-9079-de92d6b0e8e5\", \"event_type\": \"submit_step\", \"learner_id\": \"L-59e7091df3f6b6b1\", \"class_id\": \"C-SIM-0003\", \"session_id\": \"S-2d6b1a57\", \"session_seq\": 15, \"problem_id\": \"P-NTE-158\", \"skill_ids\": [\"quadratic_equation.factoriz"
+    },
+    {
+      "event_id": "50955fcb-57db-5153-b4ed-0e35b83984b4",
+      "reason": "sent_before_event",
+      "raw": "{\"schema_version\": \"0.1\", \"event_id\": \"50955fcb-57db-5153-b4ed-0e35b83984b4\", \"event_type\": \"submit_step\", \"learner_id\": \"L-41bfef8b55f21eb9\", \"class_id\": \"C-SIM-0027\", \"session_id\": \"S-b8ab1a57\", \"session_seq\": 35, \"problem_id\": \"P-NTE-229\", \"skill_ids\": [\"linear_equation.fractions\", \"linear_equati"
+    },
+    {
+      "event_id": "e8b396a1-d45a-5c29-adb2-23cdc73d14dd",
+      "reason": "event_time",
+      "raw": "{\"schema_version\": \"0.1\", \"event_id\": \"e8b396a1-d45a-5c29-adb2-23cdc73d14dd\", \"event_type\": \"submit_step\", \"learner_id\": \"L-2e293f872b304f7a\", \"class_id\": \"C-SIM-0027\", \"session_id\": \"S-deab1a57\", \"session_seq\": 33, \"problem_id\": \"P-NTE-086\", \"skill_ids\": [\"linear_equation.fractions\", \"linear_equati"
+    },
+    {
+      "event_id": "2c55aaa0-6874-5928-b6ac-9368dfc3d4d2",
+      "reason": "unknown_field",
+      "raw": "{\"schema_version\": \"0.1\", \"event_id\": \"2c55aaa0-6874-5928-b6ac-9368dfc3d4d2\", \"event_type\": \"open_problem\", \"learner_id\": \"L-e9ac8ef8a277f1d3\", \"class_id\": \"C-SIM-0026\", \"session_id\": \"S-1c2b1a57\", \"session_seq\": 31, \"problem_id\": \"P-NTE-127\", \"skill_ids\": [\"linear_equation.fractions\", \"linear_equat"
+    },
+    {
+      "event_id": "6908a378-21e9-57cb-a20b-f7d772046845",
+      "reason": "payload",
+      "raw": "{\"schema_version\": \"0.1\", \"event_id\": \"6908a378-21e9-57cb-a20b-f7d772046845\", \"event_type\": \"open_problem\", \"learner_id\": \"L-a305e14a461cae7d\", \"class_id\": \"C-SIM-0016\", \"session_id\": \"S-312b1a57\", \"session_seq\": 33, \"problem_id\": \"P-NTE-158\", \"skill_ids\": [\"quadratic_equation.factorization\", \"quadr"
+    },
+    {
+      "event_id": "0ef42ba8-1e4a-5104-b687-e1b3d5f69371",
+      "reason": "missing_field",
+      "raw": "{\"schema_version\": \"0.1\", \"event_id\": \"0ef42ba8-1e4a-5104-b687-e1b3d5f69371\", \"event_type\": \"request_hint\", \"class_id\": \"C-SIM-0024\", \"session_id\": \"S-95ab1a57\", \"session_seq\": 30, \"problem_id\": \"P-NTA-132\", \"skill_ids\": [\"arithmetic.rates\", \"arithmetic.fractions\", \"arithmetic.multi_step\"], \"event_t"
+    },
+    {
+      "event_id": "0dde95ef-4c2c-5c02-9567-c5b737e4134f",
+      "reason": "malformed_json",
+      "raw": "{\"schema_version\": \"0.1\", \"event_id\": \"0dde95ef-4c2c-5c02-9567-c5b737e4134f\", \"event_type\": \"open_problem\", \"learner_id\": \"L-d375766849a4c2d7\", \"class_id\": \"C-SIM-0025\", \"session_id\": \"S-89eb1a57\", \"session_seq\": 25, \"problem_id\": \"P-NTE-058\", \"skill_ids\""
+    },
+    {
+      "event_id": "c528ff2c-ece8-5f3b-b9d9-416c46a2895f",
+      "reason": "sent_before_event",
+      "raw": "{\"schema_version\": \"0.1\", \"event_id\": \"c528ff2c-ece8-5f3b-b9d9-416c46a2895f\", \"event_type\": \"submit_step\", \"learner_id\": \"L-edc28d7e9d75ae31\", \"class_id\": \"C-SIM-0017\", \"session_id\": \"S-d66b1a57\", \"session_seq\": 32, \"problem_id\": \"P-NTA-581\", \"skill_ids\": [\"arithmetic.percent\", \"arithmetic.fractions"
+    },
+    {
+      "event_id": "7824fcbe-af08-5b8b-ba61-fd55f322d58c",
+      "reason": "learner_id",
+      "raw": "{\"schema_version\": \"0.1\", \"event_id\": \"7824fcbe-af08-5b8b-ba61-fd55f322d58c\", \"event_type\": \"request_hint\", \"learner_id\": \"L-ZZZZZZZZZZZZZZZZ\", \"class_id\": \"C-SIM-0010\", \"session_id\": \"S-32eb1a57\", \"session_seq\": 37, \"problem_id\": \"P-NTE-132\", \"skill_ids\": [\"linear_equation.fractions\", \"linear_equat"
+    },
+    {
+      "event_id": "dc5d44f6-c7ae-58b2-a24e-a031b0def419",
+      "reason": "learner_id",
+      "raw": "{\"schema_version\": \"0.1\", \"event_id\": \"dc5d44f6-c7ae-58b2-a24e-a031b0def419\", \"event_type\": \"submit_step\", \"learner_id\": \"L-ZZZZZZZZZZZZZZZZ\", \"class_id\": \"C-SIM-0007\", \"session_id\": \"S-562b1a57\", \"session_seq\": 34, \"problem_id\": \"P-NTE-023\", \"skill_ids\": [\"quadratic_equation.factorization\", \"quadra"
+    },
+    {
+      "event_id": "0967b346-5d3a-55e9-9d59-8496dfdbeb2b",
+      "reason": "learner_id",
+      "raw": "{\"schema_version\": \"0.1\", \"event_id\": \"0967b346-5d3a-55e9-9d59-8496dfdbeb2b\", \"event_type\": \"request_hint\", \"learner_id\": \"L-ZZZZZZZZZZZZZZZZ\", \"class_id\": \"C-SIM-0013\", \"session_id\": \"S-22e29408\", \"session_seq\": 4, \"problem_id\": \"P-NTE-222\", \"skill_ids\": [\"quadratic_equation.factorization\"], \"event"
+    },
+    {
+      "event_id": "ccdf14b8-0fac-5cd6-bac9-21936db81cdd",
+      "reason": "sent_before_event",
+      "raw": "{\"schema_version\": \"0.1\", \"event_id\": \"ccdf14b8-0fac-5cd6-bac9-21936db81cdd\", \"event_type\": \"submit_step\", \"learner_id\": \"L-e20ce5821f9b26ba\", \"class_id\": \"C-SIM-0013\", \"session_id\": \"S-22e29408\", \"session_seq\": 12, \"problem_id\": \"P-NTE-049\", \"skill_ids\": [\"quadratic_equation.factorization\", \"quadra"
+    },
+    {
+      "event_id": "afc49a18-2020-5fad-b893-578d2ec5b89f",
+      "reason": "unknown_field",
+      "raw": "{\"schema_version\": \"0.1\", \"event_id\": \"afc49a18-2020-5fad-b893-578d2ec5b89f\", \"event_type\": \"submit_step\", \"learner_id\": \"L-6bd258b7cc0ba6bc\", \"class_id\": \"C-SIM-0003\", \"session_id\": \"S-acab1a57\", \"session_seq\": 45, \"problem_id\": \"P-NTA-267\", \"skill_ids\": [\"arithmetic.rates\", \"arithmetic.multi_step\""
+    },
+    {
+      "event_id": "cb86bb21-d503-5732-9cb1-403b7d6f420f",
+      "reason": "unknown_field",
+      "raw": "{\"schema_version\": \"0.1\", \"event_id\": \"cb86bb21-d503-5732-9cb1-403b7d6f420f\", \"event_type\": \"submit_step\", \"learner_id\": \"L-3bbe5d967042574f\", \"class_id\": \"C-SIM-0007\", \"session_id\": \"S-a52b1a57\", \"session_seq\": 70, \"problem_id\": \"P-NTE-074\", \"skill_ids\": [\"linear_equation.distribute\", \"linear_equat"
+    }
+  ],
+  "runtime_s": 4.595,
+  "session": {
+    "app_id": "app-20261028105921-0000",
+    "master": "local-cluster[1,2,4096]",
+    "spark_mode": "local-cluster",
+    "startup_s": 3.583,
+    "spark_version": "4.1.3",
+    "ui_port": 36231,
+    "executors": [
+      {
+        "id": "0",
+        "hostPort": "127.0.0.1:34399",
+        "totalCores": 2,
+        "maxMemory": 2388236697
+      }
+    ],
+    "spark_conf": {
+      "spark.sql.session.timeZone": "UTC",
+      "spark.driver.host": "127.0.0.1",
+      "spark.driver.bindAddress": "127.0.0.1",
+      "spark.ui.enabled": "true",
+      "spark.ui.showConsoleProgress": "false",
+      "spark.master": "local-cluster[1,2,4096]",
+      "spark.sql.shuffle.partitions": "8",
+      "spark.driver.memory": "2g",
+      "spark.app.name": "nhom8-mapreduce-problems-A",
+      "spark.local.dir": "/home/vankcdhv/nhom8-data/spark-tmp/batch",
+      "spark.sql.warehouse.dir": "/home/vankcdhv/nhom8-data/spark-warehouse",
+      "spark.driver.extraJavaOptions": "-Djava.io.tmpdir=/home/vankcdhv/nhom8-data/spark-tmp/batch",
+      "spark.sql.execution.arrow.pyspark.enabled": "true",
+      "spark.default.parallelism": "8",
+      "spark.ui.port": "36231",
+      "spark.executor.processTreeMetrics.enabled": "true",
+      "spark.executor.memory": "4096m",
+      "spark.executor.cores": "2",
+      "spark.cores.max": "2",
+      "spark.executor.extraJavaOptions": "-Djava.io.tmpdir=/home/vankcdhv/nhom8-data/spark-tmp/batch"
+    }
+  }
+}

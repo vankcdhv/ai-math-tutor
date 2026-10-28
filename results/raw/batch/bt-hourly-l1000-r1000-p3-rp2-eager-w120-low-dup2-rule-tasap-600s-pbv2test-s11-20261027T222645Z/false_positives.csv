@@ -1,0 +1,3 @@
+learner_id,skill_id,detect_cutoff_ms,visible_ms,onset_event_id,onset_event_time_ms
+L-b73c147a36a2e8fe,quadratic_equation.factorization,1793122340625,1793122365862,70851135-df4d-5bfa-aff8-cae294da470a,1793120741210
+L-b73c147a36a2e8fe,quadratic_equation.missing_root,1793122340625,1793122365862,70851135-df4d-5bfa-aff8-cae294da470a,1793120741210

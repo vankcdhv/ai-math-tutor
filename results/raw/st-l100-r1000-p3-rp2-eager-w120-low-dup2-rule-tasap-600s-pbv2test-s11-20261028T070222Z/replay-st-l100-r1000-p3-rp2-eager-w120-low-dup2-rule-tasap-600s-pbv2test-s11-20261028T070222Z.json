@@ -1,0 +1,190 @@
+{
+  "run_id": "st-l100-r1000-p3-rp2-eager-w120-low-dup2-rule-tasap-600s-pbv2test-s11-20261028T070222Z",
+  "experiment": "ingestion",
+  "started_at": "2026-10-28T07:02:42.263144+00:00",
+  "events_path": "/home/vankcdhv/nhom8-data/exp-sim/l100-r1000-low-dup2-h630s-pbv2test-s11/events.parquet",
+  "topic": "exp-st-l100-r1000-p3-rp2-eager-w120-low-dup2-rule-tasap-600s-pbv2test-s11-20261028T070222Z",
+  "partitions": 3,
+  "processes": 2,
+  "replay_start_ms": 1793170965548,
+  "replay_start": "2026-10-28T07:02:45.548Z",
+  "time_scale": 1.0,
+  "cutoff_ms": 600000,
+  "window": {
+    "rows": 610524,
+    "file_rows": 642563,
+    "complete": false,
+    "unique_events": 598607,
+    "duplicate_deliveries": 11917,
+    "first_offset_ms": 32,
+    "last_offset_ms": 599999,
+    "max_event_offset_ms": 599978
+  },
+  "producer_config": {
+    "bootstrap.servers": "127.0.0.1:9092",
+    "client.id": "nhom8-replay",
+    "enable.idempotence": true,
+    "acks": "all",
+    "linger.ms": 5.0,
+    "batch.size": 1000000,
+    "compression.type": "lz4",
+    "queue.buffering.max.messages": 100000,
+    "delivery.timeout.ms": 300000,
+    "partitioner": "murmur2_random"
+  },
+  "scheduled": 610524,
+  "sent": 610524,
+  "delivered": 610524,
+  "delivery_errors": 0,
+  "undelivered_after_flush": 0,
+  "buffer_full_events": 0,
+  "backpressure_s": 0.0,
+  "stamped": 598607,
+  "duplicates_from_cache": 11917,
+  "delivery_error_counts": {},
+  "client_errors": {},
+  "delivered_all": true,
+  "stopped_early": false,
+  "target_rate_eps": 1017.596,
+  "achieved_rate_eps": 1017.596,
+  "acked_rate_eps": 1017.579,
+  "rate_ratio": 1.0,
+  "rate_ok": true,
+  "slip_ms": {
+    "count": 610524,
+    "mean_ms": 0.121,
+    "p50_ms": 0.1,
+    "p95_ms": 0.2,
+    "p99_ms": 0.4,
+    "max_ms": 28.198
+  },
+  "end_of_log_ms": 1793171565526,
+  "end_of_log": "2026-10-28T07:12:45.526Z",
+  "watermark_s": 120.0,
+  "heartbeat": {
+    "rounds": 5,
+    "sent": 15,
+    "partitions": 3,
+    "first_event_ms": 1793171686526,
+    "last_event_ms": 1793171690526,
+    "until_satisfied": true,
+    "first_event_time": "2026-10-28T07:14:46.526Z",
+    "undelivered_after_flush": 0,
+    "delivery_errors": 0
+  },
+  "shards": [
+    {
+      "shard": 0,
+      "sent": 298859,
+      "first_send_ms": 1793170965580,
+      "last_send_ms": 1793171565546,
+      "stopped_early": false,
+      "stamped": 293081,
+      "duplicates_from_cache": 5778,
+      "max_cached": 34,
+      "undelivered_after_flush": 0,
+      "producer": {
+        "produced": 298859,
+        "delivered": 298859,
+        "delivery_errors": 0,
+        "buffer_full_events": 0,
+        "backpressure_s": 0.0,
+        "last_ack_epoch_ms": 1793171565557,
+        "error_counts": {},
+        "error_samples": [],
+        "client_errors": {}
+      },
+      "scheduled": 298859,
+      "slip_ms": {
+        "count": 298859,
+        "mean_ms": 0.125,
+        "p50_ms": 0.2,
+        "p95_ms": 0.2,
+        "p99_ms": 0.4,
+        "max_ms": 28.198
+      }
+    },
+    {
+      "shard": 1,
+      "sent": 311665,
+      "first_send_ms": 1793170965583,
+      "last_send_ms": 1793171565547,
+      "stopped_early": false,
+      "stamped": 305526,
+      "duplicates_from_cache": 6139,
+      "max_cached": 33,
+      "undelivered_after_flush": 0,
+      "producer": {
+        "produced": 311665,
+        "delivered": 311665,
+        "delivery_errors": 0,
+        "buffer_full_events": 0,
+        "backpressure_s": 0.0,
+        "last_ack_epoch_ms": 1793171565557,
+        "error_counts": {},
+        "error_samples": [],
+        "client_errors": {}
+      },
+      "scheduled": 311665,
+      "slip_ms": {
+        "count": 311665,
+        "mean_ms": 0.118,
+        "p50_ms": 0.1,
+        "p95_ms": 0.2,
+        "p99_ms": 0.4,
+        "max_ms": 21.532
+      }
+    }
+  ],
+  "wall_s": 607.469,
+  "status": "success",
+  "rate_check": true,
+  "manifest": {
+    "simulator_version": "1.0.0",
+    "seed": 11,
+    "params": {
+      "learners": 100,
+      "horizon_s": 630.0,
+      "seed": 11,
+      "out_dir": "/home/vankcdhv/nhom8-data/exp-sim/.l100-r1000-low-dup2-h630s-pbv2test-s11.tmp-412667",
+      "target_rate": 1000.0,
+      "late_profile": "low",
+      "duplicate_rate": 0.02,
+      "problems_path": "/mnt/d/develop/thacsi/bigdata/nhom8-ai-math-tutor/data_sample/problem-bank-v2.jsonl",
+      "split": "test",
+      "skills_path": "/mnt/d/develop/thacsi/bigdata/nhom8-ai-math-tutor/configs/skills.yaml",
+      "class_size": 35,
+      "cellular_share": 0.4,
+      "start": "2026-11-02T00:00:00Z",
+      "behavior": {
+        "think_mean_s": 20.0,
+        "think_sigma": 0.6,
+        "sessions_per_day_weights": [
+          0.1,
+          0.4,
+          0.35,
+          0.15
+        ],
+        "problems_per_session": [
+          4,
+          12
+        ],
+        "max_step_attempts": 4,
+        "max_answer_attempts": 3,
+        "hint_after_wrong": 2,
+        "p_hint": 0.2,
+        "hint_learn_bonus": 0.05,
+        "max_opportunities_per_skill": 25
+      },
+      "mode": "rate",
+      "think_mean_s": 0.1
+    },
+    "counts": {
+      "unique_events": 629984,
+      "deliveries": 642563,
+      "duplicate_deliveries": 12579,
+      "learners": 100
+    },
+    "events_checksum": "sha256:d2bb87b5a6c6fa3ed79719cf47815caf40105af599838bdecd701e36d8ed2f4f"
+  }
+}

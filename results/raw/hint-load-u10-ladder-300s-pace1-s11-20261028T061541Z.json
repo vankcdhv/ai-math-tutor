@@ -1,0 +1,111 @@
+{
+  "tag": "u10-ladder-300s-pace1-s11-20261028T061541Z",
+  "parameters": {
+    "duration_s": 300,
+    "pacing_s": 1.0,
+    "attack_fraction": 0.0,
+    "hint_generator": "ladder",
+    "math_workers": 4,
+    "math_timeout_s": 0.2,
+    "port": 8765,
+    "key_prefix": "lt-u10-ladder-300s-pace1-s11-20261028T061541Z:",
+    "fixture_learners": 10,
+    "audit_log": true,
+    "loop": "closed (Locust, fixed per-user schedule)",
+    "uvicorn_workers": 1,
+    "start_jitter": true,
+    "locust_user": "FastHttpUser"
+  },
+  "data_version": "problem-bank-v2.jsonl@sha256:664a9f297fee1139eec45e227414d05ec1da963b71c8a58acdede843e2c73f99",
+  "server_health_after": {
+    "status": "ok",
+    "generator": "ladder",
+    "problems": 1260,
+    "unverified_problems": 0,
+    "redis": "ok",
+    "math_timeout_s": 0.2,
+    "counters": {
+      "diagnose_timeouts": 0,
+      "diagnose_errors": 0,
+      "lasthint_errors": 0
+    },
+    "audit": {
+      "queued": 3000,
+      "delivered": 3000,
+      "errors": 0,
+      "dropped": 0
+    }
+  },
+  "levels": [
+    {
+      "users": 10,
+      "locust_exit_code": 0,
+      "runtime_s": 301.012,
+      "requests": 3000,
+      "throughput_rps": 10.008,
+      "status_counts": {
+        "200": 3000
+      },
+      "latency_all": {
+        "count": 3000,
+        "p50_ms": 2.991,
+        "p95_ms": 6.481,
+        "p99_ms": 7.326,
+        "max_ms": 26.722,
+        "mean_ms": 3.558387666666666
+      },
+      "latency_ok_non_attack": {
+        "count": 3000,
+        "p50_ms": 2.991,
+        "p95_ms": 6.481,
+        "p99_ms": 7.326,
+        "max_ms": 26.722,
+        "mean_ms": 3.558387666666666
+      },
+      "latency_attack": {
+        "count": 0,
+        "p50_ms": null,
+        "p95_ms": null,
+        "p99_ms": null,
+        "max_ms": null,
+        "mean_ms": null
+      },
+      "slo_p95_ms": 300.0,
+      "slo_met": true,
+      "state_source_default": 0,
+      "state_source_default_ratio": 0.0,
+      "hint_level_counts": {
+        "2": 34,
+        "1": 12,
+        "3": 2954
+      },
+      "source_counts": {
+        "ladder": 3000
+      },
+      "verified_false": 0,
+      "request_kind_counts": {
+        "wrong": 766,
+        "correct": 860,
+        "none": 1374
+      },
+      "pacing_overruns": 0,
+      "client_cpu_percent": {
+        "mean": 1.15,
+        "max": 21.0
+      },
+      "server_cpu_percent": {
+        "mean": 3.513333333333333,
+        "max": 5.0
+      },
+      "locust_aggregate": {
+        "requests": 2993,
+        "failures": 0,
+        "p50_ms": 3.0,
+        "p95_ms": 6.0,
+        "p99_ms": 7.0,
+        "rps": 10.00249770343291
+      },
+      "request_log": "/home/vankcdhv/nhom8-data/hint-load/u10-ladder-300s-pace1-s11-20261028T061541Z/requests-u10.jsonl"
+    }
+  ]
+}

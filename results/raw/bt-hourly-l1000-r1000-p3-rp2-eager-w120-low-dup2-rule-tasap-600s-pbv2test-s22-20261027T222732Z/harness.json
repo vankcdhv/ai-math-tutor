@@ -1,0 +1,18 @@
+{
+  "run_id": "bt-hourly-l1000-r1000-p3-rp2-eager-w120-low-dup2-rule-tasap-600s-pbv2test-s22-20261027T222732Z",
+  "source_run_id": "st-l1000-r1000-p3-rp2-eager-w120-low-dup2-rule-tasap-600s-pbv2test-s22-20261027T171610Z",
+  "config_key": "hourly-l1000-r1000-p3-rp2-eager-w120-low-dup2-rule-tasap-600s-pbv2test",
+  "groups": [
+    "C_freshness_cost"
+  ],
+  "replay_start_ms": 1793121382428,
+  "window": {
+    "rows": 609843,
+    "unique_events": 598042,
+    "episodes_kept": 2913,
+    "episodes_outside_window": 0,
+    "cutoff_ms": 600000
+  },
+  "dataset": "/home/vankcdhv/nhom8-data/exp-sim/l1000-r1000-low-dup2-h630s-pbv2test-s22",
+  "attempt": 1
+}

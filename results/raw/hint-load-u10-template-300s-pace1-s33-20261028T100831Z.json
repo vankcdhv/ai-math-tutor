@@ -1,0 +1,111 @@
+{
+  "tag": "u10-template-300s-pace1-s33-20261028T100831Z",
+  "parameters": {
+    "duration_s": 300,
+    "pacing_s": 1.0,
+    "attack_fraction": 0.0,
+    "hint_generator": "template",
+    "math_workers": 4,
+    "math_timeout_s": 0.2,
+    "port": 8765,
+    "key_prefix": "lt-u10-template-300s-pace1-s33-20261028T100831Z:",
+    "fixture_learners": 10,
+    "audit_log": true,
+    "loop": "closed (Locust, fixed per-user schedule)",
+    "uvicorn_workers": 1,
+    "start_jitter": true,
+    "locust_user": "FastHttpUser"
+  },
+  "data_version": "problem-bank-v2.jsonl@sha256:664a9f297fee1139eec45e227414d05ec1da963b71c8a58acdede843e2c73f99",
+  "server_health_after": {
+    "status": "ok",
+    "generator": "template",
+    "problems": 1260,
+    "unverified_problems": 0,
+    "redis": "ok",
+    "math_timeout_s": 0.2,
+    "counters": {
+      "diagnose_timeouts": 0,
+      "diagnose_errors": 0,
+      "lasthint_errors": 0
+    },
+    "audit": {
+      "queued": 2999,
+      "delivered": 2999,
+      "errors": 0,
+      "dropped": 0
+    }
+  },
+  "levels": [
+    {
+      "users": 10,
+      "locust_exit_code": 0,
+      "runtime_s": 300.914,
+      "requests": 2999,
+      "throughput_rps": 10.007,
+      "status_counts": {
+        "200": 2999
+      },
+      "latency_all": {
+        "count": 2999,
+        "p50_ms": 2.341,
+        "p95_ms": 6.608,
+        "p99_ms": 7.971,
+        "max_ms": 28.626,
+        "mean_ms": 3.2217892630876954
+      },
+      "latency_ok_non_attack": {
+        "count": 2999,
+        "p50_ms": 2.341,
+        "p95_ms": 6.608,
+        "p99_ms": 7.971,
+        "max_ms": 28.626,
+        "mean_ms": 3.2217892630876954
+      },
+      "latency_attack": {
+        "count": 0,
+        "p50_ms": null,
+        "p95_ms": null,
+        "p99_ms": null,
+        "max_ms": null,
+        "mean_ms": null
+      },
+      "slo_p95_ms": 300.0,
+      "slo_met": true,
+      "state_source_default": 0,
+      "state_source_default_ratio": 0.0,
+      "hint_level_counts": {
+        "1": 30,
+        "2": 35,
+        "3": 2934
+      },
+      "source_counts": {
+        "template": 2999
+      },
+      "verified_false": 0,
+      "request_kind_counts": {
+        "wrong": 736,
+        "none": 1341,
+        "correct": 922
+      },
+      "pacing_overruns": 0,
+      "client_cpu_percent": {
+        "mean": 1.02,
+        "max": 21.0
+      },
+      "server_cpu_percent": {
+        "mean": 3.0566666666666666,
+        "max": 5.0
+      },
+      "locust_aggregate": {
+        "requests": 2994,
+        "failures": 0,
+        "p50_ms": 2.0,
+        "p95_ms": 7.0,
+        "p99_ms": 8.0,
+        "rps": 10.005724425863745
+      },
+      "request_log": "/home/vankcdhv/nhom8-data/hint-load/u10-template-300s-pace1-s33-20261028T100831Z/requests-u10.jsonl"
+    }
+  ]
+}
