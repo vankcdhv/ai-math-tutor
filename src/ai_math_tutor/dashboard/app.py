@@ -236,6 +236,8 @@ def main() -> None:  # noqa: C901 — một hàm dựng trang, chia theo tab
 
         heat = pd.DataFrame(queries.heatmap_rows(snapshot))
         heat["kỹ năng"] = heat["skill_id"].map(lambda s: f"{s} — {skill_names.get(s, '')}")
+        # Nhãn đầy đủ ("<5 chưa thành thạo"…) rộng hơn ô: trong ô chỉ in tỉ lệ hoặc "ẩn", nhãn đầy đủ ở tooltip.
+        heat["ô"] = heat["label"].where(heat["mastery_rate"].notna(), queries.HIDDEN_LABEL)
         base = alt.Chart(heat).encode(
             x=alt.X("skill_id:N", title="Kỹ năng", sort=list(skills)),
             y=alt.Y("class_id:N", title="Lớp", sort=classes),
@@ -246,9 +248,10 @@ def main() -> None:  # noqa: C901 — một hàm dựng trang, chia theo tab
             "datum.mastery_rate !== null",
             alt.Color("mastery_rate:Q", title="Tỉ lệ thành thạo", scale=alt.Scale(domain=[0, 1], scheme="greens")),
             alt.value("#e5e5e5")))
-        text = base.mark_text(fontSize=10).encode(text="label:N")
+        text = base.mark_text(fontSize=10).encode(text="ô:N")
         st.subheader("Tỉ lệ thành thạo theo lớp × kỹ năng")
-        st.altair_chart((cells + text).properties(height=max(120, 26 * len(classes))), width="stretch")
+        # Chiều cao theo bước mỗi lớp (alt.Step): chiều cao cố định bị Streamlit thu về chiều cao mặc định.
+        st.altair_chart((cells + text).properties(height=alt.Step(26)), width="stretch")
 
         left, right = st.columns(2)
         with left:
