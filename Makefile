@@ -28,6 +28,8 @@ help::
 	@echo "make dashboard [DASHBOARD_PORT=8501]"
 	@echo "make run-exp EXP=A|B|C|D|E|ablations|stress|soak|ceiling|all [PLAN=...] [EXP_ARGS=--dry-run]"
 	@echo "make baseline [BATCH_DATA=<thư mục events.parquet + ground_truth.jsonl>]"
+	@echo "make mapreduce-matrix [MAPREDUCE_ARGS=--dry-run | \"--scales 10000 --configs B\" | --summarize-only]"
+	@echo "make reproduce-small [REPRO_PLAN=...] | demo | demo-down | demo-clean"
 
 .env:
 	@echo "Thiếu .env — chạy: cp .env.example .env rồi đặt REDIS_PASSWORD ngẫu nhiên (docs/setup.md)" >&2
@@ -173,6 +175,71 @@ baseline:
 	  $(UV) run python -m ai_math_tutor.batch.run_batch_baseline --schedule $$s \
 	    --events $(BATCH_DATA)/events.parquet --ground-truth $(BATCH_DATA)/ground_truth.jsonl --parity-check; \
 	done
+
+# --- MapReduce theo (learner, problem): 3 quy mô × Config A/B × 3 lần (resume; run success được bỏ qua) ---
+# Minh chứng dưới results/mapreduce/, run record vào results/raw/runs.jsonl. Ví dụ: MAPREDUCE_ARGS=--dry-run
+MAPREDUCE_ARGS ?=
+
+.PHONY: mapreduce-matrix
+
+mapreduce-matrix:
+	$(UV) run python -m ai_math_tutor.experiments.mapreduce_matrix $(MAPREDUCE_ARGS)
+
+# --- Tái lập nhỏ trên host: một run streaming đầy đủ qua runner thí nghiệm ---
+# Vòng đời của runner: sinh dữ liệu mô phỏng → topic riêng của run → job (run id riêng) → phát lại cùng W
+# → drain → đối soát → run record. Kết quả ghi vào thư mục mới dưới REPRO_ROOT (không chạm results/raw);
+# không chạy được khi ma trận thí nghiệm đang chạy (khóa runner dùng chung).
+REPRO_PLAN ?= configs/experiments/smoke.yaml
+REPRO_ROOT ?= $(NHOM8_DATA_ROOT)/reproduce-small
+
+# Tóm tắt run record cuối của runs.jsonl; thoát 1 nếu run không success.
+define REPRO_SUMMARY_PY
+import json, sys
+lines = [line for line in open(sys.argv[1], encoding="utf-8") if line.strip()]
+if not lines:
+    sys.exit("runs.jsonl rỗng: runner không ghi run record nào")
+record = json.loads(lines[-1])
+metrics = record.get("metrics") or {}
+reconcile = metrics.get("reconcile") or {}
+alerts = reconcile.get("alerts") or {}
+print(json.dumps({
+    "run_id": record.get("run_id"), "status": record.get("status"), "runtime_s": record.get("runtime_s"),
+    "slo": metrics.get("slo"), "throughput": metrics.get("throughput"),
+    "reconcile_status": reconcile.get("status"), "checks": reconcile.get("checks"),
+    "alerts": {key: alerts.get(key) for key in ("unique_alert_ids", "duplicate_stream_entries", "recall",
+                                                "time_to_detect_system_ms")},
+}, ensure_ascii=False, indent=2))
+sys.exit(0 if record.get("status") == "success" else 1)
+endef
+export REPRO_SUMMARY_PY
+
+.PHONY: reproduce-small
+
+reproduce-small: up
+	@out="$(REPRO_ROOT)/$$(date -u +%Y%m%dT%H%M%SZ)"; mkdir -p "$$out"; \
+	echo "reproduce-small: kết quả ở $$out"; \
+	rc=0; $(UV) run python -m ai_math_tutor.experiments.runner --plan $(REPRO_PLAN) --results-dir "$$out" || rc=$$?; \
+	if [[ -s "$$out/runs.jsonl" ]]; then $(UV) run python -c "$$REPRO_SUMMARY_PY" "$$out/runs.jsonl" || rc=1; fi; \
+	exit $$rc
+
+# --- Demo bằng Docker: profile app (Spark job, dịch vụ gợi ý, dashboard trong container) ---
+# Kịch bản trình diễn: docs/demo-script.md. Thí nghiệm vẫn đo trên host, không trong container.
+APP_SERVICES := demo-setup streaming demo-replay hint-api dashboard
+DEMO_VOLUME := nhom8_demo-data
+
+.PHONY: demo demo-down demo-clean
+
+demo: .env
+	$(COMPOSE) --profile app up --build
+
+# Dừng và xóa container của profile app; Kafka, Redis và mọi volume giữ nguyên.
+demo-down:
+	$(COMPOSE) --profile app rm --stop --force $(APP_SERVICES)
+
+# Như demo-down, rồi xóa volume dữ liệu của demo (checkpoint, lake, mô phỏng) để lần sau chạy mới.
+# Không bao giờ xóa volume kafka-data.
+demo-clean: demo-down
+	docker volume rm --force $(DEMO_VOLUME)
 
 # Target cục bộ ngoài phạm vi pipeline (nếu có tệp).
 -include report/tasks.mk

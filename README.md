@@ -75,6 +75,7 @@ uv run python -m ai_math_tutor.batch.run_batch_baseline --schedule daily \
   --ground-truth "$NHOM8_DATA_ROOT/sim-bench/day-1k-s11/ground_truth.jsonl" --parity-check
 # --schedule hourly | --impl rdd (MapReduce) | --replay-start-ms <epoch ms> (đóng dấu lại như bộ phát lại, dịch ground truth)
 # --phase-s 0 (chạy đúng 00:00; mặc định pha lấy từ seed) | --partitions N | --timeout-s 600
+make mapreduce-matrix MAPREDUCE_ARGS=--dry-run   # MapReduce (learner, problem): 3 quy mô × Config A/B × 3 lần → results/mapreduce/ (docs/experiment-protocol.md §5)
 ```
 
 ### Dịch vụ gợi ý
@@ -91,6 +92,20 @@ Không dùng LLM lúc chạy: gợi ý 3 bậc lấy từ bước giải đã ki
 
 `make dashboard` rồi mở http://127.0.0.1:8501 (tab Lớp / Giáo viên / Pipeline; `?tab=Pipeline` mở thẳng một tab). Chỉ đọc Redis, tự làm mới mỗi 2 s. Mọi số cấp lớp/trường qua ngưỡng k = 5: < 5 hiện "<5", còn lại làm tròn tới bội số của 5; tổng có ô "<5" hiện "ẩn". Chế độ giáo viên cần `NHOM8_TEACHER_MODE=1` và `TEACHER_PASSWORD`. Xem một run thử: `NHOM8_DASHBOARD_KEY_PREFIX=<prefix của job> make dashboard`.
 
+## Demo bằng Docker
+
+Profile `app` của `docker-compose.yml` chạy job Spark, dịch vụ gợi ý và dashboard trong container. Ba thành phần dùng chung image `docker/app.Dockerfile` (JDK 17 + PySpark), nối Kafka qua listener nội bộ `kafka:29092`. Một bộ dữ liệu mô phỏng nhỏ (350 người học, 10 lớp, 100 sự kiện/giây, 10 phút) được phát lại với cùng W và cùng run id với job.
+
+```bash
+cp .env.example .env     # đặt REDIS_PASSWORD và NHOM8_HINT_API_KEY ngẫu nhiên; tùy chọn NHOM8_TEACHER_MODE=1 + TEACHER_PASSWORD
+make demo                # docker compose --profile app up --build
+# dashboard: http://127.0.0.1:8501   dịch vụ gợi ý: http://127.0.0.1:8000 (chỉ 127.0.0.1)
+make demo-down           # dừng các container ứng dụng; Kafka, Redis và volume giữ nguyên
+make demo-clean          # như demo-down, rồi xóa volume dữ liệu demo để lần sau chạy mới
+```
+
+Lần build đầu cần mạng (image nền, gói Debian, PyPI, connector Kafka của Spark). Sau đó demo chạy được khi không có mạng. Kịch bản trình diễn từng bước: [`docs/demo-script.md`](docs/demo-script.md). Các số đo thí nghiệm vẫn được đo trên host, không đo trong container.
+
 ## Tái tạo kết quả chính
 
 Mỗi lần chạy thí nghiệm ghi một dòng vào `results/raw/runs.jsonl` qua `ai_math_tutor.run_record` (đủ trường Phụ lục B); mọi số liệu và hình trong `results/figures/` chỉ lấy từ tệp đó. Ma trận cấu hình: `configs/experiments/plan-v1.0.yaml` (v0.1 giữ làm lịch sử); quy ước thống kê: `docs/experiment-protocol.md`.
@@ -99,6 +114,7 @@ Mỗi lần chạy thí nghiệm ghi một dòng vào `results/raw/runs.jsonl` q
 make run-exp EXP=all EXP_ARGS=--dry-run              # 115 run, trạng thái resume, ước lượng ~20,6 giờ máy
 make run-exp EXP=A                                    # Exp A × 3 seed; mỗi run một dòng results/raw/runs.jsonl
 make run-exp PLAN=configs/experiments/smoke.yaml      # kiểm runner (~1,5 phút)
+make reproduce-small   # make up + một run streaming nhỏ từ đầu (cấu hình smoke), kết quả trong thư mục mới, in tóm tắt
 ```
 
 Quy trình đánh giá chất lượng (audit gợi ý, rà soát kho bài) và báo cáo nộp riêng, không nằm trong repo này.

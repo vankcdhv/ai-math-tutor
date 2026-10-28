@@ -242,7 +242,10 @@ make run-exp EXP=all EXP_ARGS=--dry-run          # kế hoạch, trạng thái r
 make run-exp PLAN=configs/experiments/smoke.yaml # một run streaming nhỏ để kiểm runner (~1,5 phút)
 make run-exp EXP=A                               # Exp A × 3 seed
 make run-exp EXP=D EXP_ARGS="--only ordered"     # chỉ cấu hình có slug chứa "ordered"
+make reproduce-small                             # make up + một run smoke từ đầu, kết quả dưới $NHOM8_DATA_ROOT/reproduce-small/<thời điểm>/
 ```
+
+- `make reproduce-small` dùng runner với `configs/experiments/smoke.yaml` (đổi bằng `REPRO_PLAN=...`), ghi vào một thư mục mới nên không bị bỏ qua vì run cũ đã `success` và không chạm `results/raw/`. Cuối lệnh in tóm tắt: `status`, SLO, thông lượng, `checks` của đối soát, số cảnh báo; thoát 1 nếu run không `success`. Lệnh dùng chung khóa runner, nên không chạy được khi ma trận đang chạy.
 
 - `--dry-run` in bảng (thí nghiệm, loại, seed, trạng thái, số lần thử, phút ước lượng, slug cấu hình) rồi một JSON có `estimate`. Với `plan-v1.0.yaml` chưa chạy run nào: 115 run, ước lượng khoảng 20,6 giờ máy.
 - `EXP` nhận `A`, `B`, `C`, `D`, `E`, `ablations`, `stress`, `soak`, `ceiling`, `all`, hoặc nhiều giá trị cách nhau bằng dấu phẩy. Run đã `success` được bỏ qua; chạy lại cùng lệnh là chạy tiếp.
@@ -326,3 +329,35 @@ bash scripts/disk-check.sh 10                       # thoát 1 nếu ổ chứa 
 | Gợi ý luôn `state_source: default` | Không có `state:`/`progress:` cho learner đó dưới tiền tố đang dùng (`--key-prefix` của `make hint-api` phải bằng tiền tố của job), hoặc Redis không nối được. Đây là hành vi fail-closed, không phải lỗi dịch vụ |
 | Trình duyệt Windows không mở được `127.0.0.1:8501` | Dashboard chưa chạy hoặc đã thoát; kiểm `ss -ltnp | grep 8501` trong WSL |
 | `disk-check.sh` thoát 1, Spark chậm | SSD gần đầy hoặc dữ liệu nằm trên `/mnt/*`: kiểm `NHOM8_DATA_ROOT`, chạy `make clean-state` |
+
+## 16. Demo bằng Docker
+
+Profile `app` của `docker-compose.yml` chạy job Spark, dịch vụ gợi ý và dashboard trong container. Ba thành phần dùng chung image `docker/app.Dockerfile` (Python 3.12, JDK 17, PySpark theo `uv.lock`). Trong container, `NHOM8_ENV=container` làm Kafka đi qua listener nội bộ `kafka:29092` và Redis đi qua tên service `redis`. Phía host chỉ publish `127.0.0.1:8000` (dịch vụ gợi ý) và `127.0.0.1:8501` (dashboard).
+
+```bash
+make demo           # docker compose --profile app up --build (log ở cửa sổ này)
+make demo-down      # dừng + xóa container ứng dụng; Kafka, Redis, volume giữ nguyên
+make demo-clean     # như demo-down, rồi xóa volume nhom8_demo-data (không bao giờ xóa kafka-data)
+```
+
+`.env` cần `REDIS_PASSWORD` và `NHOM8_HINT_API_KEY`. Thiếu một trong hai thì Compose dừng với thông báo. Tab Giáo viên cần thêm `NHOM8_TEACHER_MODE=1` và `TEACHER_PASSWORD`.
+
+Thứ tự khởi động:
+
+| Service | Việc làm |
+|---|---|
+| `demo-setup` (one-shot) | Tạo topic `demo-learner-events`, `demo-dead-letter`, `demo-alerts` (và `hint-requests` nếu chưa có); sinh 350 người học × 10 lớp × 100 sự kiện/giây × 10 phút; nạp roster dưới tiền tố `demo:` |
+| `streaming` | Job run `demo`, W = 30 s, mô hình `rule`; checkpoint, lake và kết quả trong volume `/data` |
+| `demo-replay` (one-shot) | Chạy khi `streaming` healthy; phát lại với cùng W và run id |
+| `hint-api` | Đọc khóa `demo:` |
+| `dashboard` | Đọc khóa `demo:` |
+
+Tham số nằm trong khối `x-demo-env` của `docker-compose.yml`.
+
+- Lần đầu chạy (chưa có checkpoint của run `demo`), các topic của demo được tạo lại rỗng và khóa `demo:*` trong Redis bị xóa. Khởi động lại container thì giữ nguyên mọi thứ, job chạy tiếp từ checkpoint.
+- Một run chỉ được phát lại một lần. Nếu lần phát lại bị ngắt giữa chừng, `demo-replay` từ chối phát lại; chạy `make demo-clean` rồi `make demo`.
+- Lần build đầu cần mạng (image nền, gói Debian, PyPI, connector Kafka của Spark, được tải sẵn vào image). Sau đó demo chạy được khi không có mạng.
+- Các số đo trong báo cáo vẫn đo trên host theo các mục trên, không đo trong container.
+- Ctrl-C ở cửa sổ `make demo` dừng mọi container của project, kể cả Kafka/Redis. Muốn giữ hạ tầng thì dùng `make demo-down`.
+
+Kịch bản trình diễn 5–7 phút: `docs/demo-script.md`.
