@@ -1,11 +1,39 @@
-# Hạ tầng phát triển/thí nghiệm: Kafka (KRaft, một node) + Redis.
-# Ứng dụng (Spark, FastAPI, Streamlit) chạy trên host và nối qua 127.0.0.1;
-# container khác trong cùng mạng Compose nối Kafka qua kafka:29092.
+# Hạ tầng phát triển/thí nghiệm: Kafka (KRaft, một node) + Redis (`make up`).
+# Khi đo thí nghiệm, ứng dụng (Spark, FastAPI, Streamlit) chạy trên host và nối qua 127.0.0.1.
+# Profile `app` (`make demo`) chạy chính ứng dụng đó trong container, cùng image docker/app.Dockerfile,
+# nối Kafka qua listener nội bộ kafka:29092 và Redis qua tên service (NHOM8_ENV=container).
 # Mọi cổng chỉ publish trên 127.0.0.1 — tests/test_compose_bindings.py kiểm tự động.
 # Image ghim theo digest (tag để đọc, digest để tái lập). Cập nhật: docker pull <tag>
 # rồi docker inspect --format '{{index .RepoDigests 0}}' <tag>.
 
 name: nhom8
+
+# Tham số của demo, một chỗ duy nhất (docker/demo.sh bắt buộc có đủ). Đổi tham số job (W, mô hình,
+# số partition) trên checkpoint cũ thì job từ chối chạy tiếp: chạy make demo-clean trước.
+x-demo-env: &demo-env
+  DEMO_RUN_ID: demo
+  DEMO_KEY_PREFIX: &demo-key-prefix "demo:"
+  DEMO_WATERMARK_S: "30"
+  DEMO_MODEL: rule
+  DEMO_LEARNERS: "350"
+  DEMO_CLASS_SIZE: "35"
+  DEMO_RATE: "100"
+  DEMO_MINUTES: "10"
+  DEMO_SEED: "11"
+  DEMO_PARTITIONS: "3"
+  DEMO_EVENTS_TOPIC: demo-learner-events
+  DEMO_DEAD_LETTER_TOPIC: demo-dead-letter
+  DEMO_ALERTS_TOPIC: demo-alerts
+
+# Phần chung của mọi service ứng dụng: một image build từ repo, chỉ bật với --profile app.
+x-app: &app
+  profiles: ["app"]
+  build:
+    context: .
+    dockerfile: docker/app.Dockerfile
+  image: nhom8-app:local
+  # tini làm PID 1: chuyển SIGTERM cho tiến trình Python (job dừng ở ranh giới batch) và dọn tiến trình con.
+  init: true
 
 services:
   kafka:
@@ -76,5 +104,129 @@ services:
       retries: 10
     restart: unless-stopped
 
+  # ---------------------------------------------------------------------------------------------
+  # Profile app (make demo): demo-setup → streaming (healthy) → demo-replay; hint-api, dashboard song song.
+  # Thứ tự khởi động do depends_on quyết định; dữ liệu nóng của demo nằm trong volume demo-data (/data).
+  # ---------------------------------------------------------------------------------------------
+
+  # One-shot: topic của demo, dữ liệu mô phỏng (350 người học, 10 lớp, 100 ev/s, 10 phút), roster.
+  demo-setup:
+    <<: *app
+    command: ["bash", "/app/docker/demo.sh", "setup"]
+    environment:
+      <<: *demo-env
+      NHOM8_ENV: container
+      REDIS_PASSWORD: "${REDIS_PASSWORD:?Đặt REDIS_PASSWORD trong .env (xem .env.example)}"
+    volumes:
+      - demo-data:/data
+    depends_on:
+      kafka:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: "no"
+
+  # Job Spark Structured Streaming của run demo; checkpoint ở /data/checkpoints/demo nên khởi động lại
+  # container là chạy tiếp từ checkpoint. Healthy khi query trạng thái đã ghi dòng "started".
+  streaming:
+    <<: *app
+    command: ["bash", "/app/docker/demo.sh", "stream"]
+    environment:
+      <<: *demo-env
+      NHOM8_ENV: container
+      REDIS_PASSWORD: "${REDIS_PASSWORD:?Đặt REDIS_PASSWORD trong .env (xem .env.example)}"
+    volumes:
+      - demo-data:/data
+    depends_on:
+      kafka:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      demo-setup:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD-SHELL", "grep -qs '\"started\"' \"$$NHOM8_RESULTS_DIR/$$DEMO_RUN_ID/progress.jsonl\""]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 120s
+    # Job dừng ở ranh giới micro-batch khi nhận SIGTERM; cho đủ thời gian trước khi Docker gửi SIGKILL.
+    stop_grace_period: 60s
+    restart: on-failure:3
+
+  # One-shot: phát lại log mô phỏng với cùng W (DEMO_WATERMARK_S) và run id của job, khi job đã chạy.
+  demo-replay:
+    <<: *app
+    command: ["bash", "/app/docker/demo.sh", "replay"]
+    environment:
+      <<: *demo-env
+      NHOM8_ENV: container
+    volumes:
+      - demo-data:/data
+    depends_on:
+      kafka:
+        condition: service_healthy
+      demo-setup:
+        condition: service_completed_successfully
+      streaming:
+        condition: service_healthy
+    restart: "no"
+
+  # Dịch vụ gợi ý: trong container nghe 0.0.0.0 để Docker publish được; trên host chỉ 127.0.0.1:8000.
+  hint-api:
+    <<: *app
+    command: ["python", "-m", "ai_math_tutor.hints.app", "--host", "0.0.0.0", "--port", "8000",
+              "--key-prefix", *demo-key-prefix]
+    ports:
+      - "127.0.0.1:8000:8000"
+    environment:
+      NHOM8_ENV: container
+      REDIS_PASSWORD: "${REDIS_PASSWORD:?Đặt REDIS_PASSWORD trong .env (xem .env.example)}"
+      NHOM8_HINT_API_KEY: "${NHOM8_HINT_API_KEY:?Đặt NHOM8_HINT_API_KEY (≥ 16 ký tự) trong .env (xem .env.example)}"
+      # Cho docker/demo-hint.py (chạy bằng docker compose exec) đọc đúng khóa của run demo.
+      DEMO_KEY_PREFIX: *demo-key-prefix
+    depends_on:
+      kafka:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      demo-setup:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/healthz', timeout=3)"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+      start_period: 60s
+    restart: on-failure:3
+
+  # Dashboard lớp (chỉ đọc Redis): nghe 0.0.0.0 trong container (app cho phép khi NHOM8_ENV=container),
+  # trên host chỉ 127.0.0.1:8501. Chế độ giáo viên bật bằng NHOM8_TEACHER_MODE=1 + TEACHER_PASSWORD trong .env.
+  dashboard:
+    <<: *app
+    command: ["streamlit", "run", "src/ai_math_tutor/dashboard/app.py", "--server.address", "0.0.0.0",
+              "--server.port", "8501", "--server.headless", "true", "--browser.gatherUsageStats", "false"]
+    ports:
+      - "127.0.0.1:8501:8501"
+    environment:
+      NHOM8_ENV: container
+      REDIS_PASSWORD: "${REDIS_PASSWORD:?Đặt REDIS_PASSWORD trong .env (xem .env.example)}"
+      NHOM8_DASHBOARD_KEY_PREFIX: *demo-key-prefix
+      NHOM8_TEACHER_MODE: "${NHOM8_TEACHER_MODE:-0}"
+      TEACHER_PASSWORD: "${TEACHER_PASSWORD:-}"
+    depends_on:
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8501/_stcore/health', timeout=3)"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+      start_period: 30s
+    restart: on-failure:3
+
 volumes:
   kafka-data:
+  # Checkpoint, lake, dữ liệu mô phỏng và kết quả của demo. make demo-down giữ volume này;
+  # make demo-clean xóa nó (không bao giờ xóa kafka-data).
+  demo-data:
