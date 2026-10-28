@@ -343,7 +343,10 @@ def processor_input(parsed: DataFrame, settings: JobSettings) -> DataFrame:
         valid = valid.withWatermark("event_ts", spark_interval(settings.watermark_ms))
         if settings.dedup:
             valid = valid.dropDuplicatesWithinWatermark(["event_id"])
-    learning = valid.filter(F.col("event_type") != F.lit(S.HEARTBEAT_EVENT_TYPE))
+    # Vế `event_ts IS NULL` (luôn sai với bản ghi hợp lệ) giữ bộ lọc ở trên EventTimeWatermark: một điều kiện
+    # không nhắc tới cột event-time được optimizer đẩy xuống dưới watermark, heartbeat bị lọc trước khi đẩy
+    # watermark và job không bao giờ drain khi tắt khử trùng (không còn toán tử nào chặn việc đẩy xuống).
+    learning = valid.filter((F.col("event_type") != F.lit(S.HEARTBEAT_EVENT_TYPE)) | F.col("event_ts").isNull())
     columns = {
         "is_correct": F.col("payload.is_correct"),
         "step_index": F.col("payload.step_index"),

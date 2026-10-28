@@ -5,6 +5,7 @@ from __future__ import annotations
 import copy
 import datetime as dt
 import json
+import re
 import uuid
 
 import pytest
@@ -260,6 +261,30 @@ def test_processor_input_drops_invalid_and_heartbeats_with_expected_columns(spar
     assert [(f.name, f.dataType) for f in frame.schema.fields] == list(S.PROCESSOR_INPUT_FIELDS)
     rows = frame.collect()
     assert len(rows) == 20 and {r.learner_id for r in rows} == {e["learner_id"] for e in _sample()}
+
+
+@pytest.mark.parametrize("dedup", [True, False])
+def test_heartbeat_filter_stays_above_watermark_in_streaming_plan(spark, dedup):
+    """Heartbeat phải tới được EventTimeWatermark (để đẩy watermark) rồi mới bị lọc, kể cả khi tắt khử trùng."""
+    import contextlib
+    import io
+
+    from pyspark.sql import functions as F
+
+    rate = spark.readStream.format("rate").load()
+    raw = rate.select(F.lit(None).cast("binary").alias("key"), F.lit(json.dumps(_heartbeat())).cast("binary").alias("value"),
+                      F.lit("learner-events").alias("topic"), F.lit(0).alias("partition"),
+                      F.col("value").alias("offset"), F.col("timestamp"))
+    settings = job.JobSettings(run_id="plan-test", mode="eager", dedup=dedup)
+    buf = io.StringIO()
+    with contextlib.redirect_stdout(buf):
+        job.processor_input(job.parse_events(raw), settings).explain("extended")
+    optimized = buf.getvalue().split("== Optimized Logical Plan ==")[1].split("== Physical Plan ==")[0]
+    lines = optimized.splitlines()
+    watermark = next(i for i, line in enumerate(lines) if "EventTimeWatermark" in line)
+    heartbeat_filter = next(i for i, line in enumerate(lines)
+                            if re.search(rf"Filter .*\(event_type#\d+ = {S.HEARTBEAT_EVENT_TYPE}\)", line))
+    assert heartbeat_filter < watermark, optimized
 
 
 def test_job_settings_and_interval_parsing():
