@@ -1,0 +1,16 @@
+# Build context của docker/app.Dockerfile: chỉ những gì image cần (danh sách cho phép).
+# Mọi thứ khác — .env, .venv, results/, dữ liệu, báo cáo — không bao giờ được gửi vào build.
+*
+!pyproject.toml
+!uv.lock
+!src
+!configs
+!data_sample
+!docker/demo.sh
+!docker/demo-hint.py
+
+# Loại tường minh (kể cả khi danh sách cho phép ở trên bị nới sau này).
+.env
+**/.env
+**/__pycache__/
+**/*.pyc
