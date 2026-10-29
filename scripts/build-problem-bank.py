@@ -30,6 +30,7 @@ import hashlib
 import json
 import os
 import random
+import re
 import sys
 import time
 from collections import Counter, defaultdict
@@ -40,6 +41,7 @@ from typing import Any
 import yaml
 
 from ai_math_tutor import numina, problem_bank, solution_writer
+from ai_math_tutor.hints.verify import number_values
 from ai_math_tutor.related_index import RelatedIndex
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -62,6 +64,8 @@ MAX_PER_PREFIX = 999
 AUTHORED_FIELDS = {"problem_id", "statement", "statement_vi", "kind", "equation", "answer", "skill_ids",
                    "steps", "misconceptions", "difficulty"}
 AUTHORED_REQUIRED = AUTHORED_FIELDS - {"equation", "misconceptions"}
+STATEMENTS_VI_FILE = "numina-statements-vi.jsonl"
+_LATEX = re.compile(r"\$[^$]+\$")
 
 
 class BuildError(RuntimeError):
@@ -137,6 +141,51 @@ def load_authored(directory: Path) -> list[dict[str, Any]]:
             })
             records.append(record)
     return records
+
+
+def load_statements_vi(path: Path) -> dict[str, dict[str, str]]:
+    """Đề tiếng Việt của bài NuminaMath: problem_id → {source, statement_vi}; không có tệp thì rỗng."""
+    if not path.is_file():
+        return {}
+    out: dict[str, dict[str, str]] = {}
+    for line in path.read_text(encoding="utf-8").splitlines():
+        if line.strip():
+            row = json.loads(line)
+            if row["problem_id"] in out:
+                raise BuildError(f"{path}: {row['problem_id']} trùng")
+            out[row["problem_id"]] = row
+    return out
+
+
+def attach_statements_vi(records: list[dict[str, Any]], translations: dict[str, dict[str, str]]) -> int:
+    """Gắn statement_vi vào bài NuminaMath, đề gốc giữ ở statement.
+
+    Bản dịch phải có đúng tập số của đề gốc (verify.number_values): số của đề không tính là lộ đáp án,
+    nên một số mới trong bản dịch có thể làm lọt đáp án qua bộ kiểm gợi ý. Bài phương trình giữ nguyên văn mọi
+    đoạn $…$ (bài số học dùng "$" làm ký hiệu tiền, bản dịch viết "N đô la").
+    """
+    by_id = {r["problem_id"]: r for r in records}
+    unknown = sorted(set(translations) - set(by_id))
+    if unknown:
+        raise BuildError(f"bản dịch cho bài không có trong kho: {unknown[:5]}")
+    errors: list[str] = []
+    for pid, row in translations.items():
+        record = by_id[pid]
+        vi = row["statement_vi"]
+        if record["source"] == "self" or row.get("source") != record["source"]:
+            errors.append(f"{pid}: nguồn {row.get('source')} không khớp {record['source']}")
+        elif number_values(vi) != number_values(record["statement"]):
+            errors.append(f"{pid}: tập số của bản dịch khác đề gốc")
+        elif record["kind"] == "equation" and any(seg not in vi for seg in _LATEX.findall(record["statement"])):
+            errors.append(f"{pid}: bản dịch mất đoạn LaTeX của đề gốc")
+        else:
+            at = list(record).index("solution_source") + 1
+            items = list(record.items())
+            record.clear()
+            record.update(items[:at] + [("statement_vi", vi)] + items[at:])
+    if errors:
+        raise BuildError(f"{len(errors)} bản dịch không đạt, ví dụ: {errors[:5]}")
+    return len(translations)
 
 
 # ---------------------------------------------------------------------------
@@ -354,6 +403,8 @@ def build(solutions_path: Path, summary_path: Path, authored_dir: Path, candidat
     records = sorted(numina_records + authored, key=lambda r: r["problem_id"])
     if len({r["problem_id"] for r in records}) != len(records):
         raise BuildError("problem_id trùng giữa bài NuminaMath và bài tự soạn")
+    statements_vi_path = authored_dir / STATEMENTS_VI_FILE
+    translated = attach_statements_vi(records, load_statements_vi(statements_vi_path))
     verification = verify_all(records)
 
     lines = [dump_line(record) for record in records]
@@ -418,6 +469,12 @@ def build(solutions_path: Path, summary_path: Path, authored_dir: Path, candidat
         },
         "display": ("steps/equation/misconceptions viết theo ẩn x (math_check chỉ kiểm x); hiển thị thay x bằng "
                     "variable qua problem_bank.display_expression"),
+        **({"statements_vi": {
+            "path": f"data/problems/{STATEMENTS_VI_FILE}", "sha256": sha256_file(statements_vi_path),
+            "translated": translated,
+            "rules": ("đề gốc tiếng Anh giữ ở statement; bản dịch có đúng tập số của đề gốc và giữ nguyên mọi đoạn $…$; "
+                      "chỉ mục bài tương tự của bài NuminaMath dựng trên đề gốc"),
+        }} if translated else {}),
         "selection": selection,
         "counts": counts(records),
         "numina_by_split_source_kind": numina_source_counts(records, solutions),

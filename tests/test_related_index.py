@@ -30,8 +30,13 @@ CORPUS = [
     {"problem_id": "P-A-003", "split": "dev", "skill_ids": [PERCENT],
      "statement": "A shirt costs 200,000 VND; the discount is 20%."},
     {"problem_id": "P-A-004", "split": "dev", "skill_ids": [ISOLATE, DISTRIBUTE], "statement": "Solve 2(x + 3) = 14.",
-     "statement_vi": "Giải phương trình 2(x + 3) = 14."},
+     "statement_vi": "Giải phương trình 2(x + 3) = 14.", "source": "self"},
 ]
+
+
+def test_translated_statements_of_numina_problems_are_not_indexed() -> None:
+    translated = [dict(CORPUS[0], source="numina:1", statement_vi="Giải phương trình 2x + 3 = 11.")]
+    assert RelatedIndex.build(translated).to_dict() == RelatedIndex.build([CORPUS[0]]).to_dict()
 
 
 @pytest.fixture()

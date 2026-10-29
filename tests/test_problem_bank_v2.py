@@ -263,6 +263,24 @@ def test_rebuild_is_deterministic(tmp_path: Path) -> None:
     assert (tmp_path / "index.json").read_bytes() == INDEX.read_bytes()
 
 
+def test_every_problem_has_a_vietnamese_statement_with_the_same_numbers() -> None:
+    from ai_math_tutor.hints.verify import number_values
+
+    assert all(p.statement_vi for p in PROBLEMS)
+    for p in NUMINA:
+        assert number_values(p.statement_vi) == number_values(p.statement), p.problem_id
+        if p.kind == "equation":
+            assert all(seg in p.statement_vi for seg in re.findall(r"\$[^$]+\$", p.statement)), p.problem_id
+
+
+def test_translation_with_a_new_number_is_rejected() -> None:
+    build = _load_script("build-problem-bank")
+    row = next(dict(r) for r in ROWS if r["source"] != "self")
+    bad = {row["problem_id"]: {"source": row["source"], "statement_vi": row["statement"] + " Đáp số là 7777."}}
+    with pytest.raises(build.BuildError):
+        build.attach_statements_vi([row], bad)
+
+
 def test_quota_planning() -> None:
     build = _load_script("build-problem-bank")
     assert build.plan_quotas({"arithmetic": 900, "equation": 355}, 1000, 200, 0.28) == {

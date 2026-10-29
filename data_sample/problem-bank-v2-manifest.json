@@ -154,6 +154,12 @@
     }
   },
   "display": "steps/equation/misconceptions viết theo ẩn x (math_check chỉ kiểm x); hiển thị thay x bằng variable qua problem_bank.display_expression",
+  "statements_vi": {
+    "path": "data/problems/numina-statements-vi.jsonl",
+    "sha256": "sha256:d6a258cbc1898ce1ecc910200733d10622c5ba57b29862788a567a7432d67d99",
+    "translated": 1200,
+    "rules": "đề gốc tiếng Anh giữ ở statement; bản dịch có đúng tập số của đề gốc và giữ nguyên mọi đoạn $…$; chỉ mục bài tương tự của bài NuminaMath dựng trên đề gốc"
+  },
   "selection": {
     "available_ok": {
       "arithmetic": {
@@ -301,14 +307,14 @@
     ]
   },
   "split_sha256": {
-    "dev": "sha256:d5413878c6855bccc231fc2de22dc6d17af8a06072fa2d1dd4958ae8d050f286",
-    "test": "sha256:63f6026fdd82cb3214c10fc1e0fbfbaa5b77e1a7a4bc31343c4d33733bce642e"
+    "dev": "sha256:a469edf48fd5be6f693234f047518e27418e2f513065febcd581130bcd60c99d",
+    "test": "sha256:b0b1591d785904f8a722af50062c00100d466c892835cbe3ce3badb20b101485"
   },
   "files": {
     "bank": {
       "path": "data_sample/problem-bank-v2.jsonl",
-      "sha256": "sha256:664a9f297fee1139eec45e227414d05ec1da963b71c8a58acdede843e2c73f99",
-      "bytes": 879298
+      "sha256": "sha256:46a18381d453bd53e5e10a784aa1cdccd4f66ba1876c84b08643c70ab3090c2b",
+      "bytes": 1170141
     },
     "index": {
       "path": "data_sample/problem-index-v2.json",

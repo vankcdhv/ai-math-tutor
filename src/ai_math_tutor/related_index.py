@@ -3,7 +3,8 @@
 - Token hóa: chữ thường, bỏ dấu câu, bỏ lệnh LaTeX (giữ `\\times`/`\\cdot` thành `*`,
   `\\div` thành `/`), giữ token toán: số (`12`, `2.5`), ẩn/chữ, toán tử `= + - * / ^ %`.
   Dấu gạch nối giữa hai chữ (`two-thirds`) là dấu nối từ, không phải phép trừ.
-- Mỗi bài là một tài liệu: `statement` (+ `statement_vi` nếu có). Posting của một
+- Mỗi bài là một tài liệu: `statement` (+ `statement_vi` khi đó là đề gốc của bài tự soạn; đề dịch của bài
+  NuminaMath không vào chỉ mục, để việc chọn bài tương tự không đổi khi thêm bản dịch). Posting của một
   term là danh sách `(problem_id, tf)` sắp theo problem_id; `df` = số tài liệu chứa
   term, `cf` = tổng số lần xuất hiện trong cả kho.
 - Kỹ năng là danh sách posting riêng (`skill_id` → các problem_id đã sắp).
@@ -24,6 +25,7 @@ from typing import Any
 
 INDEX_VERSION = 1
 HINT_SPLIT = "dev"
+SELF_SOURCE = "self"  # bài tự soạn: statement_vi là đề gốc, không phải bản dịch
 MODES = ("and", "or")
 
 _LATEX_TIMES = re.compile(r"\\(?:times|cdot)(?![A-Za-z])")
@@ -119,7 +121,7 @@ class RelatedIndex:
             splits[pid] = str(_field(problem, "split"))
             text = str(_field(problem, "statement") or "")
             statement_vi = _field(problem, "statement_vi")
-            if statement_vi:
+            if statement_vi and _field(problem, "source") == SELF_SOURCE:
                 text = f"{text}\n{statement_vi}"
             counts[pid] = Counter(tokenize(text))
             for skill in _field(problem, "skill_ids") or ():
