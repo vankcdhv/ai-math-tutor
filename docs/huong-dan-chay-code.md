@@ -332,7 +332,7 @@ bash scripts/disk-check.sh 10                       # thoát 1 nếu ổ chứa 
 
 ## 16. Demo bằng Docker
 
-Profile `app` của `docker-compose.yml` chạy job Spark, dịch vụ gợi ý và dashboard trong container. Ba thành phần dùng chung image `docker/app.Dockerfile` (Python 3.12, JDK 17, PySpark theo `uv.lock`). Trong container, `NHOM8_ENV=container` làm Kafka đi qua listener nội bộ `kafka:29092` và Redis đi qua tên service `redis`. Phía host chỉ publish `127.0.0.1:8000` (dịch vụ gợi ý) và `127.0.0.1:8501` (dashboard).
+Profile `app` của `docker-compose.yml` chạy job Spark, dịch vụ gợi ý, dashboard và trang Học sinh trong container. Các thành phần dùng chung image `docker/app.Dockerfile` (Python 3.12, JDK 17, PySpark theo `uv.lock`). Trong container, `NHOM8_ENV=container` làm Kafka đi qua listener nội bộ `kafka:29092` và Redis đi qua tên service `redis`. Phía host chỉ publish `127.0.0.1:8000` (dịch vụ gợi ý), `127.0.0.1:8501` (dashboard) và `127.0.0.1:8502` (trang Học sinh, cách dùng: `docs/demo-script.md`).
 
 ```bash
 make demo           # docker compose --profile app up --build (log ở cửa sổ này)

@@ -25,7 +25,7 @@ help::
 	@echo "make numina-candidates | problem-bank"
 	@echo "make stream RUN_ID=... [STREAM_ARGS=...] | reconcile RUN_ID=... SIM_DIR=... [MODEL=rule|bkt]"
 	@echo "make hint-api [HINT_ARGS=...] | hint-load [LOAD_ARGS=...] | hint-audit-set"
-	@echo "make dashboard [DASHBOARD_PORT=8501]"
+	@echo "make dashboard [DASHBOARD_PORT=8501] | student [STUDENT_PORT=8502]"
 	@echo "make run-exp EXP=A|B|C|D|E|ablations|stress|soak|ceiling|all [PLAN=...] [EXP_ARGS=--dry-run]"
 	@echo "make baseline [BATCH_DATA=<thư mục events.parquet + ground_truth.jsonl>]"
 	@echo "make mapreduce-matrix [MAPREDUCE_ARGS=--dry-run | \"--scales 10000 --configs B\" | --summarize-only]"
@@ -153,6 +153,16 @@ dashboard: .env
 	$(UV) run streamlit run src/ai_math_tutor/dashboard/app.py --server.address 127.0.0.1 \
 	  --server.port $(DASHBOARD_PORT) --server.headless true --browser.gatherUsageStats false
 
+# --- Trang Học sinh (đóng vai người học: sự kiện vào Kafka, gọi dịch vụ gợi ý; chỉ nghe 127.0.0.1) ---
+# Nối với demo Docker: NHOM8_STUDENT_EVENTS_TOPIC=demo-learner-events NHOM8_STUDENT_KEY_PREFIX=demo: make student
+STUDENT_PORT ?= 8502
+
+.PHONY: student
+
+student: .env
+	$(UV) run streamlit run src/ai_math_tutor/student/app.py --server.address 127.0.0.1 \
+	  --server.port $(STUDENT_PORT) --server.headless true --browser.gatherUsageStats false
+
 # --- Thí nghiệm (resume được; run success được bỏ qua) ---
 # make run-exp EXP=A|B|C|D|E|ablations|stress|soak|ceiling|all [PLAN=…] [EXP_ARGS="--dry-run" | "--archive-dir /mnt/e/int4418-archive"]
 PLAN ?= configs/experiments/plan-v1.0.yaml
@@ -222,9 +232,9 @@ reproduce-small: up
 	if [[ -s "$$out/runs.jsonl" ]]; then $(UV) run python -c "$$REPRO_SUMMARY_PY" "$$out/runs.jsonl" || rc=1; fi; \
 	exit $$rc
 
-# --- Demo bằng Docker: profile app (Spark job, dịch vụ gợi ý, dashboard trong container) ---
+# --- Demo bằng Docker: profile app (Spark job, dịch vụ gợi ý, dashboard, trang Học sinh trong container) ---
 # Kịch bản trình diễn: docs/demo-script.md. Thí nghiệm vẫn đo trên host, không trong container.
-APP_SERVICES := demo-setup streaming demo-replay hint-api dashboard
+APP_SERVICES := demo-setup streaming demo-replay hint-api dashboard student
 DEMO_VOLUME := nhom8_demo-data
 
 .PHONY: demo demo-down demo-clean

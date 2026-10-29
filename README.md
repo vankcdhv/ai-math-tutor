@@ -92,14 +92,18 @@ Không dùng LLM lúc chạy: gợi ý 3 bậc lấy từ bước giải đã ki
 
 `make dashboard` rồi mở http://127.0.0.1:8501 (tab Lớp / Giáo viên / Pipeline; `?tab=Pipeline` mở thẳng một tab). Chỉ đọc Redis, tự làm mới mỗi 2 s. Mọi số cấp lớp/trường qua ngưỡng k = 5: < 5 hiện "<5", còn lại làm tròn tới bội số của 5; tổng có ô "<5" hiện "ẩn". Chế độ giáo viên cần `NHOM8_TEACHER_MODE=1` và `TEACHER_PASSWORD`. Xem một run thử: `NHOM8_DASHBOARD_KEY_PREFIX=<prefix của job> make dashboard`.
 
+### Trang Học sinh
+
+`make student` rồi mở http://127.0.0.1:8502: đóng vai một người học (bút danh `L-…` ngẫu nhiên, chọn lớp có trong roster), chọn bài của tập test, nhập từng bước và được kiểm bằng cùng bộ kiểm SymPy của dịch vụ gợi ý; bước sai không lộ bước đúng; nút "Xin gợi ý" gọi `POST /hints`. Mỗi thao tác là một sự kiện LearnerEvent gửi vào Kafka, nên job streaming, dịch vụ gợi ý (`state_source: redis`) và dashboard đều thấy người học này. Nối với demo Docker: `NHOM8_STUDENT_EVENTS_TOPIC=demo-learner-events NHOM8_STUDENT_KEY_PREFIX=demo: make student` (hoặc dùng service `student` của `make demo`).
+
 ## Demo bằng Docker
 
-Profile `app` của `docker-compose.yml` chạy job Spark, dịch vụ gợi ý và dashboard trong container. Ba thành phần dùng chung image `docker/app.Dockerfile` (JDK 17 + PySpark), nối Kafka qua listener nội bộ `kafka:29092`. Một bộ dữ liệu mô phỏng nhỏ (350 người học, 10 lớp, 100 sự kiện/giây, 10 phút) được phát lại với cùng W và cùng run id với job.
+Profile `app` của `docker-compose.yml` chạy job Spark, dịch vụ gợi ý, dashboard và trang Học sinh trong container. Các thành phần dùng chung image `docker/app.Dockerfile` (JDK 17 + PySpark), nối Kafka qua listener nội bộ `kafka:29092`. Một bộ dữ liệu mô phỏng nhỏ (350 người học, 10 lớp, 100 sự kiện/giây, 10 phút) được phát lại với cùng W và cùng run id với job.
 
 ```bash
 cp .env.example .env     # đặt REDIS_PASSWORD và NHOM8_HINT_API_KEY ngẫu nhiên; tùy chọn NHOM8_TEACHER_MODE=1 + TEACHER_PASSWORD
 make demo                # docker compose --profile app up --build
-# dashboard: http://127.0.0.1:8501   dịch vụ gợi ý: http://127.0.0.1:8000 (chỉ 127.0.0.1)
+# dashboard: http://127.0.0.1:8501   học sinh: http://127.0.0.1:8502   dịch vụ gợi ý: http://127.0.0.1:8000 (chỉ 127.0.0.1)
 make demo-down           # dừng các container ứng dụng; Kafka, Redis và volume giữ nguyên
 make demo-clean          # như demo-down, rồi xóa volume dữ liệu demo để lần sau chạy mới
 ```
@@ -123,7 +127,7 @@ Quy trình đánh giá chất lượng (audit gợi ý, rà soát kho bài) và 
 
 | Thư mục/tệp | Nội dung |
 |---|---|
-| `src/ai_math_tutor/` | `contracts/` (JSON Schema), `event_validation.py`, `math_check.py`, `safe_math.py`, `run_record.py`, `simulator/` (bộ mô phỏng), `ingestion/` (Kafka), `streaming/` (pipeline trạng thái), `batch/` (batch baseline), `hints/` (dịch vụ gợi ý), `dashboard/` (dashboard lớp), `experiments/` (runner thí nghiệm) |
+| `src/ai_math_tutor/` | `contracts/` (JSON Schema), `event_validation.py`, `math_check.py`, `safe_math.py`, `run_record.py`, `simulator/` (bộ mô phỏng), `ingestion/` (Kafka), `streaming/` (pipeline trạng thái), `batch/` (batch baseline), `hints/` (dịch vụ gợi ý), `dashboard/` (dashboard lớp), `student/` (trang Học sinh), `experiments/` (runner thí nghiệm) |
 | `tests/` | Kiểm thử hợp đồng, toán học, ghi run |
 | `configs/experiments/` | Ma trận thí nghiệm |
 | `data_sample/` | Dữ liệu mẫu hợp lệ |
