@@ -4,6 +4,8 @@ Luồng trình diễn: bộ mô phỏng → Kafka → Spark Structured Streaming
 
 Các số đo trong báo cáo được đo trên host, không đo trong container. Demo chỉ để trình diễn chức năng.
 
+Sổ tay từng bước cho cả nhóm (ảnh chụp, output thật, cách đọc từng số, câu nói mẫu, đóng vai học sinh): [`huong-dan-demo.md`](huong-dan-demo.md).
+
 ## Cấu hình demo
 
 Tham số nằm trong `docker-compose.yml`, khối `x-demo-env`:
@@ -15,14 +17,14 @@ Tham số nằm trong `docker-compose.yml`, khối `x-demo-env`:
 | Bộ phát lại | cùng W = 30 s, cùng run id `demo` |
 | Topic | `demo-learner-events`, `demo-dead-letter`, `demo-alerts` (3 partition). Các topic của lần chạy trên host không bị đụng tới |
 | Khóa Redis | tiền tố `demo:` |
-| Cổng | dashboard `127.0.0.1:8501`, dịch vụ gợi ý `127.0.0.1:8000` (chỉ loopback) |
+| Cổng | dashboard `127.0.0.1:8501`, trang Học sinh `127.0.0.1:8502`, dịch vụ gợi ý `127.0.0.1:8000` (chỉ loopback) |
 
 Thứ tự khởi động:
 
 1. `demo-setup` (one-shot) tạo topic, sinh dữ liệu và nạp roster.
 2. `streaming` chạy job Spark. Service này healthy khi query trạng thái đã khởi động.
 3. `demo-replay` (one-shot) phát lại log trong 10 phút.
-4. `hint-api` và `dashboard` chạy song song với các bước trên.
+4. `hint-api`, `dashboard` và `student` (trang Học sinh) chạy song song với các bước trên.
 
 ## Chuẩn bị (trước buổi bảo vệ, không tính giờ)
 
@@ -87,10 +89,10 @@ docker compose ps -a
 
 Chỉ vào màn hình:
 
-- `kafka`, `redis`, `streaming`, `hint-api`, `dashboard` có trạng thái `healthy`.
+- `kafka`, `redis`, `streaming`, `hint-api`, `dashboard`, `student` có trạng thái `healthy`.
 - `demo-setup` đã `Exited (0)`; `demo-replay` đang chạy.
-- Cột PORTS chỉ có địa chỉ `127.0.0.1`: `8000` (gợi ý), `8501` (dashboard), cùng `9092` (Kafka) và `6379` (Redis). Không cổng nào mở ra mạng ngoài.
-- Ba thành phần ứng dụng (job Spark, dịch vụ gợi ý, dashboard) dùng chung một image. Chúng nối Kafka qua listener nội bộ `kafka:29092`.
+- Cột PORTS chỉ có địa chỉ `127.0.0.1`: `8000` (gợi ý), `8501` (dashboard), `8502` (học sinh), cùng `9092` (Kafka) và `6379` (Redis). Không cổng nào mở ra mạng ngoài.
+- Các thành phần ứng dụng (job Spark, dịch vụ gợi ý, dashboard, trang Học sinh) dùng chung một image. Chúng nối Kafka qua listener nội bộ `kafka:29092`.
 
 ### Bước 2. Dữ liệu đang được phát lại (0:45–1:30)
 
@@ -206,6 +208,33 @@ Cơ chế cần nêu:
 ### Tổng kết (6:30–7:00)
 
 Nhắc lại luồng: sự kiện → Kafka → trạng thái theo người học (khử trùng theo `event_id`, watermark) → cảnh báo idempotent → gợi ý có kiểm chứng, đọc trạng thái mới nhất → dashboard tôn trọng ngưỡng k.
+
+## Trang Học sinh: tự đóng vai người học
+
+Trình duyệt: `http://127.0.0.1:8502` (service `student` của `make demo`). Trang dùng đúng topic `demo-learner-events`, tiền tố khóa `demo:` và dịch vụ gợi ý của demo, nên có thể dùng xen vào bước 5 hoặc khi có câu hỏi.
+
+1. Chọn lớp (`C-SIM-0001` … `C-SIM-0010`, đọc từ roster của demo). Trang tạo một bút danh ngẫu nhiên `L-…`, không gắn với danh tính nào. Bấm **Bắt đầu** để thêm bút danh vào `demo:roster:<lớp>`: tổng hợp lớp và dashboard chỉ đếm thành viên roster.
+2. Mục **2. Chọn bài**: lọc theo loại bài (phương trình, số học) và kỹ năng, chọn một bài hoặc bấm **Bài ngẫu nhiên**. Kho bài là tập test của `problem-bank-v2.jsonl`, cùng tập mà bộ mô phỏng của demo dùng, chỉ gồm bài đã qua kiểm SymPy.
+3. Nhập từng bước dạng đẳng thức theo ẩn của đề (`2*y = 8`, `3 * 12 = 36`), bấm **Kiểm tra bước**. Bước được kiểm bằng cùng bộ kiểm của dịch vụ gợi ý. Bước đúng hiện bước mẫu đã kiểm rồi sang bước sau. Bước sai chỉ báo "Chưa đúng" và tăng số lần sai, không lộ bước đúng. Sau bước cuối, nộp đáp án (`4` hoặc `{2, 3}`).
+4. Khi sai hoặc bí, bấm **Xin gợi ý**. Trang gửi `POST /hints` kèm bước đang làm và biểu thức sai gần nhất ở bước đó, rồi hiện bậc gợi ý, lời gợi ý, biểu thức trong gợi ý, cờ đã kiểm chứng và nguồn trạng thái. Xin lại ở cùng bước thì dịch vụ quyết định có tăng bậc hay không.
+
+Mỗi thao tác là một sự kiện LearnerEvent v0.2 gửi vào `demo-learner-events`, key là bút danh: `open_problem`, `submit_step` (nhãn `is_correct` theo hợp đồng), `request_hint`, `wrong_answer`, `complete`. Vài giây sau sự kiện đầu tiên, job streaming đã ghi trạng thái của bút danh vào Redis. Từ đó, dưới mỗi gợi ý trang ghi "trạng thái người học đọc từ redis".
+
+Kiểm trực tiếp ở cửa sổ 2 (thay `<L-…>` và `<lớp>` bằng giá trị trên trang):
+
+```bash
+docker compose exec redis sh -c 'redis-cli SISMEMBER demo:roster:<lớp> <L-…>'
+docker compose exec redis sh -c 'redis-cli HGETALL demo:state:<L-…>'
+docker compose exec redis sh -c 'redis-cli GET demo:lasthint:<L-…>'
+```
+
+Lỗi của dịch vụ gợi ý (sai khóa, xin quá dồn dập, dịch vụ dừng) hiện thành thông báo tiếng Việt. Khóa API không bao giờ hiện trên trang. Nếu Kafka chưa xác nhận sự kiện, trang giữ sự kiện lại và gửi lại nguyên văn ở thao tác sau (pipeline khử trùng theo `event_id`).
+
+Chạy trang trên host thay vì trong container (nối Kafka `127.0.0.1:9092`, Redis `127.0.0.1:6379`, dịch vụ gợi ý `127.0.0.1:8000`). Cổng 8502 đang do service `student` giữ thì thêm `STUDENT_PORT=8503`:
+
+```bash
+NHOM8_STUDENT_EVENTS_TOPIC=demo-learner-events NHOM8_STUDENT_KEY_PREFIX=demo: make student
+```
 
 ## Sau demo (khi có câu hỏi)
 
