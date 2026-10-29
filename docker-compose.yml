@@ -21,7 +21,7 @@ x-demo-env: &demo-env
   DEMO_MINUTES: "10"
   DEMO_SEED: "11"
   DEMO_PARTITIONS: "3"
-  DEMO_EVENTS_TOPIC: demo-learner-events
+  DEMO_EVENTS_TOPIC: &demo-events-topic demo-learner-events
   DEMO_DEAD_LETTER_TOPIC: demo-dead-letter
   DEMO_ALERTS_TOPIC: demo-alerts
 
@@ -105,7 +105,7 @@ services:
     restart: unless-stopped
 
   # ---------------------------------------------------------------------------------------------
-  # Profile app (make demo): demo-setup → streaming (healthy) → demo-replay; hint-api, dashboard song song.
+  # Profile app (make demo): demo-setup → streaming (healthy) → demo-replay; hint-api, dashboard, student song song.
   # Thứ tự khởi động do depends_on quyết định; dữ liệu nóng của demo nằm trong volume demo-data (/data).
   # ---------------------------------------------------------------------------------------------
 
@@ -219,6 +219,37 @@ services:
         condition: service_healthy
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8501/_stcore/health', timeout=3)"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+      start_period: 30s
+    restart: on-failure:3
+
+  # Trang Học sinh (đóng vai người học): gửi sự kiện vào topic của demo, gọi hint-api qua mạng Compose, thêm
+  # bút danh vào roster của demo. Nghe 0.0.0.0 trong container; trên host chỉ 127.0.0.1:8502.
+  student:
+    <<: *app
+    command: ["streamlit", "run", "src/ai_math_tutor/student/app.py", "--server.address", "0.0.0.0",
+              "--server.port", "8502", "--server.headless", "true", "--browser.gatherUsageStats", "false"]
+    ports:
+      - "127.0.0.1:8502:8502"
+    environment:
+      NHOM8_ENV: container
+      REDIS_PASSWORD: "${REDIS_PASSWORD:?Đặt REDIS_PASSWORD trong .env (xem .env.example)}"
+      NHOM8_HINT_API_KEY: "${NHOM8_HINT_API_KEY:?Đặt NHOM8_HINT_API_KEY (≥ 16 ký tự) trong .env (xem .env.example)}"
+      NHOM8_HINT_URL: http://hint-api:8000
+      NHOM8_STUDENT_EVENTS_TOPIC: *demo-events-topic
+      NHOM8_STUDENT_KEY_PREFIX: *demo-key-prefix
+    depends_on:
+      kafka:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      # Topic và roster của demo phải có trước sự kiện đầu tiên của trang.
+      demo-setup:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8502/_stcore/health', timeout=3)"]
       interval: 10s
       timeout: 5s
       retries: 6

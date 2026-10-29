@@ -25,7 +25,7 @@ pytestmark = pytest.mark.integration
 REPO_ROOT = Path(__file__).resolve().parents[1]
 APP_DOCKERFILE = "docker/app.Dockerfile"
 APP_PROFILE = "app"
-APP_SERVICES = {"demo-setup", "streaming", "demo-replay", "hint-api", "dashboard"}
+APP_SERVICES = {"demo-setup", "streaming", "demo-replay", "hint-api", "dashboard", "student"}
 INFRA_SERVICES = {"kafka", "redis"}
 # Giá trị giả chỉ để nội suy ${VAR:?} khi máy chưa đặt biến; không chạy container.
 PLACEHOLDER_ENV = {"REDIS_PASSWORD": "compose-config-check", "NHOM8_HINT_API_KEY": "compose-config-check-key"}
@@ -125,12 +125,15 @@ def test_app_profile_services_and_ports(compose):
                         for p in services[name].get("ports") or []} for name in APP_SERVICES}
     assert published["hint-api"] == {("127.0.0.1", "8000", 8000)}
     assert published["dashboard"] == {("127.0.0.1", "8501", 8501)}
-    assert not any(published[name] for name in APP_SERVICES - {"hint-api", "dashboard"})
+    assert published["student"] == {("127.0.0.1", "8502", 8502)}
+    assert not any(published[name] for name in APP_SERVICES - {"hint-api", "dashboard", "student"})
     # Trong container phải nghe mọi giao diện thì Docker mới chuyển được cổng; phía host vẫn chỉ 127.0.0.1.
     hint_command = services["hint-api"]["command"]
     assert hint_command[hint_command.index("--host") + 1] == "0.0.0.0"
     dashboard_command = services["dashboard"]["command"]
     assert dashboard_command[dashboard_command.index("--server.address") + 1] == "0.0.0.0"
+    student_command = services["student"]["command"]
+    assert student_command[student_command.index("--server.address") + 1] == "0.0.0.0"
 
 
 def test_images_pinned_by_digest_or_built_locally(compose):
