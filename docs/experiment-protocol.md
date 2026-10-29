@@ -56,8 +56,19 @@ chấm chi tiết, ví dụ và thiết kế mẫu đi kèm bộ phiếu chấm,
 > bị khóa không có loại lỗi bỏ câu "làm theo đúng bước dưới đây" (sai khi bước đang bị che). Các run thí nghiệm có
 > gọi dịch vụ gợi ý (Exp E, ablation `hint_generator`) chạy sau commit này.
 
-> Cập nhật 27/10/2026, về người chấm: hai thành viên nhóm chấm cả hai vòng từ tệp trống, theo đúng phiếu,
-> rubric, định nghĩa validity và thiết kế mẫu ở trên (không đổi). Kết quả audit chính thức: đang chấm.
+> Cập nhật 27/10/2026, về người chấm: hai thành viên nhóm chấm cả hai vòng, theo đúng phiếu, rubric, định nghĩa
+> validity và thiết kế mẫu ở trên (không đổi).
+
+> Cập nhật 29/10/2026, cách chấm thực tế (khác kế hoạch chấm từ tệp trống): theo yêu cầu của nhóm, mỗi rater nhận
+> phiếu Excel đã điền sẵn nhãn nháp (hai bản nháp độc lập; rater 1 nhận bản 1, rater 2 nhận bản 2), đọc từng dòng
+> và sửa nhãn mình không đồng ý, làm độc lập. So với bản nháp, rater 1 sửa 3 ô nhãn ở vòng hiệu chỉnh và 56 ô ở vòng
+> chính; rater 2 sửa 5 và 25 ô. Kết quả vì vậy là nhãn do người rà và sửa, và κ có thể bị đẩy cao vì cả hai bắt đầu
+> từ bản nháp. Sau vòng hiệu chỉnh, hai rater siết hai cách đọc nhãn: `correct = no` khi bài ví dụ hay bài tương tự
+> mà gợi ý bảo người học làm theo không áp dụng cho bước hiện tại của bài này; `diagnostic = yes` chỉ khi gợi ý gọi
+> đúng loại lỗi người học thực sự mắc (lời khuyên chung như "tính lại cẩn thận" → `no`). Kết quả vòng chính
+> (`docs/hint-audit/summary.md`): hint validity theo cả hai rater 79/120 = 65,8% (Wilson 95%: 57,0–73,7%),
+> κ = 0,781 (bootstrap 95%: 0,643–0,898); ladder 57/60 = 95,0%, template 22/60 = 36,7%. Vòng hiệu chỉnh (không
+> tính): 12/20 hợp lệ theo cả hai rater, κ = 1,000.
 
 ## 2. Quy ước cố định
 
